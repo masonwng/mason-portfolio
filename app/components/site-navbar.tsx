@@ -15,7 +15,7 @@ export function SiteNavbar() {
   const pathname = usePathname();
 
   return (
-    <nav className="site-nav" aria-label="Main navigation">
+    <nav className="site-nav" aria-label="Main navigation" data-page={pathname === "/" ? "home" : undefined}>
       <Link className="wordmark" href="/" aria-label="Mason Wang home">
         mw.
       </Link>

@@ -5,7 +5,21 @@ import { useEffect, useId, useRef, useState } from "react";
 import type { MouseEvent } from "react";
 import type { Photo } from "../lib/photos";
 
-export function PhotoGallery({ photos }: { photos: Photo[] }) {
+type PhotoGalleryProps = {
+  photos: Photo[];
+  className?: string;
+  ariaLabel?: string;
+  showCaptions?: boolean;
+  sizes?: string;
+};
+
+export function PhotoGallery({
+  photos,
+  className = "",
+  ariaLabel = "Personal photographs",
+  showCaptions = false,
+  sizes = "(max-width: 600px) calc((100vw - 60px) / 2), (max-width: 850px) calc((100vw - 72px) / 3), 267px",
+}: PhotoGalleryProps) {
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
@@ -48,25 +62,27 @@ export function PhotoGallery({ photos }: { photos: Photo[] }) {
 
   return (
     <>
-      <div className="photo-grid" aria-label="Personal photographs">
+      <div className={`photo-grid ${className}`} role="group" aria-label={ariaLabel}>
         {photos.map((photo) => (
-          <button
-            className="photo-button"
-            key={photo.id}
-            type="button"
-            aria-label={`Enlarge photograph: ${photo.alt}`}
-            aria-haspopup="dialog"
-            onClick={(event) => openPhoto(photo, event)}
-          >
-            <Image
-              className="photo-image"
-              src={photo.src}
-              alt={photo.alt}
-              width={photo.width}
-              height={photo.height}
-              sizes="(max-width: 600px) calc((100vw - 60px) / 2), (max-width: 850px) calc((100vw - 72px) / 3), 267px"
-            />
-          </button>
+          <figure className="photo-item" key={photo.id}>
+            <button
+              className="photo-button"
+              type="button"
+              aria-label={`Enlarge photograph: ${photo.alt}`}
+              aria-haspopup="dialog"
+              onClick={(event) => openPhoto(photo, event)}
+            >
+              <Image
+                className="photo-image"
+                src={photo.src}
+                alt={photo.alt}
+                width={photo.width}
+                height={photo.height}
+                sizes={sizes}
+              />
+            </button>
+            {showCaptions && <figcaption className="photo-caption">{photo.title}</figcaption>}
+          </figure>
         ))}
       </div>
       <dialog

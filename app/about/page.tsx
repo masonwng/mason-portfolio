@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { HobbySection } from "../components/hobby-section";
+import { OrganizationLogo } from "../components/organization-logo";
 import { PhotoGallery } from "../components/photo-gallery";
-import { education, hobbies, personal } from "../lib/portfolio";
+import { education, personal } from "../lib/portfolio";
 import { getPhotos } from "../lib/photos";
 
 export const metadata: Metadata = {
@@ -25,18 +27,27 @@ export default async function AboutPage() {
       <section className="portfolio-section" aria-labelledby="education-heading">
         <h2 id="education-heading">Education</h2>
         <article className="experience">
-          <div className="entry-top">
-            <h3>{education.institution}</h3>
-            <p className="date">
-              <time dateTime={education.startDate}>{education.startLabel}</time>
-              {" – "}
-              {education.endDate ? (
-                <time dateTime={education.endDate}>{education.endLabel}</time>
-              ) : education.endLabel}
-            </p>
+          <div className="experience-heading">
+            <OrganizationLogo
+              logo={education.logo}
+              badge={education.badge}
+              name={education.institution}
+            />
+            <div className="experience-copy">
+              <div className="entry-top">
+                <h3>{education.institution}</h3>
+                <p className="date">
+                  <time dateTime={education.startDate}>{education.startLabel}</time>
+                  {" – "}
+                  {education.endDate ? (
+                    <time dateTime={education.endDate}>{education.endLabel}</time>
+                  ) : education.endLabel}
+                </p>
+              </div>
+              <p className="entry-role">{education.degree}</p>
+              <p className="entry-description">{education.major}</p>
+            </div>
           </div>
-          <p className="entry-role">{education.degree}</p>
-          <p className="entry-description">{education.major}</p>
         </article>
       </section>
 
@@ -46,9 +57,7 @@ export default async function AboutPage() {
           Away from my screen, I make time for the things that keep me moving,
           curious, and connected.
         </p>
-        <ul className="hobby-list">
-          {hobbies.map((hobby) => <li key={hobby}>{hobby}</li>)}
-        </ul>
+        <HobbySection />
       </section>
 
       {photos.length > 0 && (

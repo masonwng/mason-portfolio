@@ -146,3 +146,74 @@ h3 { font-size: 15px; font-weight: 500; line-height: 1.75; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; }
 }
+
+/* Small real-world details within the existing typography and neutral palette. */
+.organization-entry, .experience-heading { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; align-items: start; }
+.organization-entry-copy, .experience-copy { min-width: 0; }
+.organization-logo { display: grid; place-items: center; width: 44px; height: 44px; overflow: hidden; border-radius: 6px; flex-shrink: 0; }
+.organization-logo-image { background: transparent; }
+.organization-logo img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.organization-badge { border: 1px solid var(--border); color: var(--secondary); font-size: 11px; font-weight: 600; letter-spacing: .02em; }
+.experience-media { margin-top: 16px; }
+.experience-media-toggle { display: inline-flex; align-items: center; gap: 12px; font-size: 13px; color: var(--secondary); cursor: pointer; list-style: none; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--border); }
+.experience-media-toggle::-webkit-details-marker { display: none; }
+.experience-media-toggle:hover { color: var(--accent); }
+.experience-media-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+.experience-media-chevron { text-decoration: none; transition: transform 180ms ease; }
+.experience-media[open] .experience-media-chevron { transform: rotate(45deg); }
+.experience-media-content { padding-top: 4px; }
+.experience-media[open] .experience-media-content { animation: media-reveal 180ms ease-out; }
+.experience-media .photo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+.experience-video-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+.experience-video video { display: block; width: 100%; border-radius: 3px; }
+.photo-item { min-width: 0; margin: 0; }
+.hobby-editorial { display: grid; gap: 28px; margin-top: 24px; }
+.hobby-row { min-width: 0; }
+.hobby-row-has-image { display: grid; grid-template-columns: minmax(0, 1fr) 170px; gap: 28px; align-items: center; }
+.hobby-copy p { max-width: 440px; margin-top: 6px; font-size: 14px; }
+.hobby-media { min-width: 0; }
+.photo-grid.photo-grid-single { grid-template-columns: minmax(0, 1fr); margin-top: 0; }
+
+/* The game is isolated from the portfolio's editorial styling. */
+.home-layout { display: grid; grid-template-areas: "intro" "game" "details"; grid-template-columns: minmax(0, 1fr); min-width: 0; }
+.home-introduction { grid-area: intro; }
+.home-details { grid-area: details; min-width: 0; }
+.piggy-sidebar { grid-area: game; min-width: 0; padding-bottom: 16px; }
+.piggy-widget { padding: 20px 0; border-top: 1px solid var(--border); }
+.piggy-heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.piggy-heading h2 { margin: 0; font-size: 12px; font-weight: 600; letter-spacing: .08em; }
+.piggy-heading p { color: var(--secondary); font-size: 13px; margin-top: 3px; }
+.piggy-expand, .piggy-controls button { padding: 5px 8px; border: 1px solid var(--border); border-radius: 3px; background: transparent; color: var(--foreground); font-size: 12px; cursor: pointer; transition: color 150ms ease, border-color 150ms ease; }
+.piggy-expand:hover, .piggy-controls button:hover { color: var(--accent); border-color: var(--secondary); }
+.piggy-content[hidden] { display: none; }
+.piggy-canvas { position: relative; width: 100%; height: 300px; overflow: hidden; margin-top: 16px; background: transparent; color: var(--secondary); }
+.piggy-loading, .piggy-fallback { display: grid; place-content: center; height: 100%; padding: 24px; font-size: 13px; line-height: 1.6; text-align: center; }
+.piggy-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 14px; font-size: 12px; }
+.piggy-controls select { padding: 3px 8px; background: var(--background); color: var(--foreground); border: 1px solid var(--border); border-radius: 3px; font: inherit; }
+.piggy-reset { margin-left: auto; }
+.piggy-instructions, .piggy-status { margin-top: 12px; color: var(--secondary); font-size: 12px; line-height: 1.6; }
+.piggy-status { min-height: 20px; margin-top: 6px; }
+@keyframes media-reveal { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+@media (min-width: 1200px) {
+  /* Inactive pages can stay cached in the DOM; size by the current route. */
+  .site-shell:has(.site-nav[data-page="home"]) { max-width: 1200px; }
+  .home-layout { grid-template-areas: "intro game" "details game"; grid-template-columns: minmax(0, 1fr) 310px; column-gap: 48px; align-items: start; }
+  .piggy-widget { border-top: 0; padding: 0; }
+  .piggy-sidebar { position: sticky; top: 100px; padding-bottom: 36px; }
+  .piggy-expand { display: none; }
+}
+@media (max-width: 600px) {
+  .hobby-row-has-image { grid-template-columns: minmax(0, 1fr) 130px; gap: 18px; }
+  .experience-media .photo-grid { gap: 12px; }
+  .piggy-canvas { height: 310px; }
+}
+@media (max-width: 380px) {
+  .hobby-row-has-image { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .hobby-media { max-width: 200px; }
+  .experience-media .photo-grid, .experience-video-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .experience-media[open] .experience-media-content { animation: none; }
+}
+.piggy-controls button:disabled, .piggy-controls select:disabled { cursor: default; opacity: .55; }
+.piggy-controls select:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }

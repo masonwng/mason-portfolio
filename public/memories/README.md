@@ -1,35 +1,29 @@
 ﻿# Personal photo gallery
 
-No personal photograph files are currently available in the project. The
-configured subjects can be added to this directory using these filenames:
+The uploaded `IMG_5670.jpg` mirror photograph is mapped to the `friend` entry
+in `app/lib/portfolio.ts`. The About page displays it under A few moments using
+its actual filename and extension.
 
-- sister.jpg — the photo of Mason and his sister
-- friend.jpg — the mirror photo with his friend
-- cats.jpg — the two cats in the sunlight
-- graduation.jpg — Mason in his graduation gown
-- hiking.jpg — a hiking photo
+Other optional personal photo entries currently have no original files:
 
-The About page shows every configured photograph whose file actually exists.
-The gallery uses two columns on mobile and three on desktop, preserving each
-image's natural aspect ratio. Click a photograph to enlarge it; the dialog
-supports keyboard navigation and Escape to close.
+- sister.jpg — Mason and his sister
+- cats.jpg — the cats
+- graduation.jpg — graduation
+- hiking.jpg — an optional photo for the personal gallery
 
-The entire gallery section stays hidden when no configured photographs exist.
-No placeholder labels or missing-file notices appear on the public website.
+The existing hiking photograph is already displayed in the hobby section from
+`public/media/hobbies/hiking.jpg`; it does not need to be duplicated here.
 
-The gallery accepts .jpg, .jpeg, .png, .webp, and .avif, including uppercase
-extensions. Match the filenames above by subject; the original extension and
-capitalization are preserved in image URLs. Check the captions and alternative
-text against your originals when adding files.
+Edit `photoDetails` in `app/lib/portfolio.ts` to add subjects, change captions or
+alternative text, or supply an explicit local `src`. Supported extensions are
+.jpg, .jpeg, .png, .webp, and .avif, including uppercase extensions. Real names
+and extensions are preserved. Without an explicit src, the loader matches the
+entry id to the filename before its extension in this directory.
 
-Edit photoDetails in app/lib/portfolio.ts to add a subject, change its caption
-or alternative text, or supply an explicit src such as /photos/hike.JPG for a
-file stored elsewhere in public/. Without src, the loader matches each id to
-the filename before its extension in this directory, ignoring case.
+Only existing, valid files appear. Natural dimensions include EXIF orientation.
+The gallery uses two columns on mobile and three on desktop. Each image opens
+an accessible dialog with keyboard controls, Escape, and focus restoration.
 
-File discovery and image dimensions are handled by getPhotos in
-app/lib/photos.ts. It reads dimensions with Sharp, including EXIF orientation,
-and renders the real files through next/image.
-
-Restart development or rebuild production after adding photographs because
-file discovery is cached.
+The entire section stays hidden if there are no configured files. There are no
+placeholder labels. Restart development or rebuild production after adding
+files, since server-side discovery is cached.
