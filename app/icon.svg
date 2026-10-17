@@ -1,1 +1,11 @@
-﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#f5f4ef"/><text x="8" y="43" font-family="Arial, sans-serif" font-size="32" font-weight="700" letter-spacing="-3" fill="#20211f">mw</text><circle cx="55" cy="43" r="4" fill="#1749ed"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Piggy Slide pig</title>
+  <path fill="#c77d90" d="M10 15h12V5H10zm32 0h12V5H42z"/>
+  <path fill="#f4a7b9" d="M7 16h44v37H7z"/>
+  <path fill="#d58197" d="m51 16 7 6v32l-7 5-44-6h44z"/>
+  <path fill="#f9c1ce" d="M7 16h44l7 6H14z"/>
+  <path fill="#332a31" d="M15 27h6v7h-6zm24 0h6v7h-6z"/>
+  <path fill="#d58197" d="M18 37h24v13H18z"/>
+  <path fill="#f9c1ce" d="M18 37h24v3H18z"/>
+  <path fill="#765047" d="M23 42h4v5h-4zm10 0h4v5h-4z"/>
+</svg>

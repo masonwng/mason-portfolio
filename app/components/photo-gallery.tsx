@@ -11,6 +11,7 @@ type PhotoGalleryProps = {
   ariaLabel?: string;
   showCaptions?: boolean;
   sizes?: string;
+  featuredSizes?: string;
 };
 
 export function PhotoGallery({
@@ -18,7 +19,8 @@ export function PhotoGallery({
   className = "",
   ariaLabel = "Personal photographs",
   showCaptions = false,
-  sizes = "(max-width: 600px) calc((100vw - 60px) / 2), (max-width: 850px) calc((100vw - 72px) / 3), 267px",
+  sizes = "(max-width: 700px) calc(100vw - 40px), (max-width: 1280px) 60vw, 720px",
+  featuredSizes,
 }: PhotoGalleryProps) {
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -63,7 +65,7 @@ export function PhotoGallery({
   return (
     <>
       <div className={`photo-grid ${className}`} role="group" aria-label={ariaLabel}>
-        {photos.map((photo) => (
+        {photos.map((photo, index) => (
           <figure className="photo-item" key={photo.id}>
             <button
               className="photo-button"
@@ -78,7 +80,7 @@ export function PhotoGallery({
                 alt={photo.alt}
                 width={photo.width}
                 height={photo.height}
-                sizes={sizes}
+                sizes={index === 0 && featuredSizes ? featuredSizes : sizes}
               />
             </button>
             {showCaptions && <figcaption className="photo-caption">{photo.title}</figcaption>}

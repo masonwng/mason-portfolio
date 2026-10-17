@@ -2,70 +2,29 @@ import type { Metadata } from "next";
 import { HobbySection } from "../components/hobby-section";
 import { OrganizationLogo } from "../components/organization-logo";
 import { PhotoGallery } from "../components/photo-gallery";
+import { Reveal } from "../components/reveal";
 import { education, personal } from "../lib/portfolio";
 import { getPhotos } from "../lib/photos";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "About", alternates: { canonical: "/about" },
   description: "A little about Mason Wang, a Business and Computer Science student at UBC.",
 };
 
 export default async function AboutPage() {
   const photos = await getPhotos();
-
   return (
     <>
-      <header className="portfolio-header">
-        <h1 className="page-heading">A little about me.</h1>
-        <div className="about-copy">
-          {personal.about.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-        </div>
+      <header className="about-introduction portfolio-header">
+        <div className="about-introduction-copy"><p className="eyebrow">The person behind the screen</p><h1>A little<br />about me.</h1><div className="about-copy">{personal.about.map(paragraph => <p key={paragraph}>{paragraph}</p>)}</div></div>
+        {photos.length > 0 && <div className="about-portrait"><PhotoGallery photos={[photos[0]]} className="photo-grid-single" showCaptions sizes="(max-width: 700px) calc(100vw - 40px), 45vw" /></div>}
       </header>
-
-      <section className="portfolio-section" aria-labelledby="education-heading">
-        <h2 id="education-heading">Education</h2>
-        <article className="experience">
-          <div className="experience-heading">
-            <OrganizationLogo
-              logo={education.logo}
-              badge={education.badge}
-              name={education.institution}
-            />
-            <div className="experience-copy">
-              <div className="entry-top">
-                <h3>{education.institution}</h3>
-                <p className="date">
-                  <time dateTime={education.startDate}>{education.startLabel}</time>
-                  {" – "}
-                  {education.endDate ? (
-                    <time dateTime={education.endDate}>{education.endLabel}</time>
-                  ) : education.endLabel}
-                </p>
-              </div>
-              <p className="entry-role">{education.degree}</p>
-              <p className="entry-description">{education.major}</p>
-            </div>
-          </div>
-        </article>
-      </section>
-
-      <section className="portfolio-section" aria-labelledby="hobbies-heading">
-        <h2 id="hobbies-heading">Outside the terminal</h2>
-        <p className="secondary">
-          Away from my screen, I make time for the things that keep me moving,
-          curious, and connected.
-        </p>
-        <HobbySection />
-      </section>
-
-      {photos.length > 0 && (
-        <section className="portfolio-section" aria-labelledby="photos-heading">
-          <h2 id="photos-heading">A few moments</h2>
-          <PhotoGallery photos={photos} />
-        </section>
-      )}
+      <Reveal><section className="portfolio-section education-section" aria-labelledby="education-heading">
+        <h2 id="education-heading">Currently at UBC.</h2>
+        <article className="organization-entry"><OrganizationLogo logo={education.logo} badge={education.badge} name={education.institution} /><div><h3>{education.institution}</h3><p>{education.degree}</p><p className="secondary">{education.major}</p><p className="date">First year · Expected graduation {education.graduation}</p></div></article>
+      </section></Reveal>
+      <section className="portfolio-section" aria-labelledby="hobbies-heading"><p className="eyebrow">A change of pace</p><h2 className="section-title" id="hobbies-heading">Outside the terminal.</h2><HobbySection /></section>
+      {photos.length > 1 && <Reveal><section className="portfolio-section" aria-labelledby="photos-heading"><h2 id="photos-heading">A few moments.</h2><PhotoGallery photos={photos.slice(1)} showCaptions /></section></Reveal>}
     </>
   );
 }

@@ -61,22 +61,18 @@ function GameViewport(props: PiggySlideSceneProps) {
 
 export function PiggySlide() {
   const widgetRef = useRef<HTMLElement>(null);
-  const wideScreen = useMediaQuery("(min-width: 1200px)");
   const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
   const documentVisible = useSyncExternalStore(
     subscribeVisibility, () => document.visibilityState === "visible", () => true,
   );
-  const [expanded, setExpanded] = useState(false);
   const [inView, setInView] = useState(false);
   const [seen, setSeen] = useState(false);
   const [resetToken, setResetToken] = useState(0);
   const [pigCount, setPigCount] = useState<PigCount>(3);
   const [status, setStatus] = useState("");
-  const panelId = useId();
   const selectId = useId();
-  const open = wideScreen || expanded;
-  const active = open && inView && documentVisible;
-  const supportSnapshot = useCallback(() => open ? getWebGLSupport() : null, [open]);
+  const active = inView && documentVisible;
+  const supportSnapshot = useCallback(() => seen ? getWebGLSupport() : null, [seen]);
   const supported = useSyncExternalStore(subscribeNothing, supportSnapshot, () => null);
 
   useEffect(() => {
@@ -91,22 +87,10 @@ export function PiggySlide() {
   }, []);
 
   return (
-    <section className="piggy-widget" ref={widgetRef} aria-labelledby={`${panelId}-title`} data-piggy-active={active}>
-      <div className="piggy-heading">
-        <div>
-          <h2 id={`${panelId}-title`}>PIGGY SLIDE</h2>
-          <p>A little break from work.</p>
-        </div>
-        <button
-          className="piggy-expand" type="button" aria-expanded={open}
-          aria-controls={panelId} onClick={() => setExpanded((value) => !value)}
-        >
-          {expanded ? "Close game" : "Play"}
-        </button>
-      </div>
-      <div className="piggy-content" id={panelId} hidden={!open}>
+    <section className="piggy-widget" ref={widgetRef} aria-label="Interactive pig slide" data-piggy-active={active}>
+      <div className="piggy-content">
         <div className="piggy-canvas" role="group" aria-label="Interactive miniature pig slide">
-          {open && seen ? (
+          {seen ? (
             <GameViewport active={active} reducedMotion={reducedMotion} resetToken={resetToken} pigCount={pigCount} onStatus={setStatus} />
           ) : <p className="piggy-loading">A tiny world, ready when you are.</p>}
         </div>
@@ -117,8 +101,8 @@ export function PiggySlide() {
           </select>
           <button className="piggy-reset" type="button" disabled={supported === false} onClick={() => setResetToken((value) => value + 1)}>Reset</button>
         </div>
-        <p className="piggy-instructions">Drag pigs to slide. Drag the ground to rotate.</p>
-        <p className="piggy-status" role="status" aria-live="polite">{supported === false ? "Use a browser with WebGL support to play." : status}</p>
+        <p className="piggy-instructions">Drag a pig. Make a little splash.</p>
+        <p className="piggy-status sr-only" role="status" aria-live="polite">{supported === false ? "Use a browser with WebGL support to play." : status}</p>
       </div>
     </section>
   );

@@ -2,16 +2,18 @@ import type { Metadata } from "next";
 import { AwardsList } from "../components/awards-list";
 import { ExperienceList } from "../components/experience-list";
 import { awards, experiences, leadership, projects } from "../lib/portfolio";
+import { Reveal } from "../components/reveal";
 
 export const metadata: Metadata = {
   title: "Work",
+  alternates: { canonical: "/work" },
   description: "Mason Wang's coding instruction, leadership experience, competition awards, and software projects.",
 };
 
 export default function WorkPage() {
   return (
     <>
-      <header className="page-heading"><h1>Work</h1></header>
+      <header className="page-heading"><p className="eyebrow">Experience & leadership</p><h1>Learning.<br />Building. Giving back.</h1><p className="page-intro">From teaching code to bringing people together.</p></header>
 
       <section className="portfolio-section" aria-labelledby="experience-heading">
         <h2 id="experience-heading">Experience</h2>
@@ -20,13 +22,13 @@ export default function WorkPage() {
 
       <section className="portfolio-section" aria-labelledby="leadership-heading">
         <h2 id="leadership-heading">Leadership</h2>
-        <ExperienceList entries={leadership} leadership />
+        <ExperienceList entries={[...leadership].reverse()} />
       </section>
 
-      <section className="portfolio-section" aria-labelledby="awards-heading">
+      <Reveal><section className="portfolio-section" aria-labelledby="awards-heading">
         <h2 id="awards-heading">Awards</h2>
         <AwardsList awards={awards} />
-      </section>
+      </section></Reveal>
 
       <section className="portfolio-section" aria-labelledby="projects-heading">
         <h2 id="projects-heading">Projects</h2>

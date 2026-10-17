@@ -6,6 +6,7 @@ import { getResumePath } from "../lib/resume";
 
 export const metadata: Metadata = {
   title: "Contact",
+  alternates: { canonical: "/contact" },
   description: "Connect with Mason Wang about software, interesting ideas, and more.",
 };
 
@@ -15,6 +16,7 @@ export default async function ContactPage() {
   return (
     <>
       <header className="page-heading">
+        <p className="eyebrow">Good things start with a conversation</p>
         <h1>{personal.contactHeading}</h1>
         <p className="page-intro">{personal.contactIntroduction}</p>
       </header>

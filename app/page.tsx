@@ -1,36 +1,50 @@
-﻿import Link from "next/link";
-import { ExperienceList } from "./components/experience-list";
+import Link from "next/link";
+import type { Metadata } from "next";
+import { InteractiveName } from "./components/interactive-name";
+import { Reveal } from "./components/reveal";
 import { SocialLinks } from "./components/social-links";
 import { PiggySlide } from "./components/piggy-slide";
-import { experiences, personal } from "./lib/portfolio";
+import { OrganizationLogo } from "./components/organization-logo";
+import { experiences, leadership, personal } from "./lib/portfolio";
+
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 export default function Home() {
   return (
     <div className="home-layout">
       <header className="portfolio-header home-introduction">
-        <h1>{personal.name}</h1>
-        <p className="subtitle">{personal.subtitle}</p>
-        <h2 className="intro-headline">{personal.headline}</h2>
-        <p className="intro-copy">{personal.intro}</p>
-        <SocialLinks />
+        <div className="hero-name"><InteractiveName /></div>
+        <p className="subtitle hero-subtitle">{personal.subtitle}</p>
+        <div className="hero-copy">
+          <h2 className="intro-headline">{personal.headline}</h2>
+          <p className="intro-copy">{personal.intro}</p>
+          <SocialLinks />
+        </div>
       </header>
-
-      <aside className="piggy-sidebar" aria-label="A little break from work">
-        <PiggySlide />
-      </aside>
-
+      <aside className="piggy-sidebar" aria-label="Play with the pigs"><PiggySlide /></aside>
       <div className="home-details">
-        <section className="portfolio-section" aria-labelledby="current-heading">
-          <h2 id="current-heading">Current work</h2>
-          <ExperienceList entries={experiences.map((entry) => ({ ...entry, description: entry.description.slice(0, 1) }))} hideMedia />
-          <Link className="text-link" href="/work">More about my work</Link>
-        </section>
-
-        <section className="portfolio-section" aria-labelledby="outside-heading">
-          <h2 id="outside-heading">Beyond the screen</h2>
-          <p className="outside-copy secondary">{personal.interests}</p>
-          <Link className="text-link" href="/about">A little more about me</Link>
-        </section>
+        <Reveal>
+          <section className="portfolio-section home-work" aria-labelledby="current-heading">
+            <div className="section-heading"><h2 id="current-heading">Learning by doing.</h2><Link className="inline-link" href="/work">My work <span aria-hidden="true">↗</span></Link></div>
+            <div className="home-roles">
+              {[experiences[0], leadership[0]].map(entry => (
+                <Link href="/work" className="home-role" key={entry.id}>
+                  <OrganizationLogo logo={entry.logo} badge={entry.badge ?? entry.organization} name={entry.organization} />
+                  <div><h3>{entry.organization}</h3><p className="secondary">{entry.role}</p></div>
+                  <span className="role-arrow" aria-hidden="true">↗</span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        </Reveal>
+        <Reveal>
+          <section className="portfolio-section home-outside" aria-labelledby="outside-heading">
+            <p className="eyebrow">Beyond the screen</p>
+            <h2 id="outside-heading">A little code.<br />A little everything else.</h2>
+            <p className="outside-copy secondary">{personal.interests}</p>
+            <Link className="text-link" href="/about">A little more about me <span aria-hidden="true">↗</span></Link>
+          </section>
+        </Reveal>
       </div>
     </div>
   );

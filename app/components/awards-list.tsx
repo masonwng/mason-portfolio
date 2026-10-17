@@ -5,7 +5,7 @@ export function AwardsList({ awards }: { awards: Award[] }) {
 
   return (
     <div className="experience-list">
-      {awards.map((award) => (
+      {[...awards].sort((a, b) => b.date.localeCompare(a.date)).map((award) => (
         <article className="experience" key={award.id}>
           <div className="entry-top">
             <h3>{award.title}</h3>

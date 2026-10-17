@@ -2,7 +2,7 @@
   name: "Mason Wang",
   subtitle: "First-Year BUCS Student @ UBC",
   headline: "I love vibe coding.",
-  intro: "I'm a first-year Business and Computer Science student at UBC who enjoys turning ideas into software, exploring new technologies, and building things just for the fun of it.",
+  intro: "I like building software, trying out ideas, and seeing where they go.",
   email: "masonwang322@gmail.com",
   interests: "Away from the screen, I enjoy hiking, working out, kickboxing, cooking, gaming, and time with friends and family.",
   contactHeading: "Let's connect.",
@@ -78,13 +78,27 @@ export const experiences: Experience[] = [
     photos: [],
     videos: [],
     description: [
-      "Teach programming and robotics to students aged 5–16, including Java, Python, Unity, EV3, and Scratch.",
-      "Previously volunteered for two years before transitioning into a paid instructor role.",
+      "Teach programming and robotics to more than 50 students aged 5–16, using Java, Python, Unity, EV3, and Scratch.",
+      "Progressed from volunteer to paid instructor, adapting lessons for different abilities and experience levels.",
     ],
   },
 ];
 
 export const leadership: Experience[] = [
+  {
+    id: "yac",
+    organization: "Young Architects for Change",
+    role: "Project Coordinator",
+    startDate: "2025-04",
+    endDate: null,
+    startLabel: "April 2025",
+    endLabel: "Present",
+    badge: "YAC",
+    description: [
+      "Helped coordinate Design for Change 2025 at the Museum of Vancouver, alongside mentorship events and architecture workshops.",
+      "Supported fundraising through donut sales and created social media posts to promote events and initiatives.",
+    ],
+  },
   {
     id: "ib-director",
     organization: "Sir Winston Churchill Secondary School",
@@ -96,6 +110,12 @@ export const leadership: Experience[] = [
     logo: { src: "/media/logos/ib logo.webp", alt: "International Baccalaureate programme logo", approved: true },
     badge: "IB",
     photos: [
+      {
+        id: "ib-event",
+        title: "IB Director event",
+        src: "/media/events/DF88956D-5B92-4900-B565-BBC727285EB3.jpg",
+        alt: "A group in formal clothes with a plaque outside a ballroom during an IB Director event",
+      },
       {
         id: "ib-camp",
         title: "IB Director camp",
@@ -114,15 +134,13 @@ export const leadership: Experience[] = [
         src: "/media/events/B76B4A01-FF4C-4FEB-B6FF-C06943F34C72.jpg",
         alt: "Two friends sharing a restaurant meal during an IB Director gathering",
       },
-      {
-        id: "ib-event",
-        title: "IB Director event",
-        src: "/media/events/DF88956D-5B92-4900-B565-BBC727285EB3.jpg",
-        alt: "A group in formal clothes with a plaque outside a ballroom during an IB Director event",
-      },
     ],
     videos: [],
-    description: ["Organized student orientation events, information sessions, and mentorship activities."],
+    description: [
+      "Helped coordinate a three-day, two-night orientation camp for more than 100 incoming IB students.",
+      "Invited professionals including a former BC Hydro CEO, practicing physicians, and Silicon Valley project managers to school events.",
+      "Organized information sessions and a student conference.",
+    ],
   },
 ];
 
@@ -136,10 +154,11 @@ export type Award = {
 
 export const awards: Award[] = [
   { id: "acsl", title: "American Computer Science League", result: "Finalist", date: "2022-11", dateLabel: "November 2022" },
-  { id: "strive", title: "Strive Case Competition", result: "Winner", date: "2025-02", dateLabel: "February 2025" },
-  { id: "prosper", title: "Prosper Ivey Invitational Case Competition", result: "Third Place", date: "2025-06", dateLabel: "June 2025" },
-  { id: "enhance", title: "Enhance Case Competition", result: "Second Place", date: "2026-04", dateLabel: "April 2026" },
-  { id: "minienterprize", title: "miniEnterprize Case Competition", result: "miniCase Winner and Third Place", date: "2026-02", dateLabel: "February 2026" },
+  { id: "strive", title: "Strive 2025 Case Competition", result: "1st Place", date: "2025-02", dateLabel: "February 2025" },
+  { id: "prosper", title: "Prosper x Ivey Invitational Case Competition", result: "3rd Place", date: "2025-06", dateLabel: "June 2025" },
+  { id: "enhance", title: "Enhance Case Competition", result: "2nd Place", date: "2026-04", dateLabel: "April 2026" },
+  { id: "minienterprize", title: "miniEnterprize Case Competition", result: "3rd Place", date: "2026-02", dateLabel: "February 2026" },
+  { id: "hellohacks", title: "BizTech HelloHacks Hackathon", result: "Audience Choice Award", date: "2026-10", dateLabel: "October 2026" },
 ];
 
 export const education = {
@@ -150,8 +169,15 @@ export const education = {
   endDate: null,
   startLabel: "September 2026",
   endLabel: "Present",
+  graduation: "May 2031",
   logo: { src: "/media/logos/ubclogo.png", alt: "University of British Columbia logo", approved: true },
   badge: "UBC",
+};
+
+export const skills = {
+  Technologies: ["Java", "Python", "VEX IQ", "EV3", "Scratch", "Unity", "Canva", "Excel", "Google Workspace"],
+  "Working with people": ["Event Planning & Coordination", "Social Media Marketing", "Fundraising", "Mentorship", "Public Speaking"],
+  Languages: ["English — fluent", "Mandarin — fluent"],
 };
 
 export type Project = {
