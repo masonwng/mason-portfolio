@@ -1,0 +1,2962 @@
+{
+  "version": "16.20.1",
+  "champions": [
+    {
+      "id": "Aatrox",
+      "name": "Aatrox",
+      "title": "the Darkin Blade",
+      "tags": [
+        "Fighter"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 4,
+        "magic": 3,
+        "difficulty": 4
+      },
+      "resource": "Blood Well"
+    },
+    {
+      "id": "Ahri",
+      "name": "Ahri",
+      "title": "the Nine-Tailed Fox",
+      "tags": [
+        "Mage",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 3,
+        "defense": 4,
+        "magic": 8,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Akali",
+      "name": "Akali",
+      "title": "the Rogue Assassin",
+      "tags": [
+        "Assassin"
+      ],
+      "info": {
+        "attack": 5,
+        "defense": 3,
+        "magic": 8,
+        "difficulty": 7
+      },
+      "resource": "Energy"
+    },
+    {
+      "id": "Akshan",
+      "name": "Akshan",
+      "title": "the Rogue Sentinel",
+      "tags": [
+        "Marksman",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 0,
+        "defense": 0,
+        "magic": 0,
+        "difficulty": 0
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Alistar",
+      "name": "Alistar",
+      "title": "the Minotaur",
+      "tags": [
+        "Tank",
+        "Support"
+      ],
+      "info": {
+        "attack": 6,
+        "defense": 9,
+        "magic": 5,
+        "difficulty": 7
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Ambessa",
+      "name": "Ambessa",
+      "title": "Matriarch of War",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 9,
+        "defense": 2,
+        "magic": 0,
+        "difficulty": 10
+      },
+      "resource": "Energy"
+    },
+    {
+      "id": "Amumu",
+      "name": "Amumu",
+      "title": "the Sad Mummy",
+      "tags": [
+        "Tank",
+        "Support"
+      ],
+      "info": {
+        "attack": 2,
+        "defense": 6,
+        "magic": 8,
+        "difficulty": 3
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Anivia",
+      "name": "Anivia",
+      "title": "the Cryophoenix",
+      "tags": [
+        "Mage"
+      ],
+      "info": {
+        "attack": 1,
+        "defense": 4,
+        "magic": 10,
+        "difficulty": 10
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Annie",
+      "name": "Annie",
+      "title": "the Dark Child",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "info": {
+        "attack": 2,
+        "defense": 3,
+        "magic": 10,
+        "difficulty": 6
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Aphelios",
+      "name": "Aphelios",
+      "title": "the Weapon of the Faithful",
+      "tags": [
+        "Marksman"
+      ],
+      "info": {
+        "attack": 6,
+        "defense": 2,
+        "magic": 1,
+        "difficulty": 10
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Ashe",
+      "name": "Ashe",
+      "title": "the Frost Archer",
+      "tags": [
+        "Marksman",
+        "Support"
+      ],
+      "info": {
+        "attack": 7,
+        "defense": 3,
+        "magic": 2,
+        "difficulty": 4
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "AurelionSol",
+      "name": "Aurelion Sol",
+      "title": "The Star Forger",
+      "tags": [
+        "Mage"
+      ],
+      "info": {
+        "attack": 2,
+        "defense": 3,
+        "magic": 8,
+        "difficulty": 7
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Aurora",
+      "name": "Aurora",
+      "title": "the Witch Between Worlds",
+      "tags": [
+        "Mage",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 3,
+        "defense": 4,
+        "magic": 8,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Azir",
+      "name": "Azir",
+      "title": "the Emperor of the Sands",
+      "tags": [
+        "Mage",
+        "Marksman"
+      ],
+      "info": {
+        "attack": 6,
+        "defense": 3,
+        "magic": 8,
+        "difficulty": 9
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Bard",
+      "name": "Bard",
+      "title": "the Wandering Caretaker",
+      "tags": [
+        "Support",
+        "Mage"
+      ],
+      "info": {
+        "attack": 4,
+        "defense": 4,
+        "magic": 5,
+        "difficulty": 9
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Belveth",
+      "name": "Bel'Veth",
+      "title": "the Empress of the Void",
+      "tags": [
+        "Fighter"
+      ],
+      "info": {
+        "attack": 4,
+        "defense": 2,
+        "magic": 7,
+        "difficulty": 10
+      },
+      "resource": ""
+    },
+    {
+      "id": "Blitzcrank",
+      "name": "Blitzcrank",
+      "title": "the Great Steam Golem",
+      "tags": [
+        "Tank",
+        "Support"
+      ],
+      "info": {
+        "attack": 4,
+        "defense": 8,
+        "magic": 5,
+        "difficulty": 4
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Brand",
+      "name": "Brand",
+      "title": "the Burning Vengeance",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "info": {
+        "attack": 2,
+        "defense": 2,
+        "magic": 9,
+        "difficulty": 4
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Braum",
+      "name": "Braum",
+      "title": "the Heart of the Freljord",
+      "tags": [
+        "Tank",
+        "Support"
+      ],
+      "info": {
+        "attack": 3,
+        "defense": 9,
+        "magic": 4,
+        "difficulty": 3
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Briar",
+      "name": "Briar",
+      "title": "the Restrained Hunger",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 9,
+        "defense": 5,
+        "magic": 3,
+        "difficulty": 3
+      },
+      "resource": "Fury"
+    },
+    {
+      "id": "Caitlyn",
+      "name": "Caitlyn",
+      "title": "the Sheriff of Piltover",
+      "tags": [
+        "Marksman"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 2,
+        "magic": 2,
+        "difficulty": 6
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Camille",
+      "name": "Camille",
+      "title": "the Steel Shadow",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 6,
+        "magic": 3,
+        "difficulty": 4
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Cassiopeia",
+      "name": "Cassiopeia",
+      "title": "the Serpent's Embrace",
+      "tags": [
+        "Mage"
+      ],
+      "info": {
+        "attack": 2,
+        "defense": 3,
+        "magic": 9,
+        "difficulty": 10
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Chogath",
+      "name": "Cho'Gath",
+      "title": "the Terror of the Void",
+      "tags": [
+        "Tank",
+        "Mage"
+      ],
+      "info": {
+        "attack": 3,
+        "defense": 7,
+        "magic": 7,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Corki",
+      "name": "Corki",
+      "title": "the Daring Bombardier",
+      "tags": [
+        "Marksman",
+        "Mage"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 3,
+        "magic": 6,
+        "difficulty": 6
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Darius",
+      "name": "Darius",
+      "title": "the Hand of Noxus",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "info": {
+        "attack": 9,
+        "defense": 5,
+        "magic": 1,
+        "difficulty": 2
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Diana",
+      "name": "Diana",
+      "title": "Scorn of the Moon",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 7,
+        "defense": 6,
+        "magic": 8,
+        "difficulty": 4
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "DrMundo",
+      "name": "Dr. Mundo",
+      "title": "the Madman of Zaun",
+      "tags": [
+        "Tank",
+        "Fighter"
+      ],
+      "info": {
+        "attack": 5,
+        "defense": 7,
+        "magic": 6,
+        "difficulty": 5
+      },
+      "resource": "None"
+    },
+    {
+      "id": "Draven",
+      "name": "Draven",
+      "title": "the Glorious Executioner",
+      "tags": [
+        "Marksman"
+      ],
+      "info": {
+        "attack": 9,
+        "defense": 3,
+        "magic": 1,
+        "difficulty": 8
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Ekko",
+      "name": "Ekko",
+      "title": "the Boy Who Shattered Time",
+      "tags": [
+        "Assassin",
+        "Mage"
+      ],
+      "info": {
+        "attack": 5,
+        "defense": 3,
+        "magic": 7,
+        "difficulty": 8
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Elise",
+      "name": "Elise",
+      "title": "the Spider Queen",
+      "tags": [
+        "Assassin",
+        "Mage"
+      ],
+      "info": {
+        "attack": 6,
+        "defense": 5,
+        "magic": 7,
+        "difficulty": 9
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Evelynn",
+      "name": "Evelynn",
+      "title": "Agony's Embrace",
+      "tags": [
+        "Assassin",
+        "Mage"
+      ],
+      "info": {
+        "attack": 4,
+        "defense": 2,
+        "magic": 7,
+        "difficulty": 10
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Ezreal",
+      "name": "Ezreal",
+      "title": "the Prodigal Explorer",
+      "tags": [
+        "Marksman",
+        "Mage"
+      ],
+      "info": {
+        "attack": 7,
+        "defense": 2,
+        "magic": 6,
+        "difficulty": 7
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Fiddlesticks",
+      "name": "Fiddlesticks",
+      "title": "the Ancient Fear",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "info": {
+        "attack": 2,
+        "defense": 3,
+        "magic": 9,
+        "difficulty": 9
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Fiora",
+      "name": "Fiora",
+      "title": "the Grand Duelist",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 10,
+        "defense": 4,
+        "magic": 2,
+        "difficulty": 3
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Fizz",
+      "name": "Fizz",
+      "title": "the Tidal Trickster",
+      "tags": [
+        "Assassin",
+        "Fighter"
+      ],
+      "info": {
+        "attack": 6,
+        "defense": 4,
+        "magic": 7,
+        "difficulty": 6
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Galio",
+      "name": "Galio",
+      "title": "the Colossus",
+      "tags": [
+        "Tank",
+        "Mage"
+      ],
+      "info": {
+        "attack": 1,
+        "defense": 10,
+        "magic": 6,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Gangplank",
+      "name": "Gangplank",
+      "title": "the Saltwater Scourge",
+      "tags": [
+        "Fighter"
+      ],
+      "info": {
+        "attack": 7,
+        "defense": 6,
+        "magic": 4,
+        "difficulty": 9
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Garen",
+      "name": "Garen",
+      "title": "The Might of Demacia",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "info": {
+        "attack": 7,
+        "defense": 7,
+        "magic": 1,
+        "difficulty": 5
+      },
+      "resource": "None"
+    },
+    {
+      "id": "Gnar",
+      "name": "Gnar",
+      "title": "the Missing Link",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "info": {
+        "attack": 6,
+        "defense": 5,
+        "magic": 5,
+        "difficulty": 8
+      },
+      "resource": "Rage"
+    },
+    {
+      "id": "Gragas",
+      "name": "Gragas",
+      "title": "the Rabble Rouser",
+      "tags": [
+        "Fighter",
+        "Mage"
+      ],
+      "info": {
+        "attack": 4,
+        "defense": 7,
+        "magic": 6,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Graves",
+      "name": "Graves",
+      "title": "the Outlaw",
+      "tags": [
+        "Marksman"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 5,
+        "magic": 3,
+        "difficulty": 3
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Gwen",
+      "name": "Gwen",
+      "title": "The Hallowed Seamstress",
+      "tags": [
+        "Fighter"
+      ],
+      "info": {
+        "attack": 7,
+        "defense": 4,
+        "magic": 5,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Hecarim",
+      "name": "Hecarim",
+      "title": "the Shadow of War",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 6,
+        "magic": 4,
+        "difficulty": 6
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Heimerdinger",
+      "name": "Heimerdinger",
+      "title": "the Revered Inventor",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "info": {
+        "attack": 2,
+        "defense": 6,
+        "magic": 8,
+        "difficulty": 8
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Hwei",
+      "name": "Hwei",
+      "title": "the Visionary",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "info": {
+        "attack": 7,
+        "defense": 1,
+        "magic": 8,
+        "difficulty": 9
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Illaoi",
+      "name": "Illaoi",
+      "title": "the Kraken Priestess",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 6,
+        "magic": 3,
+        "difficulty": 4
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Irelia",
+      "name": "Irelia",
+      "title": "the Blade Dancer",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 7,
+        "defense": 4,
+        "magic": 5,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Ivern",
+      "name": "Ivern",
+      "title": "the Green Father",
+      "tags": [
+        "Support",
+        "Mage"
+      ],
+      "info": {
+        "attack": 3,
+        "defense": 5,
+        "magic": 7,
+        "difficulty": 7
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Janna",
+      "name": "Janna",
+      "title": "the Storm's Fury",
+      "tags": [
+        "Support",
+        "Mage"
+      ],
+      "info": {
+        "attack": 3,
+        "defense": 5,
+        "magic": 7,
+        "difficulty": 7
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "JarvanIV",
+      "name": "Jarvan IV",
+      "title": "the Exemplar of Demacia",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "info": {
+        "attack": 6,
+        "defense": 8,
+        "magic": 3,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Jax",
+      "name": "Jax",
+      "title": "Grandmaster at Arms",
+      "tags": [
+        "Fighter"
+      ],
+      "info": {
+        "attack": 7,
+        "defense": 5,
+        "magic": 7,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Jayce",
+      "name": "Jayce",
+      "title": "the Defender of Tomorrow",
+      "tags": [
+        "Fighter",
+        "Marksman"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 4,
+        "magic": 3,
+        "difficulty": 7
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Jhin",
+      "name": "Jhin",
+      "title": "the Virtuoso",
+      "tags": [
+        "Marksman",
+        "Mage"
+      ],
+      "info": {
+        "attack": 10,
+        "defense": 2,
+        "magic": 6,
+        "difficulty": 6
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Jinx",
+      "name": "Jinx",
+      "title": "the Loose Cannon",
+      "tags": [
+        "Marksman"
+      ],
+      "info": {
+        "attack": 9,
+        "defense": 2,
+        "magic": 4,
+        "difficulty": 6
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "KSante",
+      "name": "K'Sante",
+      "title": "the Pride of Nazumah",
+      "tags": [
+        "Tank",
+        "Fighter"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 8,
+        "magic": 7,
+        "difficulty": 9
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Kaisa",
+      "name": "Kai'Sa",
+      "title": "Daughter of the Void",
+      "tags": [
+        "Marksman",
+        "Mage"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 5,
+        "magic": 3,
+        "difficulty": 6
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Kalista",
+      "name": "Kalista",
+      "title": "the Spear of Vengeance",
+      "tags": [
+        "Marksman"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 2,
+        "magic": 4,
+        "difficulty": 7
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Karma",
+      "name": "Karma",
+      "title": "the Enlightened One",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "info": {
+        "attack": 1,
+        "defense": 7,
+        "magic": 8,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Karthus",
+      "name": "Karthus",
+      "title": "the Deathsinger",
+      "tags": [
+        "Mage"
+      ],
+      "info": {
+        "attack": 2,
+        "defense": 2,
+        "magic": 10,
+        "difficulty": 7
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Kassadin",
+      "name": "Kassadin",
+      "title": "the Void Walker",
+      "tags": [
+        "Assassin",
+        "Mage"
+      ],
+      "info": {
+        "attack": 3,
+        "defense": 5,
+        "magic": 8,
+        "difficulty": 8
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Katarina",
+      "name": "Katarina",
+      "title": "the Sinister Blade",
+      "tags": [
+        "Assassin",
+        "Mage"
+      ],
+      "info": {
+        "attack": 4,
+        "defense": 3,
+        "magic": 9,
+        "difficulty": 8
+      },
+      "resource": "None"
+    },
+    {
+      "id": "Kayle",
+      "name": "Kayle",
+      "title": "the Righteous",
+      "tags": [
+        "Marksman",
+        "Mage"
+      ],
+      "info": {
+        "attack": 6,
+        "defense": 6,
+        "magic": 7,
+        "difficulty": 7
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Kayn",
+      "name": "Kayn",
+      "title": "the Shadow Reaper",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 10,
+        "defense": 6,
+        "magic": 1,
+        "difficulty": 8
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Kennen",
+      "name": "Kennen",
+      "title": "the Heart of the Tempest",
+      "tags": [
+        "Mage"
+      ],
+      "info": {
+        "attack": 6,
+        "defense": 4,
+        "magic": 7,
+        "difficulty": 4
+      },
+      "resource": "Energy"
+    },
+    {
+      "id": "Khazix",
+      "name": "Kha'Zix",
+      "title": "the Voidreaver",
+      "tags": [
+        "Assassin"
+      ],
+      "info": {
+        "attack": 9,
+        "defense": 4,
+        "magic": 3,
+        "difficulty": 6
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Kindred",
+      "name": "Kindred",
+      "title": "The Eternal Hunters",
+      "tags": [
+        "Marksman"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 2,
+        "magic": 2,
+        "difficulty": 4
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Kled",
+      "name": "Kled",
+      "title": "the Cantankerous Cavalier",
+      "tags": [
+        "Fighter"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 2,
+        "magic": 2,
+        "difficulty": 7
+      },
+      "resource": "Courage"
+    },
+    {
+      "id": "KogMaw",
+      "name": "Kog'Maw",
+      "title": "the Mouth of the Abyss",
+      "tags": [
+        "Marksman",
+        "Mage"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 2,
+        "magic": 5,
+        "difficulty": 6
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Leblanc",
+      "name": "LeBlanc",
+      "title": "the Deceiver",
+      "tags": [
+        "Assassin",
+        "Mage"
+      ],
+      "info": {
+        "attack": 1,
+        "defense": 4,
+        "magic": 10,
+        "difficulty": 9
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "LeeSin",
+      "name": "Lee Sin",
+      "title": "the Blind Monk",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 5,
+        "magic": 3,
+        "difficulty": 6
+      },
+      "resource": "Energy"
+    },
+    {
+      "id": "Leona",
+      "name": "Leona",
+      "title": "the Radiant Dawn",
+      "tags": [
+        "Tank",
+        "Support"
+      ],
+      "info": {
+        "attack": 4,
+        "defense": 8,
+        "magic": 3,
+        "difficulty": 4
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Lillia",
+      "name": "Lillia",
+      "title": "the Bashful Bloom",
+      "tags": [
+        "Fighter",
+        "Mage"
+      ],
+      "info": {
+        "attack": 0,
+        "defense": 2,
+        "magic": 10,
+        "difficulty": 8
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Lissandra",
+      "name": "Lissandra",
+      "title": "the Ice Witch",
+      "tags": [
+        "Mage"
+      ],
+      "info": {
+        "attack": 2,
+        "defense": 5,
+        "magic": 8,
+        "difficulty": 6
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Locke",
+      "name": "Locke",
+      "title": "the Ashen Exorcist",
+      "tags": [
+        "Assassin",
+        "Mage"
+      ],
+      "info": {
+        "attack": 6,
+        "defense": 4,
+        "magic": 2,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Lucian",
+      "name": "Lucian",
+      "title": "the Purifier",
+      "tags": [
+        "Marksman",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 5,
+        "magic": 3,
+        "difficulty": 6
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Lulu",
+      "name": "Lulu",
+      "title": "the Fae Sorceress",
+      "tags": [
+        "Support",
+        "Mage"
+      ],
+      "info": {
+        "attack": 4,
+        "defense": 5,
+        "magic": 7,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Lux",
+      "name": "Lux",
+      "title": "the Lady of Luminosity",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "info": {
+        "attack": 2,
+        "defense": 4,
+        "magic": 9,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Malphite",
+      "name": "Malphite",
+      "title": "Shard of the Monolith",
+      "tags": [
+        "Tank",
+        "Mage"
+      ],
+      "info": {
+        "attack": 5,
+        "defense": 9,
+        "magic": 7,
+        "difficulty": 2
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Malzahar",
+      "name": "Malzahar",
+      "title": "the Prophet of the Void",
+      "tags": [
+        "Mage"
+      ],
+      "info": {
+        "attack": 2,
+        "defense": 2,
+        "magic": 9,
+        "difficulty": 6
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Maokai",
+      "name": "Maokai",
+      "title": "the Twisted Treant",
+      "tags": [
+        "Tank",
+        "Support"
+      ],
+      "info": {
+        "attack": 3,
+        "defense": 8,
+        "magic": 6,
+        "difficulty": 3
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "MasterYi",
+      "name": "Master Yi",
+      "title": "the Wuju Bladesman",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 10,
+        "defense": 4,
+        "magic": 2,
+        "difficulty": 4
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Mel",
+      "name": "Mel",
+      "title": "the Soul's Reflection",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "info": {
+        "attack": 2,
+        "defense": 4,
+        "magic": 9,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Milio",
+      "name": "Milio",
+      "title": "The Gentle Flame",
+      "tags": [
+        "Support",
+        "Mage"
+      ],
+      "info": {
+        "attack": 2,
+        "defense": 4,
+        "magic": 8,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "MissFortune",
+      "name": "Miss Fortune",
+      "title": "the Bounty Hunter",
+      "tags": [
+        "Marksman",
+        "Mage"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 2,
+        "magic": 5,
+        "difficulty": 1
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Mordekaiser",
+      "name": "Mordekaiser",
+      "title": "the Iron Revenant",
+      "tags": [
+        "Fighter",
+        "Mage"
+      ],
+      "info": {
+        "attack": 4,
+        "defense": 6,
+        "magic": 7,
+        "difficulty": 4
+      },
+      "resource": "Shield"
+    },
+    {
+      "id": "Morgana",
+      "name": "Morgana",
+      "title": "the Fallen",
+      "tags": [
+        "Support",
+        "Mage"
+      ],
+      "info": {
+        "attack": 1,
+        "defense": 6,
+        "magic": 8,
+        "difficulty": 1
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Naafiri",
+      "name": "Naafiri",
+      "title": "the Hound of a Hundred Bites",
+      "tags": [
+        "Assassin",
+        "Fighter"
+      ],
+      "info": {
+        "attack": 9,
+        "defense": 5,
+        "magic": 0,
+        "difficulty": 2
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Nami",
+      "name": "Nami",
+      "title": "the Tidecaller",
+      "tags": [
+        "Support",
+        "Mage"
+      ],
+      "info": {
+        "attack": 4,
+        "defense": 3,
+        "magic": 7,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Nasus",
+      "name": "Nasus",
+      "title": "the Curator of the Sands",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "info": {
+        "attack": 7,
+        "defense": 5,
+        "magic": 6,
+        "difficulty": 6
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Nautilus",
+      "name": "Nautilus",
+      "title": "the Titan of the Depths",
+      "tags": [
+        "Tank",
+        "Support"
+      ],
+      "info": {
+        "attack": 4,
+        "defense": 6,
+        "magic": 6,
+        "difficulty": 6
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Neeko",
+      "name": "Neeko",
+      "title": "the Curious Chameleon",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "info": {
+        "attack": 1,
+        "defense": 1,
+        "magic": 9,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Nidalee",
+      "name": "Nidalee",
+      "title": "the Bestial Huntress",
+      "tags": [
+        "Assassin",
+        "Mage"
+      ],
+      "info": {
+        "attack": 5,
+        "defense": 4,
+        "magic": 7,
+        "difficulty": 8
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Nilah",
+      "name": "Nilah",
+      "title": "the Joy Unbound",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 4,
+        "magic": 4,
+        "difficulty": 10
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Nocturne",
+      "name": "Nocturne",
+      "title": "the Eternal Nightmare",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 9,
+        "defense": 5,
+        "magic": 2,
+        "difficulty": 4
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Nunu",
+      "name": "Nunu & Willump",
+      "title": "the Boy and His Yeti",
+      "tags": [
+        "Tank",
+        "Mage"
+      ],
+      "info": {
+        "attack": 4,
+        "defense": 6,
+        "magic": 7,
+        "difficulty": 4
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Olaf",
+      "name": "Olaf",
+      "title": "the Berserker",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "info": {
+        "attack": 9,
+        "defense": 5,
+        "magic": 3,
+        "difficulty": 3
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Orianna",
+      "name": "Orianna",
+      "title": "the Lady of Clockwork",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "info": {
+        "attack": 4,
+        "defense": 3,
+        "magic": 9,
+        "difficulty": 7
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Ornn",
+      "name": "Ornn",
+      "title": "The Fire below the Mountain",
+      "tags": [
+        "Tank"
+      ],
+      "info": {
+        "attack": 5,
+        "defense": 9,
+        "magic": 3,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Pantheon",
+      "name": "Pantheon",
+      "title": "the Unbreakable Spear",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 9,
+        "defense": 4,
+        "magic": 3,
+        "difficulty": 4
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Poppy",
+      "name": "Poppy",
+      "title": "Keeper of the Hammer",
+      "tags": [
+        "Tank",
+        "Fighter"
+      ],
+      "info": {
+        "attack": 6,
+        "defense": 7,
+        "magic": 2,
+        "difficulty": 6
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Pyke",
+      "name": "Pyke",
+      "title": "the Bloodharbor Ripper",
+      "tags": [
+        "Support",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 9,
+        "defense": 3,
+        "magic": 1,
+        "difficulty": 7
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Qiyana",
+      "name": "Qiyana",
+      "title": "Empress of the Elements",
+      "tags": [
+        "Assassin"
+      ],
+      "info": {
+        "attack": 0,
+        "defense": 2,
+        "magic": 4,
+        "difficulty": 8
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Quinn",
+      "name": "Quinn",
+      "title": "Demacia's Wings",
+      "tags": [
+        "Marksman",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 9,
+        "defense": 4,
+        "magic": 2,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Rakan",
+      "name": "Rakan",
+      "title": "The Charmer",
+      "tags": [
+        "Support"
+      ],
+      "info": {
+        "attack": 2,
+        "defense": 4,
+        "magic": 8,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Rammus",
+      "name": "Rammus",
+      "title": "the Armordillo",
+      "tags": [
+        "Tank"
+      ],
+      "info": {
+        "attack": 4,
+        "defense": 10,
+        "magic": 5,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "RekSai",
+      "name": "Rek'Sai",
+      "title": "the Void Burrower",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 5,
+        "magic": 2,
+        "difficulty": 3
+      },
+      "resource": "Rage"
+    },
+    {
+      "id": "Rell",
+      "name": "Rell",
+      "title": "the Iron Maiden",
+      "tags": [
+        "Tank",
+        "Support"
+      ],
+      "info": {
+        "attack": 0,
+        "defense": 0,
+        "magic": 0,
+        "difficulty": 0
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Renata",
+      "name": "Renata Glasc",
+      "title": "the Chem-Baroness",
+      "tags": [
+        "Support",
+        "Mage"
+      ],
+      "info": {
+        "attack": 2,
+        "defense": 6,
+        "magic": 9,
+        "difficulty": 8
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Renekton",
+      "name": "Renekton",
+      "title": "the Butcher of the Sands",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 5,
+        "magic": 2,
+        "difficulty": 3
+      },
+      "resource": "Fury"
+    },
+    {
+      "id": "Rengar",
+      "name": "Rengar",
+      "title": "the Pridestalker",
+      "tags": [
+        "Assassin",
+        "Fighter"
+      ],
+      "info": {
+        "attack": 7,
+        "defense": 4,
+        "magic": 2,
+        "difficulty": 8
+      },
+      "resource": "Ferocity"
+    },
+    {
+      "id": "Riven",
+      "name": "Riven",
+      "title": "the Exile",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 5,
+        "magic": 1,
+        "difficulty": 8
+      },
+      "resource": "None"
+    },
+    {
+      "id": "Rumble",
+      "name": "Rumble",
+      "title": "the Mechanized Menace",
+      "tags": [
+        "Fighter",
+        "Mage"
+      ],
+      "info": {
+        "attack": 3,
+        "defense": 6,
+        "magic": 8,
+        "difficulty": 10
+      },
+      "resource": "Heat"
+    },
+    {
+      "id": "Ryze",
+      "name": "Ryze",
+      "title": "the Rune Mage",
+      "tags": [
+        "Mage"
+      ],
+      "info": {
+        "attack": 2,
+        "defense": 2,
+        "magic": 10,
+        "difficulty": 7
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Samira",
+      "name": "Samira",
+      "title": "the Desert Rose",
+      "tags": [
+        "Marksman",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 5,
+        "magic": 3,
+        "difficulty": 6
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Sejuani",
+      "name": "Sejuani",
+      "title": "Fury of the North",
+      "tags": [
+        "Tank"
+      ],
+      "info": {
+        "attack": 5,
+        "defense": 7,
+        "magic": 6,
+        "difficulty": 4
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Senna",
+      "name": "Senna",
+      "title": "the Redeemer",
+      "tags": [
+        "Support",
+        "Marksman"
+      ],
+      "info": {
+        "attack": 7,
+        "defense": 2,
+        "magic": 6,
+        "difficulty": 7
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Seraphine",
+      "name": "Seraphine",
+      "title": "the Starry-Eyed Songstress",
+      "tags": [
+        "Support",
+        "Mage"
+      ],
+      "info": {
+        "attack": 0,
+        "defense": 0,
+        "magic": 0,
+        "difficulty": 0
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Sett",
+      "name": "Sett",
+      "title": "the Boss",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 5,
+        "magic": 1,
+        "difficulty": 2
+      },
+      "resource": "Grit"
+    },
+    {
+      "id": "Shaco",
+      "name": "Shaco",
+      "title": "the Demon Jester",
+      "tags": [
+        "Assassin"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 4,
+        "magic": 6,
+        "difficulty": 9
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Shen",
+      "name": "Shen",
+      "title": "the Eye of Twilight",
+      "tags": [
+        "Tank"
+      ],
+      "info": {
+        "attack": 3,
+        "defense": 9,
+        "magic": 3,
+        "difficulty": 4
+      },
+      "resource": "Energy"
+    },
+    {
+      "id": "Shyvana",
+      "name": "Shyvana",
+      "title": "the Half-Dragon",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 6,
+        "magic": 3,
+        "difficulty": 4
+      },
+      "resource": "Fury"
+    },
+    {
+      "id": "Singed",
+      "name": "Singed",
+      "title": "the Mad Chemist",
+      "tags": [
+        "Tank",
+        "Mage"
+      ],
+      "info": {
+        "attack": 4,
+        "defense": 8,
+        "magic": 7,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Sion",
+      "name": "Sion",
+      "title": "The Undead Juggernaut",
+      "tags": [
+        "Tank",
+        "Fighter"
+      ],
+      "info": {
+        "attack": 5,
+        "defense": 9,
+        "magic": 3,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Sivir",
+      "name": "Sivir",
+      "title": "the Battle Mistress",
+      "tags": [
+        "Marksman"
+      ],
+      "info": {
+        "attack": 9,
+        "defense": 3,
+        "magic": 1,
+        "difficulty": 4
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Skarner",
+      "name": "Skarner",
+      "title": "the Primordial Sovereign",
+      "tags": [
+        "Tank",
+        "Fighter"
+      ],
+      "info": {
+        "attack": 7,
+        "defense": 8,
+        "magic": 5,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Smolder",
+      "name": "Smolder",
+      "title": "the Fiery Fledgling",
+      "tags": [
+        "Marksman",
+        "Mage"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 2,
+        "magic": 5,
+        "difficulty": 6
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Sona",
+      "name": "Sona",
+      "title": "Maven of the Strings",
+      "tags": [
+        "Support",
+        "Mage"
+      ],
+      "info": {
+        "attack": 5,
+        "defense": 2,
+        "magic": 8,
+        "difficulty": 4
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Soraka",
+      "name": "Soraka",
+      "title": "the Starchild",
+      "tags": [
+        "Support",
+        "Mage"
+      ],
+      "info": {
+        "attack": 2,
+        "defense": 5,
+        "magic": 7,
+        "difficulty": 3
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Swain",
+      "name": "Swain",
+      "title": "the Noxian Grand General",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "info": {
+        "attack": 2,
+        "defense": 6,
+        "magic": 9,
+        "difficulty": 8
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Sylas",
+      "name": "Sylas",
+      "title": "the Unshackled",
+      "tags": [
+        "Mage",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 3,
+        "defense": 4,
+        "magic": 8,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Syndra",
+      "name": "Syndra",
+      "title": "the Dark Sovereign",
+      "tags": [
+        "Mage"
+      ],
+      "info": {
+        "attack": 2,
+        "defense": 3,
+        "magic": 9,
+        "difficulty": 8
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "TahmKench",
+      "name": "Tahm Kench",
+      "title": "The River King",
+      "tags": [
+        "Tank",
+        "Support"
+      ],
+      "info": {
+        "attack": 3,
+        "defense": 9,
+        "magic": 6,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Taliyah",
+      "name": "Taliyah",
+      "title": "the Stoneweaver",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "info": {
+        "attack": 1,
+        "defense": 7,
+        "magic": 8,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Talon",
+      "name": "Talon",
+      "title": "the Blade's Shadow",
+      "tags": [
+        "Assassin"
+      ],
+      "info": {
+        "attack": 9,
+        "defense": 3,
+        "magic": 1,
+        "difficulty": 7
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Taric",
+      "name": "Taric",
+      "title": "the Shield of Valoran",
+      "tags": [
+        "Support",
+        "Tank"
+      ],
+      "info": {
+        "attack": 4,
+        "defense": 8,
+        "magic": 5,
+        "difficulty": 3
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Teemo",
+      "name": "Teemo",
+      "title": "the Swift Scout",
+      "tags": [
+        "Marksman",
+        "Mage"
+      ],
+      "info": {
+        "attack": 5,
+        "defense": 3,
+        "magic": 7,
+        "difficulty": 6
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Thresh",
+      "name": "Thresh",
+      "title": "the Chain Warden",
+      "tags": [
+        "Support",
+        "Tank"
+      ],
+      "info": {
+        "attack": 5,
+        "defense": 6,
+        "magic": 6,
+        "difficulty": 7
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Tristana",
+      "name": "Tristana",
+      "title": "the Yordle Gunner",
+      "tags": [
+        "Marksman",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 9,
+        "defense": 3,
+        "magic": 5,
+        "difficulty": 4
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Trundle",
+      "name": "Trundle",
+      "title": "the Troll King",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "info": {
+        "attack": 7,
+        "defense": 6,
+        "magic": 2,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Tryndamere",
+      "name": "Tryndamere",
+      "title": "the Barbarian King",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 10,
+        "defense": 5,
+        "magic": 2,
+        "difficulty": 5
+      },
+      "resource": "Fury"
+    },
+    {
+      "id": "TwistedFate",
+      "name": "Twisted Fate",
+      "title": "the Card Master",
+      "tags": [
+        "Mage",
+        "Marksman"
+      ],
+      "info": {
+        "attack": 6,
+        "defense": 2,
+        "magic": 6,
+        "difficulty": 9
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Twitch",
+      "name": "Twitch",
+      "title": "the Plague Rat",
+      "tags": [
+        "Marksman",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 9,
+        "defense": 2,
+        "magic": 3,
+        "difficulty": 6
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Udyr",
+      "name": "Udyr",
+      "title": "the Spirit Walker",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 7,
+        "magic": 4,
+        "difficulty": 7
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Urgot",
+      "name": "Urgot",
+      "title": "the Dreadnought",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 5,
+        "magic": 3,
+        "difficulty": 8
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Varus",
+      "name": "Varus",
+      "title": "the Arrow of Retribution",
+      "tags": [
+        "Marksman",
+        "Mage"
+      ],
+      "info": {
+        "attack": 7,
+        "defense": 3,
+        "magic": 4,
+        "difficulty": 2
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Vayne",
+      "name": "Vayne",
+      "title": "the Night Hunter",
+      "tags": [
+        "Marksman",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 10,
+        "defense": 1,
+        "magic": 1,
+        "difficulty": 8
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Veigar",
+      "name": "Veigar",
+      "title": "the Tiny Master of Evil",
+      "tags": [
+        "Mage"
+      ],
+      "info": {
+        "attack": 2,
+        "defense": 2,
+        "magic": 10,
+        "difficulty": 7
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Velkoz",
+      "name": "Vel'Koz",
+      "title": "the Eye of the Void",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "info": {
+        "attack": 2,
+        "defense": 2,
+        "magic": 10,
+        "difficulty": 8
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Vex",
+      "name": "Vex",
+      "title": "the Gloomist",
+      "tags": [
+        "Mage"
+      ],
+      "info": {
+        "attack": 0,
+        "defense": 0,
+        "magic": 0,
+        "difficulty": 0
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Vi",
+      "name": "Vi",
+      "title": "the Piltover Enforcer",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 5,
+        "magic": 3,
+        "difficulty": 4
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Viego",
+      "name": "Viego",
+      "title": "The Ruined King",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 6,
+        "defense": 4,
+        "magic": 2,
+        "difficulty": 5
+      },
+      "resource": "None"
+    },
+    {
+      "id": "Viktor",
+      "name": "Viktor",
+      "title": "the Herald of the Arcane",
+      "tags": [
+        "Mage"
+      ],
+      "info": {
+        "attack": 2,
+        "defense": 4,
+        "magic": 10,
+        "difficulty": 9
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Vladimir",
+      "name": "Vladimir",
+      "title": "the Crimson Reaper",
+      "tags": [
+        "Mage",
+        "Fighter"
+      ],
+      "info": {
+        "attack": 2,
+        "defense": 6,
+        "magic": 8,
+        "difficulty": 7
+      },
+      "resource": "Crimson Rush"
+    },
+    {
+      "id": "Volibear",
+      "name": "Volibear",
+      "title": "the Relentless Storm",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "info": {
+        "attack": 7,
+        "defense": 7,
+        "magic": 4,
+        "difficulty": 3
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Warwick",
+      "name": "Warwick",
+      "title": "the Uncaged Wrath of Zaun",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "info": {
+        "attack": 9,
+        "defense": 5,
+        "magic": 3,
+        "difficulty": 3
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "MonkeyKing",
+      "name": "Wukong",
+      "title": "the Monkey King",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 5,
+        "magic": 2,
+        "difficulty": 3
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Xayah",
+      "name": "Xayah",
+      "title": "the Rebel",
+      "tags": [
+        "Marksman"
+      ],
+      "info": {
+        "attack": 10,
+        "defense": 6,
+        "magic": 1,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Xerath",
+      "name": "Xerath",
+      "title": "the Magus Ascendant",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "info": {
+        "attack": 1,
+        "defense": 3,
+        "magic": 10,
+        "difficulty": 8
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "XinZhao",
+      "name": "Xin Zhao",
+      "title": "the Seneschal of Demacia",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 6,
+        "magic": 3,
+        "difficulty": 2
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Yasuo",
+      "name": "Yasuo",
+      "title": "the Unforgiven",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 4,
+        "magic": 4,
+        "difficulty": 10
+      },
+      "resource": "Flow"
+    },
+    {
+      "id": "Yone",
+      "name": "Yone",
+      "title": "the Unforgotten",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 4,
+        "magic": 4,
+        "difficulty": 8
+      },
+      "resource": "Flow"
+    },
+    {
+      "id": "Yorick",
+      "name": "Yorick",
+      "title": "Shepherd of Souls",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "info": {
+        "attack": 6,
+        "defense": 6,
+        "magic": 4,
+        "difficulty": 6
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Yunara",
+      "name": "Yunara",
+      "title": "the Unbroken Faith",
+      "tags": [
+        "Marksman"
+      ],
+      "info": {
+        "attack": 9,
+        "defense": 2,
+        "magic": 0,
+        "difficulty": 4
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Yuumi",
+      "name": "Yuumi",
+      "title": "the Magical Cat",
+      "tags": [
+        "Support",
+        "Mage"
+      ],
+      "info": {
+        "attack": 5,
+        "defense": 1,
+        "magic": 8,
+        "difficulty": 2
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Zaahen",
+      "name": "Zaahen",
+      "title": "The Unsundered",
+      "tags": [
+        "Fighter"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 6,
+        "magic": 1,
+        "difficulty": 2
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Zac",
+      "name": "Zac",
+      "title": "the Secret Weapon",
+      "tags": [
+        "Tank",
+        "Fighter"
+      ],
+      "info": {
+        "attack": 3,
+        "defense": 7,
+        "magic": 7,
+        "difficulty": 8
+      },
+      "resource": "None"
+    },
+    {
+      "id": "Zed",
+      "name": "Zed",
+      "title": "the Master of Shadows",
+      "tags": [
+        "Assassin"
+      ],
+      "info": {
+        "attack": 9,
+        "defense": 2,
+        "magic": 1,
+        "difficulty": 7
+      },
+      "resource": "Energy"
+    },
+    {
+      "id": "Zeri",
+      "name": "Zeri",
+      "title": "The Spark of Zaun",
+      "tags": [
+        "Marksman"
+      ],
+      "info": {
+        "attack": 8,
+        "defense": 5,
+        "magic": 3,
+        "difficulty": 6
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Ziggs",
+      "name": "Ziggs",
+      "title": "the Hexplosives Expert",
+      "tags": [
+        "Mage"
+      ],
+      "info": {
+        "attack": 2,
+        "defense": 4,
+        "magic": 9,
+        "difficulty": 4
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Zilean",
+      "name": "Zilean",
+      "title": "the Chronokeeper",
+      "tags": [
+        "Support",
+        "Mage"
+      ],
+      "info": {
+        "attack": 2,
+        "defense": 5,
+        "magic": 8,
+        "difficulty": 6
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Zoe",
+      "name": "Zoe",
+      "title": "the Aspect of Twilight",
+      "tags": [
+        "Mage"
+      ],
+      "info": {
+        "attack": 1,
+        "defense": 7,
+        "magic": 8,
+        "difficulty": 5
+      },
+      "resource": "Mana"
+    },
+    {
+      "id": "Zyra",
+      "name": "Zyra",
+      "title": "Rise of the Thorns",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "info": {
+        "attack": 4,
+        "defense": 3,
+        "magic": 8,
+        "difficulty": 7
+      },
+      "resource": "Mana"
+    }
+  ],
+  "items": {
+    "1054": {
+      "id": "1054",
+      "name": "Doran's Shield",
+      "gold": 450
+    },
+    "1055": {
+      "id": "1055",
+      "name": "Doran's Blade",
+      "gold": 450
+    },
+    "1056": {
+      "id": "1056",
+      "name": "Doran's Ring",
+      "gold": 400
+    },
+    "1001": {
+      "id": "1001",
+      "name": "Boots",
+      "gold": 300
+    },
+    "3047": {
+      "id": "3047",
+      "name": "Plated Steelcaps",
+      "gold": 1200
+    },
+    "3111": {
+      "id": "3111",
+      "name": "Mercury's Treads",
+      "gold": 1250
+    },
+    "3006": {
+      "id": "3006",
+      "name": "Berserker's Greaves",
+      "gold": 1100
+    },
+    "3020": {
+      "id": "3020",
+      "name": "Sorcerer's Shoes",
+      "gold": 1100
+    },
+    "3158": {
+      "id": "3158",
+      "name": "Ionian Boots of Lucidity",
+      "gold": 900
+    },
+    "3078": {
+      "id": "3078",
+      "name": "Trinity Force",
+      "gold": 3333
+    },
+    "6631": {
+      "id": "6631",
+      "name": "Stridebreaker",
+      "gold": 3300
+    },
+    "3071": {
+      "id": "3071",
+      "name": "Black Cleaver",
+      "gold": 3000
+    },
+    "3053": {
+      "id": "3053",
+      "name": "Sterak's Gage",
+      "gold": 3200
+    },
+    "6333": {
+      "id": "6333",
+      "name": "Death's Dance",
+      "gold": 3300
+    },
+    "3065": {
+      "id": "3065",
+      "name": "Spirit Visage",
+      "gold": 2700
+    },
+    "3075": {
+      "id": "3075",
+      "name": "Thornmail",
+      "gold": 2450
+    },
+    "2504": {
+      "id": "2504",
+      "name": "Kaenic Rookern",
+      "gold": 2900
+    },
+    "3083": {
+      "id": "3083",
+      "name": "Warmog's Armor",
+      "gold": 3100
+    },
+    "3153": {
+      "id": "3153",
+      "name": "Blade of The Ruined King",
+      "gold": 3200
+    },
+    "6672": {
+      "id": "6672",
+      "name": "Kraken Slayer",
+      "gold": 3000
+    },
+    "3031": {
+      "id": "3031",
+      "name": "Infinity Edge",
+      "gold": 3500
+    },
+    "3036": {
+      "id": "3036",
+      "name": "Lord Dominik's Regards",
+      "gold": 3300
+    },
+    "3089": {
+      "id": "3089",
+      "name": "Rabadon's Deathcap",
+      "gold": 3500
+    },
+    "3026": {
+      "id": "3026",
+      "name": "Guardian Angel",
+      "gold": 3200
+    },
+    "6655": {
+      "id": "6655",
+      "name": "Luden's Echo",
+      "gold": 2750
+    },
+    "3135": {
+      "id": "3135",
+      "name": "Void Staff",
+      "gold": 3000
+    },
+    "3157": {
+      "id": "3157",
+      "name": "Zhonya's Hourglass",
+      "gold": 3250
+    },
+    "3165": {
+      "id": "3165",
+      "name": "Morellonomicon",
+      "gold": 2850
+    },
+    "3076": {
+      "id": "3076",
+      "name": "Bramble Vest",
+      "gold": 800
+    },
+    "3123": {
+      "id": "3123",
+      "name": "Executioner's Calling",
+      "gold": 800
+    },
+    "3916": {
+      "id": "3916",
+      "name": "Oblivion Orb",
+      "gold": 800
+    },
+    "6692": {
+      "id": "6692",
+      "name": "Eclipse",
+      "gold": 2900
+    },
+    "3142": {
+      "id": "3142",
+      "name": "Youmuu's Ghostblade",
+      "gold": 2800
+    },
+    "3814": {
+      "id": "3814",
+      "name": "Edge of Night",
+      "gold": 3000
+    },
+    "6694": {
+      "id": "6694",
+      "name": "Serylda's Grudge",
+      "gold": 3000
+    },
+    "3190": {
+      "id": "3190",
+      "name": "Locket of the Iron Solari",
+      "gold": 2200
+    },
+    "3109": {
+      "id": "3109",
+      "name": "Knight's Vow",
+      "gold": 2300
+    },
+    "3110": {
+      "id": "3110",
+      "name": "Frozen Heart",
+      "gold": 2500
+    },
+    "6620": {
+      "id": "6620",
+      "name": "Echoes of Helia",
+      "gold": 2200
+    },
+    "6617": {
+      "id": "6617",
+      "name": "Moonstone Renewer",
+      "gold": 2200
+    },
+    "3504": {
+      "id": "3504",
+      "name": "Ardent Censer",
+      "gold": 2200
+    },
+    "3107": {
+      "id": "3107",
+      "name": "Redemption",
+      "gold": 2300
+    },
+    "3033": {
+      "id": "3033",
+      "name": "Mortal Reminder",
+      "gold": 3000
+    },
+    "3046": {
+      "id": "3046",
+      "name": "Phantom Dancer",
+      "gold": 2650
+    },
+    "3085": {
+      "id": "3085",
+      "name": "Runaan's Hurricane",
+      "gold": 2650
+    },
+    "3116": {
+      "id": "3116",
+      "name": "Rylai's Crystal Scepter",
+      "gold": 2600
+    }
+  }
+}

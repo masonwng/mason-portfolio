@@ -382,3 +382,21 @@ figcaption { color:var(--secondary);font-size:12px;margin-top:8px; }
 .project-actions { display:flex;gap:25px; }
 .project-actions a { display:inline-flex;align-items:center;min-height:44px;font-size:13px;color:var(--accent);text-decoration:none; }
 .project-actions a:hover { text-decoration:underline; }
+.hero-with-game { display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:32px;align-items:center;padding-bottom:44px; }
+.hero-with-game .simple-intro { padding:0;max-width:none; }
+.hero-with-game .simple-intro h1 { font-size:clamp(36px,4vw,54px); }
+.hero-with-game .simple-intro>p { font-size:16px; }
+.hero-pig { min-width:0;aspect-ratio:1;width:100%; }
+.pig-window { display:flex;flex-direction:column;position:relative;inset:auto;margin:0;width:100%;height:100%;padding:0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--background);color:var(--foreground); }
+.pig-window-bar { display:flex;align-items:center;justify-content:space-between;height:38px;flex-shrink:0;padding-left:14px;border-bottom:1px solid var(--border);color:var(--secondary);font-size:11px; }
+.pig-window-bar button { width:42px;height:38px;background:transparent;border:0;border-left:1px solid var(--border);font-size:19px;cursor:pointer; }
+.pig-window-game { flex:1;min-height:0; }
+.pig-window .piggy-widget,.pig-window .piggy-content { height:100%; }
+.pig-window .piggy-content { display:flex;flex-direction:column; }
+.pig-window .piggy-canvas { height:auto;flex:1;min-height:0; }
+.pig-window .piggy-controls { padding:7px 12px 0;font-size:11px; }
+.pig-window .piggy-instructions { margin:4px 12px 9px;font-size:10px; }
+.pig-window[data-expanded=true] { position:fixed;inset:0;margin:auto;width:min(850px,calc(100vw - 32px));height:min(800px,88dvh);max-width:none;max-height:none;box-shadow:0 24px 80px #0002; }
+.pig-window::backdrop { background:#171b2070;backdrop-filter:blur(5px); }
+@media(max-width:850px){.hero-with-game{grid-template-columns:minmax(0,1fr) 250px;gap:24px;}.hero-with-game .simple-intro h1{font-size:42px;}}
+@media(max-width:700px){.hero-with-game{grid-template-columns:1fr;gap:28px;padding-bottom:30px;}.hero-pig{width:min(100%,340px);justify-self:center;}.hero-with-game .simple-intro h1{font-size:40px;}.pig-window[data-expanded=true]{height:80dvh;}}

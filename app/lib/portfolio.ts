@@ -192,8 +192,8 @@ export type Project = {
 
 // Standalone source repositories; deployable snapshots live under public/projects/.
 export const projects: Project[] = [
-  { id: "itemle", title: "Itemle", status: "live", preview: "itemle", description: "Guess a League item from its components. Six guesses, a daily puzzle, and practice rounds.", href: "/projects/itemle/index.html", githubUrl: "https://github.com/masonwng/league-itemle" },
-  { id: "lane-notes", title: "Lane notes", status: "live", preview: "lane", description: "A place to track my League matchups. CS, trades, wave notes, and what to try next game.", href: "/projects/lane-notes/index.html", githubUrl: "https://github.com/masonwng/lane-notes" },
+  { id: "itemle", title: "Itemle", status: "live", preview: "itemle", description: "Guess a League item from its components. Unlimited guesses, a score out of six, and a rank badge.", href: "/projects/itemle/index.html", githubUrl: "https://github.com/masonwng/league-itemle" },
+  { id: "lane-notes", title: "Lane notes", status: "live", preview: "lane", description: "Pick a League matchup, get item ideas, and track what to try next game.", href: "/projects/lane-notes/index.html", githubUrl: "https://github.com/masonwng/lane-notes" },
 ];
 
 export type Hobby = {
