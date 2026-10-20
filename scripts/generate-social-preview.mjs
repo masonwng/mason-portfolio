@@ -16,7 +16,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" v
   <text x="81" y="445" font-family="Arial, Helvetica, sans-serif" font-size="25" fill="#686b70">University of British Columbia</text>
   <circle cx="946" cy="312" r="181" fill="#edf0f3"/>
   <image href="data:image/png;base64,${avatar}" x="731" y="94" width="430" height="430"/>
-  <path d="M80 491H1120" stroke="#e2e2de" stroke-width="2"/>
+  <path d="M80 491H650" stroke="#e2e2de" stroke-width="2"/>
   <text x="81" y="550" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#466d95">masonwang.dev</text>
   <path d="M1090 547l24-24m-22 0h22v22" fill="none" stroke="#466d95" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`;
