@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "generate:social-preview": "node scripts/generate-social-preview.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",
