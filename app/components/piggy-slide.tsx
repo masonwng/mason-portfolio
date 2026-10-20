@@ -9,7 +9,7 @@ import {
 
 const Scene = dynamic(() => import("./piggy-slide-scene"), {
   ssr: false,
-  loading: () => <p className="piggy-loading" role="status">Preparing the little world…</p>,
+  loading: () => <p className="piggy-loading" role="status">Loading…</p>,
 });
 
 function useMediaQuery(query: string) {
@@ -54,7 +54,7 @@ class SceneBoundary extends Component<{ children: ReactNode }, { failed: boolean
 
 function GameViewport(props: PiggySlideSceneProps) {
   const supported = useSyncExternalStore(subscribeNothing, getWebGLSupport, () => null);
-  if (supported === null) return <p className="piggy-loading">Preparing the little world…</p>;
+  if (supported === null) return <p className="piggy-loading">Loading…</p>;
   if (!supported) return <p className="piggy-fallback">3D is unavailable in this browser.</p>;
   return <SceneBoundary><Scene {...props} /></SceneBoundary>;
 }
@@ -92,7 +92,7 @@ export function PiggySlide() {
         <div className="piggy-canvas" role="group" aria-label="Interactive miniature pig slide">
           {seen ? (
             <GameViewport active={active} reducedMotion={reducedMotion} resetToken={resetToken} pigCount={pigCount} onStatus={setStatus} />
-          ) : <p className="piggy-loading">A tiny world, ready when you are.</p>}
+          ) : <p className="piggy-loading">Loading…</p>}
         </div>
         <div className="piggy-controls">
           <label htmlFor={selectId}>Pigs</label>
@@ -101,7 +101,7 @@ export function PiggySlide() {
           </select>
           <button className="piggy-reset" type="button" disabled={supported === false} onClick={() => setResetToken((value) => value + 1)}>Reset</button>
         </div>
-        <p className="piggy-instructions">Drag a pig. Make a little splash.</p>
+        <p className="piggy-instructions">Drag the pigs onto the slide.</p>
         <p className="piggy-status sr-only" role="status" aria-live="polite">{supported === false ? "Use a browser with WebGL support to play." : status}</p>
       </div>
     </section>

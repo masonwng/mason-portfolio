@@ -25,8 +25,15 @@ npm start
 
 ## Notes
 
-Content lives in `app/lib/portfolio.ts`. Photos live in `public/`; missing media is left out automatically. The Resume page uses native HTML, with an optional download if a resume-only `public/resume.pdf` is added. Don't put a combined resume and cover letter there.
+Content lives in `app/lib/portfolio.ts`. Photos live in `public/`; missing media is left out automatically. The Resume page previews `public/resume-preview-1.png` and downloads `public/resume.pdf`. Update both when replacing the résumé.
 
-The pig game loads separately from the rest of the site and pauses offscreen. Dark mode, reduced motion, keyboard navigation, and photo enlargement are supported.
+The pig game only loads after opening “play with the pigs” and pauses offscreen. Dark mode, reduced motion, keyboard navigation, and photo enlargement are supported.
 
 Deploy to the existing Vercel project, `masonwang`. Production uses [masonwang.dev](https://masonwang.dev).
+
+## Projects
+
+- [Itemle](https://masonwang.dev/projects/itemle/index.html): League item recipe guessing game. Source: https://github.com/masonwng/league-itemle
+- [Lane notes](https://masonwang.dev/projects/lane-notes/index.html): local laning journal. Source: https://github.com/masonwng/lane-notes
+
+Both projects are dependency-free static apps with their own test suites and repositories. This portfolio serves deployment snapshots from `public/projects/`. To refresh them from sibling checkouts named `league-itemle` and `lane-notes`, run `node scripts/sync-projects.mjs` before building. Changes in a project repository do not automatically update the portfolio’s snapshot.

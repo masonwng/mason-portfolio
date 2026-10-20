@@ -1,15 +1,15 @@
 ﻿export const personal = {
   name: "Mason Wang",
-  subtitle: "First-Year BUCS Student @ UBC",
-  headline: "I love vibe coding.",
-  intro: "I like building software, trying out ideas, and seeing where they go.",
+  subtitle: "First-year Business and Computer Science student at UBC.",
+  headline: "",
+  intro: "I like coding, trying out ideas, and figuring things out as I go.",
   email: "masonwang322@gmail.com",
-  interests: "Away from the screen, I enjoy hiking, working out, kickboxing, cooking, gaming, and time with friends and family.",
-  contactHeading: "Let's connect.",
-  contactIntroduction: "Always happy to chat about software, interesting ideas, or anything in between.",
+  interests: "Usually hiking, working out, kickboxing, cooking, or gaming. Or just hanging out with friends and family.",
+  contactHeading: "say hi.",
+  contactIntroduction: "Feel free to reach out.",
   about: [
-    "I'm Mason, a first-year Business and Computer Science student at UBC. I've been interested in programming for years, and I enjoy building applications and experimenting with new technology.",
-    "I also teach coding at RoboEDU, helping students get started with programming and robotics. I love vibe coding: taking an idea, trying things out, and bringing it to life.",
+    "I'm Mason. I'm in my first year of Business and Computer Science at UBC. I like coding and trying out ideas.",
+    "I also teach coding and robotics at RoboEDU. Most of the time I’m just building something, figuring it out as I go.",
   ],
 };
 
@@ -78,8 +78,8 @@ export const experiences: Experience[] = [
     photos: [],
     videos: [],
     description: [
-      "Teach programming and robotics to more than 50 students aged 5–16, using Java, Python, Unity, EV3, and Scratch.",
-      "Progressed from volunteer to paid instructor, adapting lessons for different abilities and experience levels.",
+      "I teach coding and robotics to kids at RoboEDU. I’ve worked with over 50 students aged 5–16, using Java, Python, Unity, EV3, and Scratch.",
+      "I started as a volunteer and became a paid instructor. I adjust lessons to suit each student.",
     ],
   },
 ];
@@ -95,8 +95,8 @@ export const leadership: Experience[] = [
     endLabel: "Present",
     badge: "YAC",
     description: [
-      "Helped coordinate Design for Change 2025 at the Museum of Vancouver, alongside mentorship events and architecture workshops.",
-      "Supported fundraising through donut sales and created social media posts to promote events and initiatives.",
+      "I helped organize Design for Change 2025 at the Museum of Vancouver, plus mentorship events and architecture workshops.",
+      "I also help with fundraising and social posts.",
     ],
   },
   {
@@ -137,9 +137,9 @@ export const leadership: Experience[] = [
     ],
     videos: [],
     description: [
-      "Helped coordinate a three-day, two-night orientation camp for more than 100 incoming IB students.",
-      "Invited professionals including a former BC Hydro CEO, practicing physicians, and Silicon Valley project managers to school events.",
-      "Organized information sessions and a student conference.",
+      "I helped organize a three-day, two-night camp for over 100 incoming IB students.",
+      "I invited speakers to school events, including a former BC Hydro CEO, doctors, and Silicon Valley project managers.",
+      "I also organized information sessions and a student conference.",
     ],
   },
 ];
@@ -184,12 +184,17 @@ export type Project = {
   id: string;
   title: string;
   description: string;
-  href?: string;
-  githubUrl?: string;
+  status: "live";
+  preview: "itemle" | "lane";
+  href: string;
+  githubUrl: string;
 };
 
-// Add completed projects here when their details and real links are available.
-export const projects: Project[] = [];
+// Standalone source repositories; deployable snapshots live under public/projects/.
+export const projects: Project[] = [
+  { id: "itemle", title: "Itemle", status: "live", preview: "itemle", description: "Guess a League item from its components. Six guesses, a daily puzzle, and practice rounds.", href: "/projects/itemle/index.html", githubUrl: "https://github.com/masonwng/league-itemle" },
+  { id: "lane-notes", title: "Lane notes", status: "live", preview: "lane", description: "A place to track my League matchups. CS, trades, wave notes, and what to try next game.", href: "/projects/lane-notes/index.html", githubUrl: "https://github.com/masonwng/lane-notes" },
+];
 
 export type Hobby = {
   id: string;
@@ -203,30 +208,30 @@ export const hobbies: Hobby[] = [
   {
     id: "hiking",
     title: "Hiking",
-    description: "Fresh air, a change of scenery, and time away from the screen.",
+    description: "I like getting out for a hike.",
     image: { src: "/media/hobbies/hiking.jpg", alt: "A mountain viewpoint above forested slopes beneath a clear blue sky" },
-    caption: "A view worth the climb.",
+    caption: "On a hike.",
   },
   {
     id: "cooking",
     title: "Cooking",
-    description: "Trying things in the kitchen and making something good to eat.",
+    description: "Trying new recipes when I have time.",
     image: { src: "/media/hobbies/steak.jpg", alt: "Sliced steak and potatoes on a black plate" },
-    caption: "Something from the kitchen.",
+    caption: "Made this.",
   },
-  { id: "fitness", title: "Working out", description: "Making time to move and stay active." },
-  { id: "kickboxing", title: "Kickboxing", description: "A different kind of challenge outside the terminal." },
-  { id: "gaming", title: "Gaming", description: "A good game and a chance to switch gears." },
-  { id: "family-friends", title: "Friends and family", description: "Good company and time spent together." },
+  { id: "fitness", title: "Working out", description: "I work out regularly." },
+  { id: "kickboxing", title: "Kickboxing", description: "I also do kickboxing." },
+  { id: "gaming", title: "Gaming", description: "Usually playing something with friends." },
+  { id: "family-friends", title: "Friends and family", description: "Spending time with the people I care about." },
 ];
 
 export type PhotoDetail = { id: string; title: string; alt: string; src?: string };
 
 export const photoDetails: PhotoDetail[] = [
   { id: "sister", title: "Me & my sister", alt: "Mason and his sister together in Chinatown" },
-  { id: "friend", title: "Good company", alt: "Mason and his friend taking a playful mirror photo", src: "/memories/IMG_5670.jpg" },
-  { id: "cats", title: "The little things", alt: "Mason's two cats resting together in the sunlight" },
-  { id: "graduation", title: "A new chapter", alt: "Mason wearing his graduation gown and holding flowers" },
+  { id: "friend", title: "With friends", alt: "Mason and his friend taking a playful mirror photo", src: "/memories/IMG_5670.jpg" },
+  { id: "cats", title: "My cats", alt: "Mason's two cats resting together in the sunlight" },
+  { id: "graduation", title: "Graduation", alt: "Mason wearing his graduation gown and holding flowers" },
   { id: "hiking", title: "Out there", alt: "A moment from one of Mason's hikes" },
 ];
 
