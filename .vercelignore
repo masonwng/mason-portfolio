@@ -1,0 +1,7 @@
+.git
+node_modules
+.next
+.env*
+.preview
+portfolio-preview.png
+PORTFOLIO-REVAMP-PROMPT.md

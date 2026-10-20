@@ -16,7 +16,7 @@ export default async function ContactPage() {
   return (
     <>
       <header className="page-heading">
-        
+
         <h1>{personal.contactHeading}</h1>
 
       </header>
