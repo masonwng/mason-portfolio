@@ -1,8 +1,6 @@
 # Mason Wang
 
-My personal website, built with Next.js, React, and TypeScript.
-
-It's where I share a bit about myself, what I've worked on, and what I'm learning. There's also a little interactive pig game on the homepage.
+My personal portfolio website built with Next.js, React, and TypeScript.
 
 Website: [masonwang.dev](https://masonwang.dev)
 
