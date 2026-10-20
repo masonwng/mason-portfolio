@@ -4,6 +4,7 @@ import { SiteNavbar } from "./components/site-navbar";
 import { SiteFooter } from "./components/site-footer";
 import { ThemeProvider } from "./components/theme-provider";
 import { personal } from "./lib/portfolio";
+import { socialPreview } from "./lib/social-preview";
 import "./tailwind.css";
 import "./globals.css";
 
@@ -27,9 +28,9 @@ export const metadata: Metadata = {
     description: personal.intro,
     type: "website", locale: "en_US",
     siteName: personal.name,
-    images: [{ url: "/social-preview.png", width: 1200, height: 630, alt: "Mason Wang — BUCS student at UBC, with a little pig" }],
+    images: [socialPreview],
   },
-  twitter: { card: "summary_large_image", title: personal.name, description: personal.intro, images: ["/social-preview.png"] },
+  twitter: { card: "summary_large_image", title: personal.name, description: personal.intro, images: [socialPreview] },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
