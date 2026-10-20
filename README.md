@@ -37,3 +37,18 @@ Deploy to the existing Vercel project, `masonwang`. Production uses [masonwang.d
 - [Lane notes](https://masonwang.dev/projects/lane-notes/index.html): local laning journal with champion portraits and hand-authored matchup build suggestions. Source: https://github.com/masonwng/lane-notes
 
 Both projects are dependency-free static apps with their own test suites and repositories. This portfolio serves deployment snapshots from `public/projects/`. To refresh them from sibling checkouts named `league-itemle` and `lane-notes`, run `node scripts/sync-projects.mjs` before building. Changes in a project repository do not automatically update the portfolio’s snapshot.
+
+## Documentation
+
+- [Architecture and content maintenance](docs/MAINTENANCE.md)
+- [Social previews, deployment, and verification](docs/SHARING-AND-DEPLOYMENT.md)
+- [Avatar generation and refinement prompts](docs/favicon-generation.md)
+- [Release history](CHANGELOG.md)
+- [Itemle documentation](https://github.com/masonwng/league-itemle#readme)
+- [Lane notes documentation](https://github.com/masonwng/lane-notes#readme)
+
+## Sharing thumbnail
+
+![Mason Wang social preview](public/social-preview.png)
+
+Regenerate this 1200 × 630 image with `npm run generate:social-preview`. Its shared Open Graph / Twitter configuration lives in `app/lib/social-preview.ts`; update the image URL's version after changing the artwork. Existing third-party shares may retain their cached preview until refreshed by that service.
