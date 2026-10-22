@@ -16,6 +16,7 @@ function burst(node,gold=false){const b=el('div',undefined,`burst${gold?' gold':
 function math(node,tex,display=true){katex.render(tex,node,{throwOnError:false,displayMode:display,trust:false,output:'htmlAndMathml'});}
 function start(mode){clearTimeout(transitionTimer);locked=false;const previous=Array.from({length:14},(_,i)=>run.seen[i]||run.previous[i]||null);run=newRun(mode,seed(),previous);lastTick=performance.now();$('feedback').textContent='';$('share-status').textContent='';save();render();}
 function render(){
+  $('submit').disabled=locked;
   $('standard').setAttribute('aria-pressed',run.mode==='standard');$('challenge').setAttribute('aria-pressed',run.mode==='challenge');
   $('mode-help').textContent=run.mode==='standard'?'Retry, use a hint, and learn as you climb.':'One wrong answer ends the run. Make it count.';
   $('timer').textContent=time(run.elapsed);$('stage-label').textContent=LEVELS[Math.min(run.stage,13)];$('progress-count').textContent=`${run.correct} / 14`;$('progress').value=run.correct;
@@ -44,7 +45,7 @@ function renderResults(){
   $('results').querySelector('.post-solution')?.remove();if(!won){const details=el('details',undefined,'post-solution');details.append(el('summary','Review this question'));const q=currentQuestion(run),p=el('p',q.prompt);details.append(p);if(q.tex){const formula=el('div');math(formula,q.tex);details.append(formula);}const solution=el('div');showSteps(solution,q);details.append(solution);$('results').append(details);}
 }
 $('answer-form').onsubmit=event=>{
-  event.preventDefault();if(locked)return;
+  event.preventDefault();if(locked)return;tick();
   const input=currentQuestion(run).type==='choice'?document.querySelector('input[name="choice"]:checked')?.value||'':$('answer').value;
   const result=answerRun(run,input);if(result.blocked)return;
   if(!result.valid){$('feedback').textContent=result.message;return;}
