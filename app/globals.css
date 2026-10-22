@@ -440,3 +440,22 @@ html.dark .concept-preview { background: linear-gradient(135deg, var(--surface),
 .math-preview-track { display:flex; gap:4px; max-width:240px; margin:18px auto 12px; }
 .math-preview-track i { height:4px; background:var(--border); flex:1; border-radius:2px; }
 .math-preview-track i:nth-child(-n+7) { background:var(--accent); }
+
+/* Small, deliberate interactions; the words remain selectable and readable. */
+.simple-intro .interactive-name { white-space: normal; }
+.simple-intro .name-button { color: inherit; max-width: 100%; border-radius: 5px; }
+.name-word { display: inline-block; white-space: nowrap; }
+.name-letter { transition: color 180ms ease; }
+.name-button:hover .name-letter, .name-button:focus-visible .name-letter { color: var(--accent); }
+.name-button:active { opacity: .85; }
+.nav-link:focus-visible::after { transform: scaleX(1); }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+  .theme-toggle { transition: color 180ms ease, transform 220ms var(--ease); }
+  .theme-toggle:hover { transform: rotate(-12deg); }
+  .intro-links a, .home-contact > p > a { transition: color 180ms ease, transform 180ms var(--ease); }
+  .intro-links a:hover, .home-contact > p > a:hover { transform: translateY(-2px); }
+}
+@media print {
+  .name-letter { transform: none !important; }
+}

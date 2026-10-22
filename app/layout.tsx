@@ -1,5 +1,6 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { PageMotion } from "./components/page-motion";
 import { SiteNavbar } from "./components/site-navbar";
 import { SiteFooter } from "./components/site-footer";
 import { ThemeProvider } from "./components/theme-provider";
@@ -41,6 +42,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <a className="skip-link" href="#main">Skip to content</a>
           <div className="site-shell">
             <SiteNavbar />
+            <PageMotion />
             <main id="main" className="portfolio" tabIndex={-1}>
               {children}
             </main>
