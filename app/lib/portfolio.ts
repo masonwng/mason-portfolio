@@ -192,7 +192,7 @@ export type Project = {
 
 // Standalone source repositories; deployable snapshots live under public/projects/.
 export const projects: Project[] = [
-  { id: "itemle", title: "Itemdle", status: "live", preview: "itemle", description: "Guess a League item from its components. Unlimited guesses, a score out of six, and a rank badge.", href: "/projects/itemle/index.html", githubUrl: "https://github.com/masonwng/league-itemle" },
+  { id: "itemle", title: "Itemdle", status: "live", preview: "itemle", description: "Guess League items from their recipes, or test your champion build knowledge in Builddle. Daily puzzles, practice rounds, and puzzle ranks.", href: "/projects/itemle/index.html", githubUrl: "https://github.com/masonwng/league-itemle" },
   { id: "math-ascension", title: "Math Ascension", status: "live", preview: "math", description: "Start with Kindergarten math and work your way up to first-year university. Every correct answer unlocks a harder challenge. How far can you make it?", href: "/projects/math-ascension/index.html", githubUrl: "https://github.com/masonwng/mason-portfolio/tree/master/public/projects/math-ascension" },
 ];
 

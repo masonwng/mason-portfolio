@@ -34,7 +34,7 @@ export function ProjectPreviews() {
                 <p>Kindergarten <span>→</span> University Year 1</p>
               </div>
             )}
-            <span className="sample-label">{project.preview === "math" ? "14 stages · 2 modes" : "daily + practice"}</span>
+            <span className="sample-label">{project.preview === "math" ? "14 stages · 2 modes" : "daily · practice · Builddle"}</span>
           </div>
           <div className="concept-title"><h3>{project.title}</h3></div>
           <p className="secondary">{project.description}</p>

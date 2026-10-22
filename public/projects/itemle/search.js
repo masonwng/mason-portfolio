@@ -5,7 +5,7 @@ export function searchItems(items, query, excluded = []) {
   return items.filter(i => !excluded.includes(i.id) && (!q || normalize(i.name).includes(q) || i.name.split(/\s+/).map(w => w[0]).join('').toLowerCase() === q))
     .sort((a, b) => Number(normalize(b.name).startsWith(q)) - Number(normalize(a.name).startsWith(q)) || a.name.localeCompare(b.name)).slice(0, 8);
 }
-export function attachSearch(input, list, getItems, getExcluded = () => []) {
+export function attachSearch(input, list, getItems, getExcluded = () => [], imageFactory = itemImage) {
   let matches = [], active = -1;
   input.removeAttribute('list'); input.setAttribute('role', 'combobox'); input.setAttribute('aria-autocomplete', 'list'); input.setAttribute('aria-controls', list.id); input.setAttribute('aria-expanded', 'false');
   list.setAttribute('role', 'listbox'); list.hidden = true;
@@ -15,7 +15,7 @@ export function attachSearch(input, list, getItems, getExcluded = () => []) {
     matches = searchItems(getItems(), input.value, getExcluded()); active = -1; list.replaceChildren();
     for (const [index, item] of matches.entries()) {
       const option = el('div', undefined, 'search-option'); option.id = `${list.id}-${index}`; option.setAttribute('role', 'option'); option.setAttribute('aria-selected', 'false');
-      option.append(itemImage(item), el('span', item.name)); option.onpointerdown = event => { event.preventDefault(); select(item); }; list.append(option);
+      option.append(imageFactory(item), el('span', item.name)); option.onpointerdown = event => { event.preventDefault(); select(item); }; list.append(option);
     }
     if (!matches.length) list.append(el('p', 'No matching items. Try another name.', 'search-empty'));
     list.hidden = false; input.setAttribute('aria-expanded', 'true'); input.removeAttribute('aria-activedescendant');
