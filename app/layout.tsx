@@ -37,6 +37,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={sans.variable} suppressHydrationWarning>
+      <head>
+        {/* Seed mobile's first-visit preference before next-themes runs or paints. */}
+        <script dangerouslySetInnerHTML={{ __html: `try{if(!localStorage.getItem("mason-portfolio-theme")&&window.matchMedia("(max-width: 700px)").matches){localStorage.setItem("mason-portfolio-theme","dark")}}catch{}` }} />
+      </head>
       <body>
         <ThemeProvider>
           <a className="skip-link" href="#main">Skip to content</a>
