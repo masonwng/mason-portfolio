@@ -33,10 +33,12 @@ Deploy to the existing Vercel project, `masonwang`. Production uses [masonwang.d
 
 ## Projects
 
-- [Itemle](https://masonwang.dev/projects/itemle/index.html): League item recipe guessing game with unlimited guesses and puzzle rank badges. Source: https://github.com/masonwng/league-itemle
-- [Lane notes](https://masonwang.dev/projects/lane-notes/index.html): local laning journal with champion portraits and hand-authored matchup build suggestions. Source: https://github.com/masonwng/lane-notes
+- [Itemdle](https://masonwang.dev/projects/itemle/index.html): daily League item recipes, unlimited practice, victory effects, and puzzle ranks. [Builddle](https://masonwang.dev/projects/itemle/builddle.html) adds champion clues and missing-build-item challenges. Source: https://github.com/masonwng/league-itemle
+- [Math Ascension](https://masonwang.dev/projects/math-ascension/index.html): fourteen stages from Kindergarten to University Year 1, Standard and One-Life modes, worked solutions, and saved progress. Source lives in `public/projects/math-ascension/`.
 
-Both projects are dependency-free static apps with their own test suites and repositories. This portfolio serves deployment snapshots from `public/projects/`. To refresh them from sibling checkouts named `league-itemle` and `lane-notes`, run `node scripts/sync-projects.mjs` before building. Changes in a project repository do not automatically update the portfolio’s snapshot.
+Run `node scripts/sync-projects.mjs` to copy the Itemdle runtime from the sibling `league-itemle` checkout before building. Math Ascension is maintained directly in this repository. The old Lane notes URL remains available for existing links but is no longer featured.
+
+See [game architecture, data provenance, tests, and limitations](docs/GAMES.md). Builddle uses a small manually reviewed, dated question bank with U.GG source links and Riot metadata; it is not a live U.GG API integration.
 
 ## Documentation
 
@@ -45,7 +47,7 @@ Both projects are dependency-free static apps with their own test suites and rep
 - [Avatar generation and refinement prompts](docs/favicon-generation.md)
 - [Release history](CHANGELOG.md)
 - [Itemle documentation](https://github.com/masonwng/league-itemle#readme)
-- [Lane notes documentation](https://github.com/masonwng/lane-notes#readme)
+- [Games and verification](docs/GAMES.md)
 
 ## Sharing thumbnail
 

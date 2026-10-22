@@ -2,7 +2,7 @@
 
 ## Structure
 
-The Next.js App Router serves the homepage and `/about`, `/work`, `/resume`, and `/contact`. Static standalone projects are served under `/projects/itemle/index.html` and `/projects/lane-notes/index.html`. The standalone pages do not inherit the Next.js layout or its metadata.
+The Next.js App Router serves the homepage and `/about`, `/work`, `/resume`, and `/contact`. Static standalone projects are served under `/projects/itemle/index.html` and `/projects/math-ascension/index.html`. The standalone pages do not inherit the Next.js layout or its metadata.
 
 `app/layout.tsx` owns the self-hosted Geist font, theme provider, navigation, footer, shared metadata, and stylesheet imports. Pages are server-rendered where possible. Client code is reserved for the pig simulation, theme control, galleries, and other interactions. Do not migrate framework versions or replace the package manager just to edit content; follow `AGENTS.md` and the installed Next.js docs.
 
@@ -36,7 +36,7 @@ Light is the default theme; visitors can select dark and the choice persists. Ke
 
 ## Standalone project snapshots
 
-The source repos are `masonwng/league-itemle` and `masonwng/lane-notes`. Check them out as siblings of this repository under directory names `league-itemle` and `lane-notes`. Run:
+Itemdle source lives in `masonwng/league-itemle`, checked out as a sibling named `league-itemle`. Math Ascension is maintained directly in `public/projects/math-ascension/`; see [game documentation](GAMES.md). Run:
 
 ```sh
 node scripts/sync-projects.mjs
@@ -50,7 +50,7 @@ The script copies an explicit allowlist of static runtime files into `public/pro
 npm run lint
 npm run build
 npm --prefix ../league-itemle test
-npm --prefix ../lane-notes test
+npm test
 ```
 
 Run the relevant subset for the change. Browser-check changed interactions and inspect the production output rather than relying on a successful build alone. Keep credentials, `.env*`, `.vercel`, temporary screenshots, and pasted prompts out of commits and deployment uploads.
