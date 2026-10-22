@@ -40,8 +40,8 @@ export function InteractiveName() {
         moving ||= Math.abs(current.lift - target.lift) > .02 || Math.abs(current.scale - target.scale) > .001;
         letter.style.transform = `translateY(${current.lift}px) rotate(${current.rotate}deg) scale(${current.scale})`;
       });
-      if (wave && now - wave.start > 950) wave = null;
-      if (pointer || wave || moving) frame = requestAnimationFrame(tick);
+      if (wave && now - wave.start > letters.length * 48 + 440) wave = null;
+      if (wave || moving) frame = requestAnimationFrame(tick);
     };
     const start = () => { if (!frame && !motion.matches) { lastTime = performance.now(); frame = requestAnimationFrame(tick); } };
     const enter = () => { measure(); };
@@ -70,11 +70,16 @@ export function InteractiveName() {
   }, []);
 
   return (
-    <h1 className="interactive-name" aria-label="Mason Wang">
-      <button ref={button} className="name-button" type="button" aria-label="Animate Mason Wang">
-        <span aria-hidden="true">{"Mason Wang".split("").map((letter, index) => letter === " "
-          ? <span className="name-space" key={index}> </span>
-          : <span className="name-letter" key={index}>{letter}</span>)}</span>
+    <h1 className="interactive-name" aria-label="hey, I’m Mason Wang.">
+      <button ref={button} className="name-button" type="button" aria-label="hey, I’m Mason Wang. Play text ripple">
+        <span aria-hidden="true">{"hey, I’m Mason Wang.".split(" ").map((word, wordIndex) => (
+          <span key={word}>
+            {wordIndex > 0 && " "}
+            <span className="name-word">{Array.from(word).map((letter, index) => (
+              <span className="name-letter" key={index}>{letter}</span>
+            ))}</span>
+          </span>
+        ))}</span>
       </button>
     </h1>
   );
