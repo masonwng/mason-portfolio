@@ -39,8 +39,8 @@ export function ProjectPreviews() {
           <div className="concept-title"><h3>{project.title}</h3></div>
           <p className="secondary">{project.description}</p>
           <div className="project-actions">
-            <a href={project.href} aria-label={`Play ${project.title}`}>Play Now ↗</a>
-            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" aria-label={`${project.title} on GitHub`}>GitHub ↗</a>
+            <a href={project.href} aria-label={`Play ${project.title}`}>Play</a>
+            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" aria-label={`${project.title} on GitHub`}>GitHub</a>
           </div>
         </article>
       ))}
