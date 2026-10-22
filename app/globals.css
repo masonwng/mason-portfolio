@@ -429,3 +429,14 @@ html.dark .concept-preview { background: linear-gradient(135deg, var(--surface),
  .project-actions a:hover { transform: translateY(-1px); }
 }
 @media(max-width:700px) { .hero-with-game { gap:28px; padding-block:0 34px; } .editorial-section { padding-block:32px; } .home-contact { padding:23px; } .concept-title h3 { font-size:20px; } }
+.math-preview { width:100%; text-align:center; }
+.math-preview-path { display:flex; align-items:center; justify-content:center; gap:16px; margin-bottom:24px; }
+.math-preview-path > span { display:grid; place-items:center; width:54px; height:54px; border:1px solid var(--border); background:var(--background); border-radius:12px; font-size:22px; color:var(--accent); }
+.math-preview-path > span:last-child { color:#ae883c; transform:translateY(-10px); border-color:#ae883c70; font-size:35px; }
+.math-preview-path > span:nth-child(2) { transform:translateY(-5px); }
+.math-preview > strong { font-size:15px; font-weight:500; }
+.math-preview > p { font-size:10px; color:var(--secondary); }
+.math-preview > p > span { margin-inline:8px; }
+.math-preview-track { display:flex; gap:4px; max-width:240px; margin:18px auto 12px; }
+.math-preview-track i { height:4px; background:var(--border); flex:1; border-radius:2px; }
+.math-preview-track i:nth-child(-n+7) { background:var(--accent); }
