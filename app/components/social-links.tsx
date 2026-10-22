@@ -6,6 +6,7 @@ import { SiDiscord, SiGithub, SiInstagram } from "react-icons/si";
 import { FaLinkedinIn } from "react-icons/fa6";
 import { HiOutlineEnvelope } from "react-icons/hi2";
 import { socialProfiles } from "../lib/portfolio";
+import { EmailCopy } from "./email-copy";
 
 export type PlatformId = "github" | "linkedin" | "instagram" | "discord" | "email";
 
@@ -40,6 +41,15 @@ export function SocialLinks({ className }: { className?: string } = {}) {
     <div className={["social-links", className].filter(Boolean).join(" ")}>
       {socialProfiles.map((profile) => {
         const title = `${profile.label}: ${profile.username}`;
+
+        if (profile.id === "email") {
+          return (
+            <EmailCopy key={profile.id} email={profile.username} className="social-icon social-email">
+              <PlatformIcon id="email" />
+              <span>Email</span>
+            </EmailCopy>
+          );
+        }
 
         if (profile.id === "discord") {
           return (
