@@ -400,3 +400,32 @@ figcaption { color:var(--secondary);font-size:12px;margin-top:8px; }
 .pig-window::backdrop { background:#171b2070;backdrop-filter:blur(5px); }
 @media(max-width:850px){.hero-with-game{grid-template-columns:minmax(0,1fr) 250px;gap:24px;}.hero-with-game .simple-intro h1{font-size:42px;}}
 @media(max-width:700px){.hero-with-game{grid-template-columns:1fr;gap:28px;padding-bottom:30px;}.hero-pig{width:min(100%,340px);justify-self:center;}.hero-with-game .simple-intro h1{font-size:40px;}.pig-window[data-expanded=true]{height:80dvh;}}
+
+/* Portfolio polish: retain the warm palette and editorial structure. */
+:root { --surface: #f1f0eb; --soft-accent: #e8edf0; }
+html.dark { --surface: #22262a; --soft-accent: #232e38; }
+.site-nav { border-bottom-color: color-mix(in srgb, var(--border) 75%, transparent); }
+.wordmark { color: var(--foreground); }
+.site-nav .nav-link { border-radius: 6px; }
+.simple-intro h1 { font-weight: 560; text-wrap: balance; }
+.simple-intro > p { max-width: 520px; text-wrap: pretty; }
+.hero-with-game { padding-block: 12px 58px; gap: 42px; }
+.pig-window { box-shadow: 0 8px 32px #00000005; }
+.editorial-section { padding-block: 46px; }
+.concept-project { min-width: 0; }
+.concept-preview { overflow: hidden; background: linear-gradient(135deg, var(--surface), var(--background)); border-color: color-mix(in srgb, var(--border) 85%, var(--accent)); }
+html.dark .concept-preview { background: linear-gradient(135deg, var(--surface), var(--background)); }
+.concept-title h3 { font-size: 21px; font-weight: 550; letter-spacing: -.035em; }
+.project-actions { margin-top: 14px; align-items: center; gap: 20px; }
+.project-actions a:first-child { padding: 9px 17px; border: 1px solid var(--border); border-radius: 8px; background: var(--foreground); color: var(--background); text-decoration: none; }
+.project-actions a:focus-visible { outline-offset: 4px; }
+.selected-experience article { padding-block: 27px; }
+.home-contact { background: linear-gradient(115deg, var(--soft-accent), transparent 78%); border-radius: 14px; padding: 30px; margin-top: 12px; border: 1px solid var(--border); }
+.home-email { display: inline-block; padding-block: 5px; }
+@media(prefers-reduced-motion:no-preference) {
+ .concept-preview { transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease; }
+ .concept-project:hover .concept-preview, .concept-project:focus-within .concept-preview { transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 12px 28px #00000008; }
+ .project-actions a { transition: transform 160ms ease, opacity 160ms ease; }
+ .project-actions a:hover { transform: translateY(-1px); }
+}
+@media(max-width:700px) { .hero-with-game { gap:28px; padding-block:0 34px; } .editorial-section { padding-block:32px; } .home-contact { padding:23px; } .concept-title h3 { font-size:20px; } }
