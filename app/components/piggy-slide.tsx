@@ -67,6 +67,7 @@ export function PiggySlide() {
   );
   const [inView, setInView] = useState(false);
   const [seen, setSeen] = useState(false);
+  const [pushToken, setPushToken] = useState(0);
   const [resetToken, setResetToken] = useState(0);
   const [pigCount, setPigCount] = useState<PigCount>(3);
   const [status, setStatus] = useState("");
@@ -91,7 +92,7 @@ export function PiggySlide() {
       <div className="piggy-content">
         <div className="piggy-canvas" role="group" aria-label="Interactive miniature pig slide">
           {seen ? (
-            <GameViewport active={active} reducedMotion={reducedMotion} resetToken={resetToken} pigCount={pigCount} onStatus={setStatus} />
+            <GameViewport active={active} reducedMotion={reducedMotion} resetToken={resetToken} pushToken={pushToken} pigCount={pigCount} onStatus={setStatus} />
           ) : <p className="piggy-loading">Loading…</p>}
         </div>
         <div className="piggy-controls">
@@ -99,10 +100,11 @@ export function PiggySlide() {
           <select id={selectId} value={pigCount} disabled={supported === false} onChange={(event) => { setPigCount(Number(event.target.value) as PigCount); setStatus(""); }}>
             <option value={1}>1 pig</option><option value={2}>2 pigs</option><option value={3}>3 pigs</option>
           </select>
-          <button className="piggy-reset" type="button" disabled={supported === false} onClick={() => setResetToken((value) => value + 1)}>Reset</button>
+          <button type="button" disabled={supported === false || !active} onClick={() => setPushToken(value => value + 1)}>Push a pig</button>
+          <button className="piggy-reset" type="button" disabled={supported === false} onClick={() => { setResetToken(value => value + 1); setStatus("Back at the top. Give a pig a push."); }}>Reset</button>
         </div>
-        <p className="piggy-instructions">Drag the pigs onto the slide.</p>
-        <p className="piggy-status sr-only" role="status" aria-live="polite">{supported === false ? "Use a browser with WebGL support to play." : status}</p>
+        <p className="piggy-instructions">Tap a pig to give it a push. Tap again for more speed.</p>
+        <p className="piggy-status" role="status" aria-live="polite">{supported === false ? "Use a browser with WebGL support to play." : status}</p>
       </div>
     </section>
   );

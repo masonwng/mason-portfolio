@@ -44,3 +44,9 @@ Manual browser checks include Itemdle miss/win and keyboard search; Math progres
 ## Retired project
 
 Lane notes is removed from the portfolio cards and sitemap and is no longer copied by the sync script. Its legacy static URL remains available for old links and existing local journal data; the separate `lane-notes` repository and user records are not deleted.
+
+## Spiral piggy break
+
+The homepage portrait replaces the old hero game. The same expandable game window now sits after the projects. Click or tap a pig to add a 1.05 m/s impulse; repeated pushes build speed up to 3.7 m/s. The keyboard-accessible **Push a pig** button cycles through the selected pigs. The wooden spiral uses a constrained track simulation: gravity accelerates movement down the slope, drag limits speed, and stronger mud friction brings pigs to rest. Tap a pig in the mud to return it to the deck and push again. Reset restores all pigs; dragging the background rotates the view.
+
+Simulation pauses offscreen and in hidden tabs, caps elapsed frame time, and uses small substeps. Reduced motion disables splash particles and camera damping. `tests/piggy-track.test.mjs` covers retained momentum, slope acceleration, mud friction, continuous geometry, and completion at different frame rates.
