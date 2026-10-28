@@ -169,7 +169,7 @@ function Pig({ id, active, reducedMotion, pushToken, pigCount, onStatus, simulat
   </>;
 }
 
-function Herd(props:PiggySlideSceneProps) {
+export function Herd(props:PiggySlideSceneProps) {
   const [simulation]=useState(()=>new PigSimulation(props.pigCount));
   useFrame((_,delta)=>{
     if(!props.active) return;
