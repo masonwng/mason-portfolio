@@ -1,10 +1,10 @@
 "use client";
 
-import { Suspense, useEffect, useRef } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas, useFrame, useThree, type ThreeEvent } from "@react-three/fiber";
 import { OrbitControls, OrthographicCamera } from "@react-three/drei";
 import { type Group } from "three";
-import { advancePig, trackPoint, TRACK_LENGTH, FINISH } from "../lib/piggy-track";
+import { PigSimulation, trackPoint, TRACK_LENGTH } from "../lib/piggy-track";
 
 export type PigCount = 1 | 2 | 3;
 type PigVariant = "pink" | "spotted" | "brown";
@@ -19,7 +19,7 @@ const PIG_COLORS: Record<PigVariant, { body: string; head: string; accent: strin
   spotted: { body: "#F3D8CF", head: "#F3D8CF", accent: "#E5A3AD", feet: "#AB8B80" },
   brown: { body: "#9B684C", head: "#9B684C", accent: "#C69878", feet: "#76513E" },
 };
-function Box({
+export function Box({
   position = [0, 0, 0],
   size,
   color,
@@ -40,7 +40,7 @@ function Box({
   );
 }
 
-function PigModel({ variant }: { variant: PigVariant }) {
+export function PigModel({ variant }: { variant: PigVariant }) {
   const colors = PIG_COLORS[variant];
   return (
     <group name={`pig-model-${variant}`}>
@@ -81,7 +81,7 @@ function PigModel({ variant }: { variant: PigVariant }) {
 }
 
 
-function Track() {
+export function Track() {
   const segments = 100;
   return <group>
     <Box position={[0, -.22, 0]} size={[5.1, .38, 4.8]} color="#abc69e" />
@@ -113,47 +113,40 @@ function Track() {
   </group>;
 }
 
-function Pig({ id, active, reducedMotion, pushToken, pigCount, onStatus }: PiggySlideSceneProps & {id:number}) {
+function Pig({ id, active, reducedMotion, pushToken, pigCount, onStatus, simulation }: PiggySlideSceneProps & {id:number; simulation:PigSimulation}) {
   const model = useRef<Group>(null);
   const splash = useRef<Group>(null);
-  const state = useRef({distance:-.35-id*.55, velocity:0, splashAge:1, arrived:false});
+
   const lastPush = useRef(pushToken);
   const { gl } = useThree();
   const push = () => {
     if (!active) return;
-    const pig=state.current;
-    if(pig.arrived) { pig.distance=-.35-id*.55; pig.velocity=0; pig.arrived=false; }
-    pig.velocity=Math.min(3.7,pig.velocity+1.05);
+    simulation.push(id);
     onStatus?.(`Pig ${id+1} got a push.`);
   };
   // Buttons and direct pointer hits use the same impulse, including keyboard activation.
   useEffect(() => {
     if(pushToken!==lastPush.current && (pushToken-1)%pigCount===id) {
-      const pig=state.current;
-      if(pig.arrived) { pig.distance=-.35-id*.55; pig.velocity=0; pig.arrived=false; }
-      pig.velocity=Math.min(3.7,pig.velocity+1.05);
+      simulation.push(id);
       onStatus?.(`Pig ${id+1} got a push.`);
     }
     lastPush.current=pushToken;
-  },[pushToken,pigCount,id,onStatus]);
+  },[pushToken,pigCount,id,onStatus,simulation]);
   useFrame((_,delta)=>{
     if(!active || !model.current) return;
-    const pig=state.current;
-    // Clamp elapsed time after tab switches; fixed substeps keep momentum stable.
-    const dt=Math.min(delta,.05), steps=Math.ceil(dt/(1/120));
-    for(let i=0;i<steps;i++) {
-      const next=advancePig(pig.distance,pig.velocity,dt/steps);
-      pig.distance=next.distance; pig.velocity=next.velocity;
-    }
-    const p=trackPoint(pig.distance), next=trackPoint(pig.distance+.01);
-    model.current.position.set(p[0],p[1]+.235,p[2]);
-    model.current.rotation.y=-Math.atan2(next[2]-p[2],next[0]-p[0]);
-    if(pig.distance>=TRACK_LENGTH+.25 && !pig.arrived) {
-      pig.arrived=true; pig.splashAge=0;
-      onStatus?.(`Splash! Pig ${id+1} made it. Tap it to go again.`);
-    }
-    if(pig.distance>=FINISH) pig.velocity=0;
-    pig.splashAge+=dt;
+    const pig=simulation.pigs[id];
+    const p=trackPoint(pig.distance), next=trackPoint(pig.distance+.04);
+    const moving=Math.min(1,pig.velocity);
+    const bob=reducedMotion?0:Math.sin(pig.distance*13+id)*.018*moving;
+    model.current.position.set(p[0],p[1]+.235+bob,p[2]);
+    const yaw=-Math.atan2(next[2]-p[2],next[0]-p[0]);
+    const difference=Math.atan2(Math.sin(yaw-model.current.rotation.y),Math.cos(yaw-model.current.rotation.y));
+    model.current.rotation.y+=difference*(1-Math.exp(-18*delta));
+    const pitch=Math.atan2(next[1]-p[1],Math.hypot(next[0]-p[0],next[2]-p[2]));
+    model.current.rotation.z+=(pitch-model.current.rotation.z)*(1-Math.exp(-12*delta));
+    model.current.rotation.x=reducedMotion?0:Math.sin(pig.distance*7)*.045*moving;
+    const squash=reducedMotion?0:pig.bump*.1;
+    model.current.scale.set(.68*(1+squash),.68*(1-squash),.68);
     if(splash.current) {
       splash.current.position.set(p[0],.38,p[2]);
       splash.current.visible=pig.splashAge<.7 && !reducedMotion;
@@ -165,7 +158,7 @@ function Pig({ id, active, reducedMotion, pushToken, pigCount, onStatus }: Piggy
     }
   });
   const click=(event:ThreeEvent<MouseEvent>)=>{event.stopPropagation(); if(event.delta<6) push();};
-  const start=trackPoint(-.35-id*.55);
+  const start=trackPoint(-.35-id*.66);
   return <>
     <group ref={model} position={[start[0],start[1]+.235,start[2]]} scale={.68} onClick={click}
       onPointerOver={e=>{e.stopPropagation();gl.domElement.style.setProperty('cursor','pointer');}}
@@ -174,6 +167,15 @@ function Pig({ id, active, reducedMotion, pushToken, pigCount, onStatus }: Piggy
     </group>
     <group ref={splash} visible={false}>{Array.from({length:8},(_,i)=><Box key={i} size={[.09,.09,.09]} color={i%2?'#a68362':'#896751'} shadows={false}/>)}</group>
   </>;
+}
+
+function Herd(props:PiggySlideSceneProps) {
+  const [simulation]=useState(()=>new PigSimulation(props.pigCount));
+  useFrame((_,delta)=>{
+    if(!props.active) return;
+    for(const id of simulation.step(delta)) props.onStatus?.(`Splash! Pig ${id+1} made it. Tap it to go again.`);
+  },-1);
+  return <>{Array.from({length:props.pigCount},(_,id)=><Pig key={id} {...props} id={id} simulation={simulation}/>)}</>;
 }
 
 function World(props:PiggySlideSceneProps) {
@@ -185,7 +187,7 @@ function World(props:PiggySlideSceneProps) {
     <ambientLight intensity={1.25}/>
     <directionalLight position={[-3,7,4]} intensity={2.5} castShadow shadow-mapSize={[1024,1024]} shadow-camera-left={-4} shadow-camera-right={4} shadow-camera-top={5} shadow-camera-bottom={-4} shadow-bias={-.001} shadow-normalBias={.03}/>
     <Track/>
-    {Array.from({length:props.pigCount},(_,id)=><Pig key={`${props.resetToken}-${props.pigCount}-${id}`} {...props} id={id}/>)}
+    <Herd key={`${props.resetToken}-${props.pigCount}`} {...props}/>
   </>;
 }
 
