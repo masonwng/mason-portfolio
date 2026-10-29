@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { PiggyBreak } from "./piggy-break";
 import { projects } from "../lib/portfolio";
 
 const recipe = [
@@ -44,6 +45,11 @@ export function ProjectPreviews() {
           </div>
         </article>
       ))}
+      <article className="concept-project farm-project" id="farm" aria-labelledby="farm-project-title">
+        <PiggyBreak />
+        <div className="concept-title"><h3 id="farm-project-title">Farm</h3></div>
+        <p className="secondary">3D modelling, just for fun.</p>
+      </article>
     </div>
   );
 }
