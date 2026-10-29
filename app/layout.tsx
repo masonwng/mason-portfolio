@@ -24,6 +24,14 @@ export const metadata: Metadata = {
   },
   description: "Mason Wang's personal website. First-year Business and Computer Science student at UBC, building software and trying out ideas.",
   authors: [{ name: personal.name }],
+  // Stable public URLs let search crawlers reuse the same face icon across releases.
+  icons: {
+    icon: [
+      { url: "/favicon.ico", type: "image/x-icon", sizes: "64x64" },
+      { url: "/favicon.png", type: "image/png", sizes: "180x180" },
+    ],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+  },
   openGraph: {
     title: personal.name,
     description: personal.intro,
