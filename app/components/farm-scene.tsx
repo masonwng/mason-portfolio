@@ -3,9 +3,9 @@
 import { Suspense, useRef, useState, useEffect, type RefObject } from "react";
 import { Canvas, useFrame, useThree, type ThreeEvent } from "@react-three/fiber";
 import { OrbitControls, OrthographicCamera } from "@react-three/drei";
+import type { OrbitControls as OrbitControlsType } from "three-stdlib";
 import { Plane, Vector3, type Group } from "three";
 import { Box, Herd, Track } from "./piggy-slide-scene";
-export type FarmPlace = "about" | "contact" | "resume" | "projects";
 type Point=[number,number,number];
 type Props={active:boolean; reducedMotion:boolean; pushToken:number; harvestToken:number; resetToken:number; onStatus:(text:string)=>void};
 
@@ -68,7 +68,7 @@ function BarnDoor({onStatus}:{onStatus:Props['onStatus']}) {
  const [open,setOpen]=useState(false);
  const left=useRef<Group>(null),right=useRef<Group>(null);
  useFrame((_,dt)=>{for(const [ref,side] of [[left,-1],[right,1]] as const)if(ref.current)ref.current.rotation.y+=((open?side*1.15:0)-ref.current.rotation.y)*(1-Math.exp(-8*dt));});
- return <group onClick={e=>{e.stopPropagation();setOpen(!open);onStatus(open?'Barn closed.':'Barn open.');}} onPointerOver={e=>{e.stopPropagation();document.body.style.cursor='pointer';}} onPointerOut={()=>{document.body.style.cursor='';}}>
+ return <group onClick={e=>{e.stopPropagation();if(e.delta>6)return;setOpen(!open);onStatus(open?'Barn closed.':'Barn open.');}} onPointerOver={e=>{e.stopPropagation();document.body.style.cursor='pointer';}} onPointerOut={()=>{document.body.style.cursor='';}}>
   <Barn/><Box position={[0,.65,-.34]} size={[1.3,1.4,.04]} color="#392f29"/>
   {[-1,1].map(side=><group key={side} ref={side===-1?left:right} position={[side*.64,0,-.29]}>
    <Box position={[-side*.31,.65,0]} size={[.62,1.3,.06]} color="#784c3c"/>
@@ -80,9 +80,10 @@ function BarnDoor({onStatus}:{onStatus:Props['onStatus']}) {
 function Animal({home,kind,rotation=0,active,reducedMotion,onStatus}:{home:Point;kind:'cow'|'chicken';rotation?:number}&Props) {
  const walking=useRef(0);
  const root=useRef<Group>(null),drag=useRef(false),offset=useRef(new Vector3()),hit=useRef(new Vector3());
- const {gl}=useThree();
+ const {gl,controls}=useThree();
+ const orbit=controls as OrbitControlsType | null;
  const ground=useRef(new Plane(new Vector3(0,1,0),-.3));
- const finish=(e:ThreeEvent<PointerEvent>)=>{if(!drag.current)return;e.stopPropagation();drag.current=false;gl.domElement.style.setProperty('cursor','grab');(e.target as Element).releasePointerCapture(e.pointerId);onStatus(`${kind==='cow'?'Cow':'Chicken'} is walking home.`);};
+ const finish=(e:ThreeEvent<PointerEvent>)=>{if(!drag.current)return;e.stopPropagation();drag.current=false;if(orbit)Object.assign(orbit,{enabled:true});gl.domElement.style.setProperty('cursor','grab');(e.target as Element).releasePointerCapture(e.pointerId);onStatus(`${kind==='cow'?'Cow':'Chicken'} is walking home.`);};
  useEffect(()=>()=>{document.body.style.cursor='';},[]);
  useFrame(({clock},delta)=>{
   const obj=root.current;if(!obj||!active||drag.current)return;
@@ -94,23 +95,24 @@ function Animal({home,kind,rotation=0,active,reducedMotion,onStatus}:{home:Point
  return <group ref={root} position={home} rotation={[0,rotation,0]}
   onPointerOver={e=>{e.stopPropagation();gl.domElement.style.setProperty('cursor','grab');}}
   onPointerOut={()=>{if(!drag.current)gl.domElement.style.setProperty('cursor','');}}
-  onPointerDown={e=>{e.stopPropagation();if(!root.current)return;drag.current=true;if(e.ray.intersectPlane(ground.current,hit.current))offset.current.copy(root.current.position).sub(hit.current);(e.target as Element).setPointerCapture(e.pointerId);gl.domElement.style.setProperty('cursor','grabbing');onStatus(`Picked up a ${kind}.`);}}
+  onPointerDown={e=>{e.stopPropagation();if(!root.current)return;drag.current=true;if(orbit)Object.assign(orbit,{enabled:false});if(e.ray.intersectPlane(ground.current,hit.current))offset.current.copy(root.current.position).sub(hit.current);(e.target as Element).setPointerCapture(e.pointerId);gl.domElement.style.setProperty('cursor','grabbing');onStatus(`Picked up a ${kind}.`);}}
   onPointerMove={e=>{if(!drag.current||!root.current)return;e.stopPropagation();if(e.ray.intersectPlane(ground.current,hit.current)){root.current.position.x=Math.max(-4.5,Math.min(4.5,hit.current.x+offset.current.x));root.current.position.z=Math.max(.25,Math.min(3.5,hit.current.z+offset.current.z));root.current.position.y=.3;}}}
-  onPointerUp={finish} onPointerCancel={finish} onLostPointerCapture={()=>{drag.current=false;gl.domElement.style.setProperty('cursor','');}}>
+  onPointerUp={finish} onPointerCancel={finish} onLostPointerCapture={()=>{drag.current=false;if(orbit)Object.assign(orbit,{enabled:true});gl.domElement.style.setProperty('cursor','');}}>
   {kind==='cow'?<Cow walking={walking} position={[0,0,0]} active={active} reducedMotion={reducedMotion}/>:<Chicken walking={walking} position={[0,0,0]} active={active} reducedMotion={reducedMotion}/>}
  </group>;
 }
 function Carrot({position,index,harvestToken,active,onStatus}:Props&{position:Point;index:number}) {
- const root=useRef<Group>(null),state=useRef({dragging:false,start:0,lift:0,picked:false}),last=useRef(harvestToken);
- const {gl}=useThree();
+ const root=useRef<Group>(null),state=useRef({dragging:false,start:0,lift:0,picked:false,wasPicked:false}),last=useRef(harvestToken);
+ const {gl,controls}=useThree();
+ const orbit=controls as OrbitControlsType | null;
  useEffect(()=>{if(last.current!==harvestToken&&(harvestToken-1)%12===index){state.current.picked=!state.current.picked;onStatus(state.current.picked?'Carrot picked.':'Carrot replanted.');}last.current=harvestToken;},[harvestToken,index,onStatus]);
  useFrame((_,dt)=>{if(!root.current||!active)return;const s=state.current,target=s.dragging?s.lift:s.picked?.45:0;root.current.position.y+=(position[1]+target-root.current.position.y)*(1-Math.exp(-14*dt));root.current.rotation.z+=((s.picked&&!s.dragging?.6:0)-root.current.rotation.z)*(1-Math.exp(-10*dt));});
- function release(e:ThreeEvent<PointerEvent>){if(!state.current.dragging)return;e.stopPropagation();state.current.dragging=false;state.current.picked=state.current.lift>.18;(e.target as Element).releasePointerCapture(e.pointerId);gl.domElement.style.setProperty('cursor','grab');onStatus(state.current.picked?'Carrot picked.':'Give it a little more pull.');}
+ function release(e:ThreeEvent<PointerEvent>){if(!state.current.dragging)return;e.stopPropagation();state.current.dragging=false;state.current.picked=state.current.lift>.18 || (Math.abs(e.nativeEvent.clientY-state.current.start)<6 && !state.current.wasPicked);if(orbit)Object.assign(orbit,{enabled:true});(e.target as Element).releasePointerCapture(e.pointerId);gl.domElement.style.setProperty('cursor','grab');onStatus(state.current.picked?'Carrot picked.':'Carrot replanted.');}
  return <group ref={root} position={position}
  onPointerOver={e=>{e.stopPropagation();gl.domElement.style.setProperty('cursor','grab');}} onPointerOut={()=>{if(!state.current.dragging)gl.domElement.style.setProperty('cursor','');}}
- onPointerDown={e=>{e.stopPropagation();state.current={dragging:true,start:e.nativeEvent.clientY,lift:0,picked:false};(e.target as Element).setPointerCapture(e.pointerId);gl.domElement.style.setProperty('cursor','grabbing');}}
+ onPointerDown={e=>{e.stopPropagation();if(orbit)Object.assign(orbit,{enabled:false});state.current={dragging:true,start:e.nativeEvent.clientY,lift:0,picked:false,wasPicked:state.current.picked};(e.target as Element).setPointerCapture(e.pointerId);gl.domElement.style.setProperty('cursor','grabbing');}}
  onPointerMove={e=>{if(state.current.dragging){e.stopPropagation();state.current.lift=Math.max(0,Math.min(1,(state.current.start-e.nativeEvent.clientY)/85));}}}
- onPointerUp={release} onPointerCancel={release} onLostPointerCapture={()=>{state.current.dragging=false;}}>
+ onPointerUp={release} onPointerCancel={release} onLostPointerCapture={()=>{state.current.dragging=false;if(orbit)Object.assign(orbit,{enabled:true});gl.domElement.style.setProperty("cursor","grab");}}>
   <mesh position={[0,-.13,0]} rotation={[0,0,Math.PI]} castShadow><coneGeometry args={[.105,.4,5]}/><meshStandardMaterial color="#ce8c49" flatShading/></mesh>
   {[-1,0,1].map(i=><Box key={i} position={[i*.055,.13,0]} size={[.06,.29,.07]} color={i===0?'#8ba069':'#68834e'} rotation={[0,i*.8,i*-.35]}/>)}
   <mesh position={[0,.12,0]}><boxGeometry args={[.34,.4,.32]}/><meshBasicMaterial transparent opacity={0} depthWrite={false}/></mesh>
@@ -120,8 +122,8 @@ function Carrot({position,index,harvestToken,active,onStatus}:Props&{position:Po
 function Landscape(props:Props) {
  const {width,height}=useThree(s=>s.size);
  return <>
-  <OrthographicCamera makeDefault position={[9,10,13]} zoom={Math.min(width/13.2,height/10.5)} near={.1} far={80}/>
-  <OrbitControls target={[0,.2,0]} enablePan={false} enableZoom={false} enableRotate={false}/>
+  <OrthographicCamera makeDefault position={[9,10,13]} zoom={Math.min(width/14.8,height/11.5)} near={.1} far={80}/>
+  <OrbitControls makeDefault target={[0,.5,0]} enabled={props.active} enablePan={false} enableZoom={false} enableDamping={!props.reducedMotion} dampingFactor={.1} rotateSpeed={.65} minPolarAngle={Math.PI/6} maxPolarAngle={Math.PI*.46}/>
   <ambientLight intensity={1.5}/>
   <directionalLight position={[-5,10,7]} intensity={2.3} castShadow shadow-mapSize={[2048,2048]} shadow-camera-left={-8} shadow-camera-right={8} shadow-camera-top={8} shadow-camera-bottom={-8} shadow-bias={-.001} shadow-normalBias={.03}/>
   <Box position={[0,-.26,0]} size={[11,.48,8.2]} color="#a9bf89"/>
@@ -156,7 +158,7 @@ function Landscape(props:Props) {
  </>;
 }
 export default function FarmScene(props:Props) {
- return <Canvas shadows dpr={[1,1.5]} frameloop={props.active?'always':'demand'} gl={{alpha:true,antialias:true,powerPreference:'low-power'}} style={{touchAction:'pan-y'}} fallback={<p className="farm-fallback">Explore using the buttons below.</p>}>
+ return <Canvas shadows dpr={[1,1.5]} frameloop={props.active?'always':'demand'} gl={{alpha:true,antialias:true,powerPreference:'low-power'}} style={{touchAction:'none'}} fallback={<p className="farm-fallback">The farm needs a browser with WebGL.</p>}>
   <Suspense fallback={null}><Landscape key={props.resetToken} {...props}/></Suspense>
  </Canvas>;
 }
