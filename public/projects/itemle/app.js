@@ -71,7 +71,15 @@ function render(fresh = false) {
     copy.append(el('p', 'CORRECT!', 'victory-title'), el('strong', answer.name), el('p', `${guesses.length} guesses · ${timeLabel(timing.end - timing.start)}`)); row.append(itemImage(answer), copy);
     const rank = puzzleRank(guesses.length), badge = el('div', undefined, 'rank-result'), emblem = el('img');
     emblem.src = `assets/ranks/${rank.tier.toLowerCase()}.png`; emblem.alt = `${rank.tier} puzzle rank`; emblem.width = 100; emblem.height = 100;
-    const rankCopy = el('div'); rankCopy.append(el('strong', `${rank.tier} · ${rank.score}/6 points`), el('p', 'Puzzle rank only — not your League rank.')); badge.append(emblem, rankCopy); $('answer').replaceChildren(row, badge);
+    const rankCopy = el('div'); rankCopy.append(el('strong', `${rank.tier} · ${rank.score}/6 points`), el('p', 'Puzzle rank only — not your League rank.')); badge.append(emblem, rankCopy);
+    // On a fresh win the components slide together and fuse into the finished item.
+    const forge = fresh ? el('div', undefined, 'forge') : null;
+    if (forge) {
+      forge.setAttribute('aria-hidden', 'true');
+      answer.components.forEach((c, i) => { const part = itemImage(c); part.alt = ''; part.className = 'forge-part'; part.style.setProperty('--from', `${(i - (answer.components.length - 1) / 2) * 76}px`); forge.append(part); });
+      const whole = itemImage(answer); whole.alt = ''; whole.className = 'forge-whole'; forge.append(whole, el('i', undefined, 'forge-flash'));
+    }
+    $('answer').replaceChildren(...(forge ? [forge] : []), row, badge);
     if (fresh) { celebrate($('result')); $('result').scrollIntoView({ block: 'nearest', behavior: 'instant' }); $('next').focus({ preventScroll: true }); }
   }
   $('next-daily').hidden = !(won && mode === 'daily'); tickCountdown();
