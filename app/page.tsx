@@ -8,6 +8,7 @@ import { EmailCopy } from "./components/email-copy";
 import { InteractiveName } from "./components/interactive-name";
 import { OrganizationLogo } from "./components/organization-logo";
 import { ProjectPreviews } from "./components/project-previews";
+import { ScrollLink } from "./components/scroll-link";
 import { awards, education, experiences, leadership, personal, projects } from "./lib/portfolio";
 
 export const metadata: Metadata = { alternates: { canonical: "/" } };
@@ -33,7 +34,7 @@ export default function Home() {
           <InteractiveName />
           <p className="hero-lede">{personal.subtitle} {personal.intro}</p>
           <div className="hero-actions">
-            <Link className="btn btn-primary" href="/#projects">See what I’ve made <HiArrowRight aria-hidden="true" /></Link>
+            <ScrollLink className="btn btn-primary" id="projects">See what I’ve made <HiArrowRight aria-hidden="true" /></ScrollLink>
             <Link className="btn btn-ghost" href="/resume">Resume</Link>
           </div>
           <div className="hero-social" aria-label="Elsewhere">
