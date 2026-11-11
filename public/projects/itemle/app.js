@@ -1,6 +1,7 @@
 import { puzzleRank, utcDay, dailyItem, normalize, compare, restore, shareText } from './core.js';
 import { $, el, read, write, timeLabel, itemImage, soundToggle, celebrate, copyResult } from './ui.js';
 import { attachSearch } from './search.js';
+import { dailyStats, backfillHistory } from './stats.js';
 let data, items = [], answer, guesses = [], mode = 'daily', day = utcDay(), storageKey = '', timing, previousAnswer;
 const closeSearch = attachSearch($('guess'), $('suggestions'), () => items, () => guesses);
 soundToggle($('sound'));
@@ -19,14 +20,24 @@ function start(nextMode) {
   $('day').textContent = mode === 'daily' ? `${day} · UTC` : 'no daily limit';
   $('message').textContent = ''; $('share-status').textContent = ''; $('guess').value = ''; closeSearch(); render();
 }
+function readHistory() {
+  const saved = read('itemle:history', {});
+  let history = saved && typeof saved === 'object' && !Array.isArray(saved) ? saved : {};
+  // Players who won before history was recorded still get credit from their saved daily rounds.
+  const prefix = `itemle:${data.revision || data.version}:`, rounds = {};
+  try { for (let i = 0; i < localStorage.length; i++) { const key = localStorage.key(i); if (key?.startsWith(prefix) && /^\d{4}-\d{2}-\d{2}$/.test(key.slice(prefix.length))) rounds[key.slice(prefix.length)] = read(key, []); } } catch { /* storage unavailable */ }
+  const filled = backfillHistory(history, rounds, d => dailyItem(items, d).id);
+  if (Object.keys(filled).length !== Object.keys(history).length) { history = filled; write('itemle:history', history); }
+  return history;
+}
 function stats() {
-  const records = read('itemle:results', {});
-  const entries = Object.entries(records && typeof records === 'object' ? records : {}).filter(([, v]) => typeof v === 'boolean');
-  const days = new Set(entries.filter(([, won]) => won).map(([key]) => key.slice(-10)));
-  let streak = 0, date = new Date(`${day}T00:00:00Z`);
-  if (!days.has(day)) date.setUTCDate(date.getUTCDate() - 1);
-  while (days.has(utcDay(date))) { streak++; date.setUTCDate(date.getUTCDate() - 1); }
-  $('stats').textContent = `${entries.filter(([, won]) => won).length} daily wins · ${streak} day streak · saved on this browser`;
+  const s = dailyStats(readHistory(), utcDay());
+  $('stats').replaceChildren(...[['wins', s.wins], ['current streak', s.current], ['best streak', s.best], ['avg guesses', s.average || '–']].map(([label, value]) => { const d = el('div'); d.append(el('dt', label), el('dd', String(value))); return d; }));
+  const max = Math.max(1, ...s.distribution), today = mode === 'daily' && guesses.includes(answer?.id) ? Math.min(guesses.length, 10) : 0;
+  $('distribution').replaceChildren(...s.distribution.map((n, i) => {
+    const li = el('li', undefined, i + 1 === today ? 'today' : ''); li.style.setProperty('--w', `${Math.max(n / max * 100, n ? 8 : 0)}%`);
+    li.append(el('span', i === 9 ? '10+' : String(i + 1), 'dist-label'), el('span', String(n), 'dist-bar')); li.setAttribute('aria-label', `${i === 9 ? '10 or more' : i + 1} guesses: ${n} wins`); return li;
+  }));
 }
 function render(fresh = false) {
   const won = guesses.includes(answer.id), revealed = won ? answer.components.length : Math.min(1 + guesses.length, answer.components.length);
@@ -52,6 +63,7 @@ function render(fresh = false) {
       write(`${storageKey}:timing`, timing);
       const saved = read('itemle:results', {}), records = saved && typeof saved === 'object' && !Array.isArray(saved) ? saved : {};
       records[`${data.revision || data.version}:${day}`] = true; write('itemle:results', records);
+      const history = read('itemle:history', {}); if (history && typeof history === 'object' && !history[day]) { history[day] = guesses.length; write('itemle:history', history); }
     }
     const row = el('div', undefined, 'answer-row'), copy = el('div');
     copy.append(el('p', 'CORRECT!', 'victory-title'), el('strong', answer.name), el('p', `${guesses.length} guesses · ${timeLabel(timing.end - timing.start)}`)); row.append(itemImage(answer), copy);
