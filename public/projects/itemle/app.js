@@ -95,7 +95,7 @@ $('guess-form').addEventListener('submit', event => {
 });
 $('daily').onclick = () => start('daily'); $('practice').onclick = () => start('practice');
 $('next').onclick = () => { start('practice'); $('guess').focus(); };
-$('share').onclick = () => copyResult(shareText({ day, mode, guesses, answer, items }) + `\nTime: ${timeLabel(timing.end - timing.start)}`, $('share-status'));
+$('share').onclick = () => copyResult(shareText({ day, mode, guesses, answer, items, streak: dailyStats(readHistory(), utcDay()).current }) + `\nTime: ${timeLabel(timing.end - timing.start)}`, $('share-status'));
 // The original theme preference was stored as a raw string, not JSON.
 try { document.body.classList.toggle('dark', localStorage.getItem('itemle:theme') === 'dark'); } catch { /* optional */ }
 $('theme').onclick = () => { document.body.classList.toggle('dark'); try { localStorage.setItem('itemle:theme', document.body.classList.contains('dark') ? 'dark' : 'light'); } catch { /* optional */ } };
