@@ -15,3 +15,5 @@
 @media(prefers-reduced-motion:no-preference){.dist-bar{transition:width .5s cubic-bezier(.22,1,.36,1)}}
 @media(max-width:480px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
 .next-daily{margin:18px 0 0;font-size:13px;color:var(--muted)}.next-daily strong{color:var(--ink);font-variant-numeric:tabular-nums;font-weight:600;letter-spacing:.02em}
+.mode-bar>button.hard-toggle{margin-left:8px;border-style:dashed}.mode-bar>button.hard-toggle[aria-pressed=true]{background:#8a2d2d;border-color:#8a2d2d;border-style:solid;color:#fff}body.hard .recipe{border-color:#8a2d2d66}
+@media(max-width:480px){.mode-bar{flex-wrap:wrap}#day{flex-basis:100%;margin-left:0}}

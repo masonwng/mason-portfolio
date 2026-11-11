@@ -2,6 +2,7 @@ import { puzzleRank, utcDay, dailyItem, normalize, compare, restore, shareText }
 import { $, el, read, write, timeLabel, itemImage, soundToggle, celebrate, copyResult } from './ui.js';
 import { attachSearch } from './search.js';
 import { dailyStats, backfillHistory, msUntilNextDaily, countdownLabel } from './stats.js';
+let hard = read('itemle:hard', false) === true;
 let data, items = [], answer, guesses = [], mode = 'daily', day = utcDay(), storageKey = '', timing, previousAnswer;
 const closeSearch = attachSearch($('guess'), $('suggestions'), () => items, () => guesses);
 soundToggle($('sound'));
@@ -44,10 +45,10 @@ function render(fresh = false) {
   $('components').replaceChildren();
   answer.components.forEach((component, i) => {
     const box = el('div', undefined, `component${fresh && i === revealed - 1 ? ' clue-reveal' : ''}`);
-    box.append(...(i < revealed ? [itemImage(component), el('span', component.name)] : [el('div', '?', 'unknown'), el('span', 'hidden component')])); $('components').append(box);
+    box.append(...(i < revealed ? (hard && !won ? [Object.assign(itemImage(component), { alt: 'Recipe component (name hidden in hard mode)' }), el('span', 'name hidden')] : [itemImage(component), el('span', component.name)]) : [el('div', '?', 'unknown'), el('span', 'hidden component')])); $('components').append(box);
   });
   $('attempts').textContent = `${guesses.length} guesses · no limit`;
-  $('clue').textContent = won || guesses.length >= 2 ? `total cost: ${answer.gold} gold${won || guesses.length >= 3 ? ` · ${answer.tags.join(' / ')}` : ''}` : 'total cost unlocks after two misses';
+  $('clue').textContent = hard && !won ? 'hard mode · icons only, no gold or category clues' : won || guesses.length >= 2 ? `total cost: ${answer.gold} gold${won || guesses.length >= 3 ? ` · ${answer.tags.join(' / ')}` : ''}` : 'total cost unlocks after two misses';
   $('guesses').replaceChildren();
   for (const [index, id] of guesses.entries()) {
     const guess = items.find(i => i.id === id), c = compare(guess, answer);
@@ -56,6 +57,7 @@ function render(fresh = false) {
     feedback.append(el('span', c.correct ? 'correct ✓' : `answer costs ${c.cost === 'same' ? 'the same' : c.cost === 'higher' ? 'more ↑' : 'less ↓'}`, c.cost === 'same' ? 'match' : 'mismatch'), el('span', `${c.shared}/${answer.components.length} shared components`, c.shared === answer.components.length ? 'match' : ''));
     row.append(itemImage(guess), el('span', guess.name, 'guess-name'), feedback); $('guesses').prepend(row);
   }
+  $('hard').setAttribute('aria-pressed', String(hard)); document.body.classList.toggle('hard', hard);
   $('guess').disabled = won; $('submit').disabled = won; $('result').hidden = !won;
   if (won) {
     if (!timing.end) timing.end = Date.now();
@@ -93,9 +95,10 @@ $('guess-form').addEventListener('submit', event => {
   const saved = mode !== 'daily' || write(storageKey, guesses);
   $('guess').value = ''; closeSearch(); $('message').textContent = `${guess.id === answer.id ? 'Correct! Recipe complete.' : `${guess.name} isn’t it. A new clue is ready.`}${saved ? '' : ' Saving unavailable in this browser.'}`; render(true);
 });
+$('hard').onclick = () => { hard = !hard; write('itemle:hard', hard); render(); $('message').textContent = hard ? 'Hard mode on: icons only.' : 'Hard mode off.'; };
 $('daily').onclick = () => start('daily'); $('practice').onclick = () => start('practice');
 $('next').onclick = () => { start('practice'); $('guess').focus(); };
-$('share').onclick = () => copyResult(shareText({ day, mode, guesses, answer, items, streak: dailyStats(readHistory(), utcDay()).current }) + `\nTime: ${timeLabel(timing.end - timing.start)}`, $('share-status'));
+$('share').onclick = () => copyResult(shareText({ day, mode, guesses, answer, items, hard, streak: dailyStats(readHistory(), utcDay()).current }) + `\nTime: ${timeLabel(timing.end - timing.start)}`, $('share-status'));
 // The original theme preference was stored as a raw string, not JSON.
 try { document.body.classList.toggle('dark', localStorage.getItem('itemle:theme') === 'dark'); } catch { /* optional */ }
 $('theme').onclick = () => { document.body.classList.toggle('dark'); try { localStorage.setItem('itemle:theme', document.body.classList.contains('dark') ? 'dark' : 'light'); } catch { /* optional */ } };
