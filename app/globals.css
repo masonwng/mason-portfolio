@@ -226,6 +226,8 @@ html.dark .theme-moon { display: none; }
 .farm-project:hover { transform: none; }
 .farm-body { justify-content: center; border-right: 1px solid var(--border); }
 .farm-project .hero-pig { min-width: 0; height: clamp(360px, 42vw, 480px); }
+.farm-project .hero-pig[data-state="minimized"] { height: 41px; }
+.farm-project .hero-pig[data-state="closed"] { height: 161px; }
 
 /* "Now" list */
 .now-list { display: grid; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow-sm); overflow: hidden; }
@@ -258,11 +260,20 @@ html.dark .theme-moon { display: none; }
    ========================================================================== */
 .hero-pig { min-width: 0; width: 100%; }
 .pig-window { display: flex; flex-direction: column; position: relative; inset: auto; width: 100%; height: 100%; margin: 0; padding: 0; border: 0; overflow: hidden; background: var(--surface); color: var(--foreground); }
-.pig-window-bar { display: flex; align-items: center; justify-content: space-between; height: 40px; flex-shrink: 0; padding-left: 14px; border-bottom: 1px solid var(--border); color: var(--tertiary); font-family: var(--mono); font-size: 11px; }
-.pig-window-bar::before { content: ""; width: 34px; height: 8px; margin-right: 10px; background: radial-gradient(circle 4px, #ff5f57 98%, transparent) 0 0 / 13px 8px no-repeat, radial-gradient(circle 4px, #febc2e 98%, transparent) 13px 0 / 13px 8px no-repeat, radial-gradient(circle 4px, #28c840 98%, transparent) 26px 0 / 13px 8px no-repeat; }
-.pig-window-bar > span { margin-right: auto; }
-.pig-window-bar button { width: 44px; height: 40px; border: 0; border-left: 1px solid var(--border); background: transparent; color: var(--secondary); font-size: 16px; cursor: pointer; transition: background-color 160ms ease; }
-.pig-window-bar button:hover { background: var(--surface-2); color: var(--foreground); }
+.pig-window-bar { display: flex; align-items: center; gap: 12px; height: 40px; flex-shrink: 0; padding: 0 14px; border-bottom: 1px solid var(--border); color: var(--tertiary); font-family: var(--mono); font-size: 11px; }
+.traffic-lights { display: flex; gap: 8px; }
+.dot { position: relative; display: grid; place-items: center; width: 13px; height: 13px; padding: 0; border: 0; border-radius: 50%; cursor: pointer; color: rgb(0 0 0 / .55); font-family: var(--font-geist-sans), system-ui, sans-serif; font-size: 10px; font-weight: 700; line-height: 1; box-shadow: inset 0 0 0 .5px rgb(0 0 0 / .18); }
+/* A bigger invisible hit area keeps the dots easy to tap. */
+.dot::before { content: ""; position: absolute; inset: -8px -4px; }
+.dot span { opacity: 0; transition: opacity 120ms ease; }
+.traffic-lights:hover .dot span, .dot:focus-visible span { opacity: 1; }
+.dot-close { background: #ff5f57; }
+.dot-min { background: #febc2e; }
+.dot-max { background: #28c840; }
+.dot:active { filter: brightness(.85); }
+.pig-window-reopen { flex: 1; display: grid; place-content: center; gap: 4px; width: 100%; min-height: 120px; border: 0; background: var(--surface-2); color: var(--secondary); font: inherit; font-size: 14px; cursor: pointer; }
+.pig-window-reopen span { color: var(--accent); font-weight: 500; }
+.pig-window-reopen:hover span { text-decoration: underline; text-underline-offset: 4px; }
 .pig-window-game { flex: 1; min-height: 0; background: var(--surface-2); }
 .pig-window[data-expanded=true] { position: fixed; inset: 0; margin: auto; width: min(900px, calc(100vw - 32px)); height: min(800px, 88dvh); max-width: none; max-height: none; border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-lg); }
 .pig-window::backdrop { background: rgb(10 12 16 / .5); backdrop-filter: blur(6px); }
@@ -443,7 +454,7 @@ html.dark .contact-method:hover .contact-icon { color: #0d0e10; }
   .highlights strong { font-size: 26px; }
   .concept-grid { grid-template-columns: 1fr; }
   .concept-preview { height: 220px; }
-  .farm-project .hero-pig { height: clamp(320px, 95vw, 440px); }
+  .farm-project .hero-pig[data-state="open"] { height: clamp(320px, 95vw, 440px); }
   .now-item { grid-template-columns: 40px minmax(0, 1fr); gap: 14px; padding: 20px; }
   .now-item .organization-logo { width: 40px; height: 40px; }
   .now-item .date { grid-column: 2; grid-row: 2; margin-top: -8px; }
