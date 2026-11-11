@@ -14,3 +14,4 @@
 .dist-label{color:var(--muted);text-align:right}.dist-bar{width:var(--w);min-width:22px;padding:1px 7px;border-radius:4px;background:var(--line);text-align:right;font-weight:600}.distribution li.today .dist-bar{background:var(--good);color:var(--bg)}
 @media(prefers-reduced-motion:no-preference){.dist-bar{transition:width .5s cubic-bezier(.22,1,.36,1)}}
 @media(max-width:480px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+.next-daily{margin:18px 0 0;font-size:13px;color:var(--muted)}.next-daily strong{color:var(--ink);font-variant-numeric:tabular-nums;font-weight:600;letter-spacing:.02em}

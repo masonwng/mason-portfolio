@@ -1,7 +1,7 @@
 import { puzzleRank, utcDay, dailyItem, normalize, compare, restore, shareText } from './core.js';
 import { $, el, read, write, timeLabel, itemImage, soundToggle, celebrate, copyResult } from './ui.js';
 import { attachSearch } from './search.js';
-import { dailyStats, backfillHistory } from './stats.js';
+import { dailyStats, backfillHistory, msUntilNextDaily, countdownLabel } from './stats.js';
 let data, items = [], answer, guesses = [], mode = 'daily', day = utcDay(), storageKey = '', timing, previousAnswer;
 const closeSearch = attachSearch($('guess'), $('suggestions'), () => items, () => guesses);
 soundToggle($('sound'));
@@ -72,8 +72,17 @@ function render(fresh = false) {
     const rankCopy = el('div'); rankCopy.append(el('strong', `${rank.tier} · ${rank.score}/6 points`), el('p', 'Puzzle rank only — not your League rank.')); badge.append(emblem, rankCopy); $('answer').replaceChildren(row, badge);
     if (fresh) { celebrate($('result')); $('result').scrollIntoView({ block: 'nearest', behavior: 'instant' }); $('next').focus({ preventScroll: true }); }
   }
+  $('next-daily').hidden = !(won && mode === 'daily'); tickCountdown();
   stats();
 }
+let rollover = 0;
+function tickCountdown() {
+  if ($('next-daily').hidden) return;
+  const left = msUntilNextDaily();
+  $('countdown').textContent = countdownLabel(left);
+  if (left <= 1000 && mode === 'daily' && !rollover) rollover = setTimeout(() => { rollover = 0; start('daily'); $('message').textContent = 'A new daily recipe is ready.'; }, left + 250);
+}
+setInterval(tickCountdown, 1000);
 $('guess-form').addEventListener('submit', event => {
   event.preventDefault(); if (!answer || guesses.includes(answer.id)) return;
   if (mode === 'daily' && utcDay() !== day) { start('daily'); $('message').textContent = 'New day, new recipe. Your previous round is saved.'; return; }
