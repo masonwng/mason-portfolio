@@ -9,6 +9,7 @@ import { InteractiveName } from "./components/interactive-name";
 import { OrganizationLogo } from "./components/organization-logo";
 import { ProjectPreviews } from "./components/project-previews";
 import { ScrollLink } from "./components/scroll-link";
+import { Scoreboard } from "./components/scoreboard";
 import { awards, education, experiences, leadership, personal, projects } from "./lib/portfolio";
 
 export const metadata: Metadata = { alternates: { canonical: "/" } };
@@ -64,6 +65,7 @@ export default function Home() {
           <a className="inline-link" href="https://github.com/masonwng" target="_blank" rel="noopener noreferrer">all on GitHub <HiArrowUpRight aria-hidden="true" /></a>
         </div>
         <ProjectPreviews />
+        <Scoreboard />
       </section>
 
       <section id="experience" className="home-section" aria-labelledby="experience-heading">

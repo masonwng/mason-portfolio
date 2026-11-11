@@ -26,7 +26,7 @@ export function FarmGame() {
  const root = useRef<HTMLDivElement>(null), progressRef = useRef(initial.progress), toastTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
  const commit = useCallback((result:{progress:Progress;unlocked:string[]}) => {
   progressRef.current = result.progress; setProgress(result.progress);
-  try { localStorage.setItem(STORAGE, JSON.stringify(result.progress)); } catch { /* optional */ }
+  try { localStorage.setItem(STORAGE, JSON.stringify(result.progress)); window.dispatchEvent(new Event('mw:scores')); } catch { /* optional */ }
   const last = result.unlocked.at(-1);
   if (last) { const a = ACHIEVEMENTS.find(x => x.id === last)!; setToast(`${a.icon} ${a.title}`); setStatus(`Achievement unlocked: ${a.title}.`); clearTimeout(toastTimer.current); toastTimer.current = setTimeout(() => setToast(null), 3200); }
  }, []);
