@@ -109,7 +109,7 @@ export const leadership: Experience[] = [
     endDate: null,
     startLabel: "November 2026",
     endLabel: "Present",
-    logo: { src: "/media/logos/cus-fyc.png", alt: "CUS First Year Committee monogram", approved: true, fill: true },
+    logo: { src: "/media/logos/cus-fyc.png", alt: "Commerce Undergraduate Society logo", approved: true, fill: true },
     badge: "FYC",
     description: [
       "I’m VP External on the First Year Committee of the Commerce Undergraduate Society at UBC Sauder.",
@@ -123,7 +123,7 @@ export const leadership: Experience[] = [
     endDate: null,
     startLabel: "November 2026",
     endLabel: "Present",
-    logo: { src: "/media/logos/cjd.png", alt: "CJD monogram", approved: true, fill: true },
+    logo: { src: "/media/logos/cjd.png", alt: "CJD logo", approved: true, fill: true },
     badge: "CJD",
     description: [
       "I’m a Mentorship Associate at CJD.",

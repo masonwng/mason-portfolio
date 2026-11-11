@@ -1,4 +1,4 @@
-// Renders the small organization logos used on the work and home pages.
+// Renders the YAC logo (cjd.png and cus-fyc.png are the organizations' own logos, supplied by Mason).
 // The SVGs below are the editable source; the PNGs in public/media/logos are the output.
 // Text uses Inter when installed (falls back to any sans-serif). Run: node scripts/generate-org-logos.mjs
 import sharp from "sharp";
@@ -21,19 +21,8 @@ const yac = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${s
   <path d="M79 58 A11 11 0 1 0 79 74" fill="none" stroke="#fff" stroke-width="5"/>
 </svg>`;
 
-// Simple monogram badges in the site's palette (not the organizations' own branding).
-const monogram = (letters, sub, from, to) => `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 100 100">
-  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${from}"/><stop offset="1" stop-color="${to}"/></linearGradient></defs>
-  <rect width="100" height="100" fill="url(#g)"/>
-  <circle cx="84" cy="16" r="26" fill="#fff" opacity=".08"/>
-  <text x="50" y="${sub ? 56 : 62}" text-anchor="middle" font-family="Inter, 'DejaVu Sans', sans-serif" font-weight="700" font-size="${letters.length > 3 ? 26 : 32}" letter-spacing="-1" fill="#fff">${letters}</text>
-  ${sub ? `<text x="50" y="76" text-anchor="middle" font-family="Inter, 'DejaVu Sans', sans-serif" font-weight="600" font-size="11" letter-spacing="1.5" fill="#fff" opacity=".8">${sub}</text>` : ""}
-</svg>`;
-
 const logos = {
   "yac.png": yac,
-  "cjd.png": monogram("CJD", "MENTORSHIP", "#0f766e", "#134e4a"),
-  "cus-fyc.png": monogram("CUS", "FIRST YEAR", "#1d4ed8", "#1e3a8a"),
 };
 
 for (const [file, svg] of Object.entries(logos)) {
