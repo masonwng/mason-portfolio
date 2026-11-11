@@ -559,3 +559,8 @@ html.dark .contact-method:hover .contact-icon { color: #0d0e10; }
 @keyframes mini-shake { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
 .math-preview.mini .math-preview-track { margin-top: 12px; }
 @media (max-width: 700px) { .concept-preview { height: 280px; } }
+
+/* Easter egg */
+.confetti { position: fixed; inset: 0; z-index: 200; width: 100vw; height: 100vh; pointer-events: none; }
+.confetti-message { position: fixed; left: 50%; top: 88px; z-index: 201; margin: 0; padding: 10px 18px; border-radius: 999px; background: var(--foreground); color: var(--background); font-size: 14px; font-weight: 600; box-shadow: var(--shadow-lg); transform: translateX(-50%); animation: toast-in 300ms var(--ease) both; pointer-events: none; }
+.confetti-message:empty { display: none; }
