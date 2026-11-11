@@ -1,6 +1,8 @@
 import { puzzleRank, utcDay, dailyItem, normalize, compare, restore, shareText } from './core.js';
 import { $, el, read, write, timeLabel, itemImage, soundToggle, celebrate, copyResult } from './ui.js';
 import { attachSearch } from './search.js';
+import { dailyStats, backfillHistory, msUntilNextDaily, countdownLabel } from './stats.js';
+let hard = read('itemle:hard', false) === true;
 let data, items = [], answer, guesses = [], mode = 'daily', day = utcDay(), storageKey = '', timing, previousAnswer;
 const closeSearch = attachSearch($('guess'), $('suggestions'), () => items, () => guesses);
 soundToggle($('sound'));
@@ -19,24 +21,34 @@ function start(nextMode) {
   $('day').textContent = mode === 'daily' ? `${day} · UTC` : 'no daily limit';
   $('message').textContent = ''; $('share-status').textContent = ''; $('guess').value = ''; closeSearch(); render();
 }
+function readHistory() {
+  const saved = read('itemle:history', {});
+  let history = saved && typeof saved === 'object' && !Array.isArray(saved) ? saved : {};
+  // Players who won before history was recorded still get credit from their saved daily rounds.
+  const prefix = `itemle:${data.revision || data.version}:`, rounds = {};
+  try { for (let i = 0; i < localStorage.length; i++) { const key = localStorage.key(i); if (key?.startsWith(prefix) && /^\d{4}-\d{2}-\d{2}$/.test(key.slice(prefix.length))) rounds[key.slice(prefix.length)] = read(key, []); } } catch { /* storage unavailable */ }
+  const filled = backfillHistory(history, rounds, d => dailyItem(items, d).id);
+  if (Object.keys(filled).length !== Object.keys(history).length) { history = filled; write('itemle:history', history); }
+  return history;
+}
 function stats() {
-  const records = read('itemle:results', {});
-  const entries = Object.entries(records && typeof records === 'object' ? records : {}).filter(([, v]) => typeof v === 'boolean');
-  const days = new Set(entries.filter(([, won]) => won).map(([key]) => key.slice(-10)));
-  let streak = 0, date = new Date(`${day}T00:00:00Z`);
-  if (!days.has(day)) date.setUTCDate(date.getUTCDate() - 1);
-  while (days.has(utcDay(date))) { streak++; date.setUTCDate(date.getUTCDate() - 1); }
-  $('stats').textContent = `${entries.filter(([, won]) => won).length} daily wins · ${streak} day streak · saved on this browser`;
+  const s = dailyStats(readHistory(), utcDay());
+  $('stats').replaceChildren(...[['wins', s.wins], ['current streak', s.current], ['best streak', s.best], ['avg guesses', s.average || '–']].map(([label, value]) => { const d = el('div'); d.append(el('dt', label), el('dd', String(value))); return d; }));
+  const max = Math.max(1, ...s.distribution), today = mode === 'daily' && guesses.includes(answer?.id) ? Math.min(guesses.length, 10) : 0;
+  $('distribution').replaceChildren(...s.distribution.map((n, i) => {
+    const li = el('li', undefined, i + 1 === today ? 'today' : ''); li.style.setProperty('--w', `${Math.max(n / max * 100, n ? 8 : 0)}%`);
+    li.append(el('span', i === 9 ? '10+' : String(i + 1), 'dist-label'), el('span', String(n), 'dist-bar')); li.setAttribute('aria-label', `${i === 9 ? '10 or more' : i + 1} guesses: ${n} wins`); return li;
+  }));
 }
 function render(fresh = false) {
   const won = guesses.includes(answer.id), revealed = won ? answer.components.length : Math.min(1 + guesses.length, answer.components.length);
   $('components').replaceChildren();
   answer.components.forEach((component, i) => {
     const box = el('div', undefined, `component${fresh && i === revealed - 1 ? ' clue-reveal' : ''}`);
-    box.append(...(i < revealed ? [itemImage(component), el('span', component.name)] : [el('div', '?', 'unknown'), el('span', 'hidden component')])); $('components').append(box);
+    box.append(...(i < revealed ? (hard && !won ? [Object.assign(itemImage(component), { alt: 'Recipe component (name hidden in hard mode)' }), el('span', 'name hidden')] : [itemImage(component), el('span', component.name)]) : [el('div', '?', 'unknown'), el('span', 'hidden component')])); $('components').append(box);
   });
-  $('attempts').textContent = `${guesses.length} guesses · no limit`;
-  $('clue').textContent = won || guesses.length >= 2 ? `total cost: ${answer.gold} gold${won || guesses.length >= 3 ? ` · ${answer.tags.join(' / ')}` : ''}` : 'total cost unlocks after two misses';
+  $('attempts').textContent = `${guesses.length} ${guesses.length === 1 ? 'guess' : 'guesses'} · no limit`;
+  $('clue').textContent = hard && !won ? 'hard mode · icons only, no gold or category clues' : won || guesses.length >= 2 ? `total cost: ${answer.gold} gold${won || guesses.length >= 3 ? ` · ${answer.tags.join(' / ')}` : ''}` : 'total cost unlocks after two misses';
   $('guesses').replaceChildren();
   for (const [index, id] of guesses.entries()) {
     const guess = items.find(i => i.id === id), c = compare(guess, answer);
@@ -45,6 +57,7 @@ function render(fresh = false) {
     feedback.append(el('span', c.correct ? 'correct ✓' : `answer costs ${c.cost === 'same' ? 'the same' : c.cost === 'higher' ? 'more ↑' : 'less ↓'}`, c.cost === 'same' ? 'match' : 'mismatch'), el('span', `${c.shared}/${answer.components.length} shared components`, c.shared === answer.components.length ? 'match' : ''));
     row.append(itemImage(guess), el('span', guess.name, 'guess-name'), feedback); $('guesses').prepend(row);
   }
+  $('hard').setAttribute('aria-pressed', String(hard)); document.body.classList.toggle('hard', hard);
   $('guess').disabled = won; $('submit').disabled = won; $('result').hidden = !won;
   if (won) {
     if (!timing.end) timing.end = Date.now();
@@ -52,16 +65,34 @@ function render(fresh = false) {
       write(`${storageKey}:timing`, timing);
       const saved = read('itemle:results', {}), records = saved && typeof saved === 'object' && !Array.isArray(saved) ? saved : {};
       records[`${data.revision || data.version}:${day}`] = true; write('itemle:results', records);
+      const history = read('itemle:history', {}); if (history && typeof history === 'object' && !history[day]) { history[day] = guesses.length; write('itemle:history', history); }
     }
     const row = el('div', undefined, 'answer-row'), copy = el('div');
-    copy.append(el('p', 'CORRECT!', 'victory-title'), el('strong', answer.name), el('p', `${guesses.length} guesses · ${timeLabel(timing.end - timing.start)}`)); row.append(itemImage(answer), copy);
+    copy.append(el('p', 'CORRECT!', 'victory-title'), el('strong', answer.name), el('p', `${guesses.length} ${guesses.length === 1 ? 'guess' : 'guesses'} · ${timeLabel(timing.end - timing.start)}`)); row.append(itemImage(answer), copy);
     const rank = puzzleRank(guesses.length), badge = el('div', undefined, 'rank-result'), emblem = el('img');
     emblem.src = `assets/ranks/${rank.tier.toLowerCase()}.png`; emblem.alt = `${rank.tier} puzzle rank`; emblem.width = 100; emblem.height = 100;
-    const rankCopy = el('div'); rankCopy.append(el('strong', `${rank.tier} · ${rank.score}/6 points`), el('p', 'Puzzle rank only — not your League rank.')); badge.append(emblem, rankCopy); $('answer').replaceChildren(row, badge);
+    const rankCopy = el('div'); rankCopy.append(el('strong', `${rank.tier} · ${rank.score}/6 points`), el('p', 'Puzzle rank only — not your League rank.')); badge.append(emblem, rankCopy);
+    // On a fresh win the components slide together and fuse into the finished item.
+    const forge = fresh ? el('div', undefined, 'forge') : null;
+    if (forge) {
+      forge.setAttribute('aria-hidden', 'true');
+      answer.components.forEach((c, i) => { const part = itemImage(c); part.alt = ''; part.className = 'forge-part'; part.style.setProperty('--from', `${(i - (answer.components.length - 1) / 2) * 76}px`); forge.append(part); });
+      const whole = itemImage(answer); whole.alt = ''; whole.className = 'forge-whole'; forge.append(whole, el('i', undefined, 'forge-flash'));
+    }
+    $('answer').replaceChildren(...(forge ? [forge] : []), row, badge);
     if (fresh) { celebrate($('result')); $('result').scrollIntoView({ block: 'nearest', behavior: 'instant' }); $('next').focus({ preventScroll: true }); }
   }
+  $('next-daily').hidden = !(won && mode === 'daily'); tickCountdown();
   stats();
 }
+let rollover = 0;
+function tickCountdown() {
+  if ($('next-daily').hidden) return;
+  const left = msUntilNextDaily();
+  $('countdown').textContent = countdownLabel(left);
+  if (left <= 1000 && mode === 'daily' && !rollover) rollover = setTimeout(() => { rollover = 0; start('daily'); $('message').textContent = 'A new daily recipe is ready.'; }, left + 250);
+}
+setInterval(tickCountdown, 1000);
 $('guess-form').addEventListener('submit', event => {
   event.preventDefault(); if (!answer || guesses.includes(answer.id)) return;
   if (mode === 'daily' && utcDay() !== day) { start('daily'); $('message').textContent = 'New day, new recipe. Your previous round is saved.'; return; }
@@ -72,9 +103,10 @@ $('guess-form').addEventListener('submit', event => {
   const saved = mode !== 'daily' || write(storageKey, guesses);
   $('guess').value = ''; closeSearch(); $('message').textContent = `${guess.id === answer.id ? 'Correct! Recipe complete.' : `${guess.name} isn’t it. A new clue is ready.`}${saved ? '' : ' Saving unavailable in this browser.'}`; render(true);
 });
+$('hard').onclick = () => { hard = !hard; write('itemle:hard', hard); render(); $('message').textContent = hard ? 'Hard mode on: icons only.' : 'Hard mode off.'; };
 $('daily').onclick = () => start('daily'); $('practice').onclick = () => start('practice');
 $('next').onclick = () => { start('practice'); $('guess').focus(); };
-$('share').onclick = () => copyResult(shareText({ day, mode, guesses, answer, items }) + `\nTime: ${timeLabel(timing.end - timing.start)}`, $('share-status'));
+$('share').onclick = () => copyResult(shareText({ day, mode, guesses, answer, items, hard, streak: dailyStats(readHistory(), utcDay()).current }) + `\nTime: ${timeLabel(timing.end - timing.start)}`, $('share-status'));
 // The original theme preference was stored as a raw string, not JSON.
 try { document.body.classList.toggle('dark', localStorage.getItem('itemle:theme') === 'dark'); } catch { /* optional */ }
 $('theme').onclick = () => { document.body.classList.toggle('dark'); try { localStorage.setItem('itemle:theme', document.body.classList.contains('dark') ? 'dark' : 'light'); } catch { /* optional */ } };

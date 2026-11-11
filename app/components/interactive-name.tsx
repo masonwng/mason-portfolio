@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { celebrate } from "./confetti";
 
 /** DOM transforms keep pointer animation out of React's render cycle. */
 export function InteractiveName() {
@@ -18,6 +19,7 @@ export function InteractiveName() {
     let wave: { start: number; index: number } | null = null;
     let frame = 0;
     let lastTime = 0;
+    let clicks: number[] = [];
     const measure = () => { bounds = letters.map(letter => letter.getBoundingClientRect()); };
     const tick = (now: number) => {
       frame = 0;
@@ -52,6 +54,10 @@ export function InteractiveName() {
       const index = event.detail === 0 ? 0 : bounds.reduce((best, rect, i) => Math.abs(rect.x + rect.width / 2 - event.clientX) < Math.abs(bounds[best].x + bounds[best].width / 2 - event.clientX) ? i : best, 0);
       wave = { start: performance.now(), index };
       start();
+      // Ten clicks within five seconds is the secret handshake.
+      const now = performance.now();
+      clicks = [...clicks.filter(t => now - t < 5000), now];
+      if (clicks.length >= 10) { clicks = []; celebrate(); }
     };
     const reset = () => { cancelAnimationFrame(frame); frame = 0; pointer = null; wave = null; letters.forEach((letter, i) => { letter.style.transform = ""; positions[i] = { lift: 0, scale: 1, rotate: 0 }; }); };
     root.addEventListener("pointerenter", enter);

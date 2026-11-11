@@ -33,12 +33,14 @@ Deploy to the existing Vercel project, `masonwang`. Production uses [masonwang.d
 
 ## Projects
 
-- [Itemdle](https://masonwang.dev/projects/itemle/index.html): daily League item recipes, unlimited practice, victory effects, and puzzle ranks. [Builddle](https://masonwang.dev/projects/itemle/builddle.html) adds champion clues and missing-build-item challenges. Source: https://github.com/masonwng/league-itemle
-- [Math Ascension](https://masonwang.dev/projects/math-ascension/index.html): fourteen stages from Kindergarten to University Year 1, Standard and One-Life modes, worked solutions, and saved progress. Source lives in `public/projects/math-ascension/`.
+- [Itemdle](https://masonwang.dev/projects/itemle/index.html): daily League item recipes, unlimited practice, victory effects, puzzle ranks, a stats panel (streaks and guess distribution), hard mode, and a next-daily countdown. [Builddle](https://masonwang.dev/projects/itemle/builddle.html) adds champion clues and missing-build-item challenges. Source: https://github.com/masonwng/league-itemle
+- [Math Ascension](https://masonwang.dev/projects/math-ascension/index.html): fourteen stages from Kindergarten to University Year 1 drawn as a mountain climb, Standard, One-Life, and 60-second Time Attack modes, worked solutions, and saved progress. Source lives in `public/projects/math-ascension/`.
 
 Run `node scripts/sync-projects.mjs` to copy the Itemdle runtime from the sibling `league-itemle` checkout before building. Math Ascension is maintained directly in this repository. The old Lane notes URL remains available for existing links but is no longer featured.
 
 See [game architecture, data provenance, tests, and limitations](docs/GAMES.md). Builddle uses a small manually reviewed, dated question bank with U.GG source links and Riot metadata; it is not a live U.GG API integration.
+
+The home page cards are playable: a one-guess Itemdle round and a six-question mini climb. A scoreboard under the projects reads each game's saved progress on the visitor's device. The farm has goals, eight achievements, and day/night lighting from the visitor's clock (`?hour=N` previews a phase). The Konami code, or ten quick clicks on the name, throws confetti.
 
 ## Documentation
 

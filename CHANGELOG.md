@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-11-11 — Interactive games and new roles
+
+- Home page: playable Itemdle and Math Ascension cards, a personal scoreboard, "new" notes on project cards, and a confetti easter egg.
+- Itemdle: stats panel with streaks and guess distribution, next-daily countdown, hard mode, richer share text, and a fuse animation on wins.
+- Math Ascension: mountain climb map, 60-second Time Attack with combos, and an emoji climb bar in shared results.
+- Farm: working close/minimize/maximize buttons, harvest and mud goals, eight achievements, and clock-based day/night lighting.
+- Fixed "See what I've made" and the nav projects link only working on the first click.
+- Added RoboEDU frontend, CJD Mentorship Associate, and CUS First Year Committee VP External roles (all from November 2026), plus logos for YAC, CJD, and CUS FYC.
+
 ## 2026-10-20 — Social sharing card and documentation
 
 - Added an avatar-based 1200 × 630 social card and a reproducible Sharp generator.

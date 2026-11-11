@@ -4,6 +4,7 @@ import { PageMotion } from "./components/page-motion";
 import { SiteNavbar } from "./components/site-navbar";
 import { SiteFooter } from "./components/site-footer";
 import { ThemeProvider } from "./components/theme-provider";
+import { Confetti } from "./components/confetti";
 import { personal } from "./lib/portfolio";
 import { socialPreview } from "./lib/social-preview";
 import "./tailwind.css";
@@ -64,6 +65,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             </main>
             <SiteFooter />
           </div>
+          <Confetti />
         </ThemeProvider>
       </body>
     </html>

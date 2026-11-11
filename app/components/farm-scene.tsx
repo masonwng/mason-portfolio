@@ -7,7 +7,13 @@ import type { OrbitControls as OrbitControlsType } from "three-stdlib";
 import { Plane, Vector3, type Group } from "three";
 import { Box, Herd, Track } from "./piggy-slide-scene";
 type Point=[number,number,number];
-type Props={active:boolean; reducedMotion:boolean; pushToken:number; harvestToken:number; resetToken:number; onStatus:(text:string)=>void};
+type Phase="day"|"golden"|"night";
+const LIGHT:Record<Phase,{ambient:number;ambientColor:string;sun:number;sunColor:string;sunPos:Point}>={
+ day:{ambient:1.5,ambientColor:"#ffffff",sun:2.3,sunColor:"#ffffff",sunPos:[-5,10,7]},
+ golden:{ambient:1.45,ambientColor:"#ffe9d2",sun:2.3,sunColor:"#ffb36b",sunPos:[-9,4,5]},
+ night:{ambient:.55,ambientColor:"#8ea6ff",sun:.85,sunColor:"#b9c8ff",sunPos:[6,9,-4]},
+};
+type Props={phase?:Phase;active:boolean; reducedMotion:boolean; pushToken:number; harvestToken:number; resetToken:number; onStatus:(text:string)=>void};
 
 function Tree({position,scale=1}:{position:Point;scale?:number}) {
  return <group position={position} scale={scale}>
@@ -107,7 +113,7 @@ function Carrot({position,index,harvestToken,active,onStatus}:Props&{position:Po
  const orbit=controls as OrbitControlsType | null;
  useEffect(()=>{if(last.current!==harvestToken&&(harvestToken-1)%12===index){state.current.picked=!state.current.picked;onStatus(state.current.picked?'Carrot picked.':'Carrot replanted.');}last.current=harvestToken;},[harvestToken,index,onStatus]);
  useFrame((_,dt)=>{if(!root.current||!active)return;const s=state.current,target=s.dragging?s.lift:s.picked?.45:0;root.current.position.y+=(position[1]+target-root.current.position.y)*(1-Math.exp(-14*dt));root.current.rotation.z+=((s.picked&&!s.dragging?.6:0)-root.current.rotation.z)*(1-Math.exp(-10*dt));});
- function release(e:ThreeEvent<PointerEvent>){if(!state.current.dragging)return;e.stopPropagation();state.current.dragging=false;state.current.picked=state.current.lift>.18 || (Math.abs(e.nativeEvent.clientY-state.current.start)<6 && !state.current.wasPicked);if(orbit)Object.assign(orbit,{enabled:true});(e.target as Element).releasePointerCapture(e.pointerId);gl.domElement.style.setProperty('cursor','grab');onStatus(state.current.picked?'Carrot picked.':'Carrot replanted.');}
+ function release(e:ThreeEvent<PointerEvent>){if(!state.current.dragging)return;e.stopPropagation();state.current.dragging=false;state.current.picked=state.current.lift>.18 || (Math.abs(e.nativeEvent.clientY-state.current.start)<6 && !state.current.wasPicked);if(orbit)Object.assign(orbit,{enabled:true});(e.target as Element).releasePointerCapture(e.pointerId);gl.domElement.style.setProperty('cursor','grab');if(state.current.picked!==state.current.wasPicked)onStatus(state.current.picked?'Carrot picked.':'Carrot replanted.');}
  return <group ref={root} position={position}
  onPointerOver={e=>{e.stopPropagation();gl.domElement.style.setProperty('cursor','grab');}} onPointerOut={()=>{if(!state.current.dragging)gl.domElement.style.setProperty('cursor','');}}
  onPointerDown={e=>{e.stopPropagation();if(orbit)Object.assign(orbit,{enabled:false});state.current={dragging:true,start:e.nativeEvent.clientY,lift:0,picked:false,wasPicked:state.current.picked};(e.target as Element).setPointerCapture(e.pointerId);gl.domElement.style.setProperty('cursor','grabbing');}}
@@ -124,14 +130,18 @@ function Landscape(props:Props) {
  return <>
   <OrthographicCamera makeDefault position={[9,10,13]} zoom={Math.min(width/14.8,height/11.5)} near={.1} far={80}/>
   <OrbitControls makeDefault target={[0,.5,0]} enabled={props.active} enablePan={false} enableZoom={false} enableDamping={!props.reducedMotion} dampingFactor={.1} rotateSpeed={.65} minPolarAngle={Math.PI/6} maxPolarAngle={Math.PI*.46}/>
-  <ambientLight intensity={1.5}/>
-  <directionalLight position={[-5,10,7]} intensity={2.3} castShadow shadow-mapSize={[2048,2048]} shadow-camera-left={-8} shadow-camera-right={8} shadow-camera-top={8} shadow-camera-bottom={-8} shadow-bias={-.001} shadow-normalBias={.03}/>
+  <ambientLight intensity={LIGHT[props.phase??'day'].ambient} color={LIGHT[props.phase??'day'].ambientColor}/>
+  <directionalLight position={LIGHT[props.phase??'day'].sunPos} intensity={LIGHT[props.phase??'day'].sun} color={LIGHT[props.phase??'day'].sunColor} castShadow shadow-mapSize={[2048,2048]} shadow-camera-left={-8} shadow-camera-right={8} shadow-camera-top={8} shadow-camera-bottom={-8} shadow-bias={-.001} shadow-normalBias={.03}/>
   <Box position={[0,-.26,0]} size={[11,.48,8.2]} color="#a9bf89"/>
   <Box position={[0,-.57,0]} size={[11,.18,8.2]} color="#d1bea0"/>
   <Box position={[0,.005,1.5]} size={[1.12,.03,4.8]} color="#dfcdab"/>
   <Box position={[0,.012,1.45]} size={[8.7,.03,.85]} color="#dfcdab"/>
   {Array.from({length:8},(_,i)=><Box key={i} position={[.1*(i%2),.04,3.65-i*.49]} size={[.52,.025,.29]} color={i%2?'#c7b798':'#d2c3a4'} rotation={[0,i*.1,0]}/>)}
   <BarnDoor onStatus={props.onStatus}/>
+  {props.phase==='night' && <>
+   <mesh position={[0,1.76,-.33]}><boxGeometry args={[.3,.25,.04]}/><meshBasicMaterial color="#ffd27a"/></mesh>
+   <pointLight position={[0,1.2,0]} intensity={4} distance={4} color="#ffcf7a"/>
+  </>}
   <Animal home={[.85,0,.6]} rotation={-.5} kind="cow" {...props}/>
   <Animal home={[2.1,0,.2]} rotation={.4} kind="cow" {...props}/>
   <group position={[-3.15,.06,.25]} scale={.66}>

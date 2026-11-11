@@ -14,7 +14,7 @@ export async function OrganizationLogo({
   const image = logo && logo.approved !== false ? await getImageAsset(logo.src) : null;
 
   return (
-    <span className={`organization-logo${image ? " organization-logo-image" : " organization-badge"}`} title={name}>
+    <span className={`organization-logo${image ? " organization-logo-image" : " organization-badge"}${image && logo?.fill ? " organization-logo-fill" : ""}`} title={name}>
       {image && logo ? (
         <Image src={image.src} alt={logo.alt} width={image.width} height={image.height} sizes="44px" />
       ) : (

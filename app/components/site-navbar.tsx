@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ScrollLink } from "./scroll-link";
 import { ThemeToggle } from "./theme-toggle";
 
 const pages = [
@@ -21,7 +22,9 @@ export function SiteNavbar() {
           <span>Mason Wang</span>
         </Link>
         <div className="site-nav-links">
-          {pages.map(p => (
+          {pages.map(p => p.href.startsWith("/#") ? (
+            <ScrollLink className="nav-link" key={p.href} id={p.href.slice(2)}>{p.label}</ScrollLink>
+          ) : (
             <Link className="nav-link" key={p.href} href={p.href} aria-current={pathname === p.href ? "page" : undefined}>{p.label}</Link>
           ))}
           <Link className="nav-cta" href="/contact" aria-current={pathname === "/contact" ? "page" : undefined}>contact</Link>

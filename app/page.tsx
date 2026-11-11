@@ -8,13 +8,18 @@ import { EmailCopy } from "./components/email-copy";
 import { InteractiveName } from "./components/interactive-name";
 import { OrganizationLogo } from "./components/organization-logo";
 import { ProjectPreviews } from "./components/project-previews";
+import { ScrollLink } from "./components/scroll-link";
+import { Scoreboard } from "./components/scoreboard";
 import { awards, education, experiences, leadership, personal, projects } from "./lib/portfolio";
 
 export const metadata: Metadata = { alternates: { canonical: "/" } };
 
+const byId = (id: string) => [...experiences, ...leadership].find(e => e.id === id)!;
 const now = [
-  { entry: experiences[0], blurb: "I teach coding and robotics to kids at RoboEDU." },
-  { entry: leadership[0], blurb: "I help organize events, workshops, fundraising, and social posts." },
+  { entry: { ...byId("roboedu"), role: "Coding Instructor & Frontend Developer" }, blurb: "I teach coding and robotics to kids, and now work on RoboEDU’s frontend too." },
+  { entry: byId("cus-fyc"), blurb: "VP External on the Commerce Undergraduate Society’s First Year Committee." },
+  { entry: byId("cjd"), blurb: "Helping run mentorship at CJD." },
+  { entry: byId("yac"), blurb: "I help organize events, workshops, fundraising, and social posts." },
 ];
 
 const highlights = [
@@ -33,7 +38,7 @@ export default function Home() {
           <InteractiveName />
           <p className="hero-lede">{personal.subtitle} {personal.intro}</p>
           <div className="hero-actions">
-            <Link className="btn btn-primary" href="/#projects">See what I’ve made <HiArrowRight aria-hidden="true" /></Link>
+            <ScrollLink className="btn btn-primary" id="projects">See what I’ve made <HiArrowRight aria-hidden="true" /></ScrollLink>
             <Link className="btn btn-ghost" href="/resume">Resume</Link>
           </div>
           <div className="hero-social" aria-label="Elsewhere">
@@ -60,6 +65,7 @@ export default function Home() {
           <a className="inline-link" href="https://github.com/masonwng" target="_blank" rel="noopener noreferrer">all on GitHub <HiArrowUpRight aria-hidden="true" /></a>
         </div>
         <ProjectPreviews />
+        <Scoreboard />
       </section>
 
       <section id="experience" className="home-section" aria-labelledby="experience-heading">

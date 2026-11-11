@@ -12,6 +12,14 @@ No documented authorized U.GG API was verified. This is an authored factual ques
 
 `build-provider.js` validates the snapshot before use, caches successful loads locally, allows a seven-day cached fallback, and exposes clear retry/failure states. The optional latest-patch check has a timeout. Older snapshots are explicitly labeled historical. Providers can be replaced without changing question generation. There are no credentials in client code.
 
+### Stats, hard mode, countdown, and sharing
+
+`stats.js` holds pure helpers. Each daily win records its guess count in `itemle:history` (day → guesses). Wins from before history existed are backfilled from the saved `itemle:<revision>:<day>` rounds. The panel shows wins, current and best streak, average guesses, and a 1–9/10+ distribution that highlights today's result. A streak stays alive until a full UTC day is missed.
+
+After a daily win, the result card counts down to midnight UTC and loads the next recipe when it unlocks. Hard mode (`itemle:hard`) hides component names and the gold/category clues until the round is solved. Shared results use 🟩 for the answer, 🟨 for guesses that shared a component, and ⬜ otherwise, plus a rank emoji, the daily streak, and a hard-mode tag. On a fresh win, the components slide together and fuse into the answer icon (skipped for reduced motion).
+
+These files are edited in this snapshot. Copy `app.js`, `core.js`, `stats.js`, `index.html`, and `style.css` back to `league-itemle` before the next `sync-projects` run, or the sync will overwrite them.
+
 ## Math Ascension
 
 The source and deployed runtime are in `public/projects/math-ascension/`:
@@ -28,6 +36,12 @@ Progress, elapsed active time, settings, completed question IDs, and per-mode be
 
 KaTeX is self-hosted so math rendering needs no third-party network request. Run `npm run vendor:katex` after upgrading the pinned package; it copies the distribution and license. Vendor files are excluded from linting.
 
+### Mountain map and Time Attack
+
+The progression map draws the 14 stages as camps on a switchback trail. The cleared trail turns green, the current camp pulses, and the climber moves up after each correct answer. Shared results include an emoji climb bar.
+
+`timeattack.mjs` is a pure 60-second mode. Questions come from the same generator and move up a grade every two correct answers, capped at Grade 9. Points are 10 × grade level × combo multiplier (×2 after 3 in a row, rising to ×5). Misses and skips reset the combo; invalid input costs nothing. Hiding the tab ends the round. The best score is stored in `math-ascension:v1:timeattack`.
+
 ## Verification commands
 
 ```sh
@@ -37,6 +51,8 @@ npm run build
 npm --prefix ../league-itemle test
 ```
 
+`tests/interactive-features.test.mjs` covers Itemdle stats, backfill, countdown, and sharing; Time Attack scoring; the climb bar; and farm achievements and lighting.
+
 The math tests generate 4,200 questions, exercise every template, parse their TeX, check exact equivalence and invalid input, independently verify university answers with known parameters, complete both modes, fail One-Life, check solution replacement, validate restoration, and check best-time rules. Builddle tests cover both modes across every difficulty, verified item relationships and assets, penalties, attempt caps, malformed saved states, and fresh/cached/expired/missing data.
 
 Manual browser checks include Itemdle miss/win and keyboard search; Math progression, solution replacement, One-Life failure, and reload; Builddle hints, win scoring, source links, and mode changes. Responsive previews use 390, 768, and 1440px iframe viewports. Temporary verification pages and screenshots are removed from the deployment tree after checks.
@@ -44,6 +60,14 @@ Manual browser checks include Itemdle miss/win and keyboard search; Math progres
 ## Retired project
 
 Lane notes is removed from the portfolio cards and sitemap and is no longer copied by the sync script. Its legacy static URL remains available for old links and existing local journal data; the separate `lane-notes` repository and user records are not deleted.
+
+## Home page mini games and scoreboard
+
+`app/components/itemdle-mini.tsx` plays a one-guess round. The first round is fixed (Infinity Edge) so the server render matches; later rounds load `data.json` and pick decoys that share a component where possible. `app/components/math-mini.tsx` runs six quick questions from addition to a simple derivative. `app/components/scoreboard.tsx` reads `itemle:history`, `math-ascension:v1:best`, `math-ascension:v1:timeattack`, and `farm:achievements:v1` from the visitor's browser. Because it reads local data, it is a personal scoreboard, not a global leaderboard; a shared leaderboard would need a database such as a Vercel-connected Redis store.
+
+## Farm goals, achievements, and lighting
+
+`app/lib/farm-achievements.mjs` turns the scene's existing status messages into progress: carrots picked, pigs in the mud, pushes, and eight achievements (`farm:achievements:v1`). Unlocks show a toast and appear in the trophy panel. The window's traffic lights close (unloading the scene), minimize, and maximize. Lighting follows the visitor's clock: night 9pm–5am, golden hour around dawn and dusk, and day otherwise. `?hour=N` previews a phase.
 
 ## Spiral piggy break
 
