@@ -519,3 +519,7 @@ html.dark .contact-method:hover .contact-icon { color: #0d0e10; }
 .farm-footer-actions { display: flex; align-items: center; gap: 6px; }
 .farm-game-footer .farm-trophy { width: auto; padding: 0 12px; border-radius: 999px; font-family: var(--mono); font-size: 12px; }
 @media (max-width: 700px) { .farm-goal span:last-child { display: none; } }
+.pig-window-game:has(.farm-game[data-phase="golden"]) { background: linear-gradient(180deg, #fde4c8, #f6efe6 70%); }
+.pig-window-game:has(.farm-game[data-phase="night"]) { background: radial-gradient(1px 1px at 12% 18%, #fff 50%, transparent), radial-gradient(1px 1px at 28% 8%, #fff 50%, transparent), radial-gradient(1.5px 1.5px at 46% 22%, #fff 50%, transparent), radial-gradient(1px 1px at 63% 12%, #fff 50%, transparent), radial-gradient(1px 1px at 80% 26%, #fff 50%, transparent), radial-gradient(1.5px 1.5px at 91% 9%, #fff 50%, transparent), linear-gradient(180deg, #0f1a33, #1d2a48 75%); }
+.farm-game[data-phase="night"] .farm-game-footer > span { color: #c7d2f0; }
+@media (max-width: 700px) { .farm-sky { display: none; } }

@@ -1,7 +1,7 @@
 "use client";
 import dynamic from 'next/dynamic';
 import { Component, useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
-import { ACHIEVEMENTS, CARROTS, applyStatus, applyVisit, emptyProgress, restoreProgress } from '../lib/farm-achievements.mjs';
+import { ACHIEVEMENTS, CARROTS, applyStatus, applyVisit, emptyProgress, restoreProgress, skyPhase } from '../lib/farm-achievements.mjs';
 const Scene = dynamic(() => import('./farm-scene'), { ssr: false, loading: () => <p className="piggy-loading">Loading the farm…</p> });
 const STORAGE = 'farm:achievements:v1';
 class Boundary extends Component<{ children: ReactNode }, { failed: boolean }> {
@@ -13,6 +13,7 @@ type Progress = ReturnType<typeof emptyProgress>;
 export function FarmGame() {
  const [seen,setSeen] = useState(false), [active,setActive] = useState(false), [reducedMotion,setReducedMotion] = useState(false);
  const [push,setPush] = useState(0), [harvest,setHarvest] = useState(0), [reset,setReset] = useState(0), [status,setStatus] = useState('');
+ const [phase,setPhase] = useState<'day'|'golden'|'night'>('day');
  const [progress,setProgress] = useState<Progress>(emptyProgress), [toast,setToast] = useState<string|null>(null), [panel,setPanel] = useState(false);
  const root = useRef<HTMLDivElement>(null), progressRef = useRef(progress), toastTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
  const commit = useCallback((result:{progress:Progress;unlocked:string[]}) => {
@@ -25,7 +26,9 @@ export function FarmGame() {
  useEffect(() => {
   let saved = null; try { saved = JSON.parse(localStorage.getItem(STORAGE) ?? 'null'); } catch { /* ignore */ }
   commit(applyVisit(restoreProgress(saved), new Date().getHours()));
-  return () => clearTimeout(toastTimer.current);
+  const tick = () => setPhase(skyPhase(Number(new URLSearchParams(location.search).get('hour') ?? new Date().getHours())));
+  tick(); const clock = setInterval(tick, 60000);
+  return () => { clearTimeout(toastTimer.current); clearInterval(clock); };
  }, [commit]);
  const onStatus = useCallback((text:string) => { setStatus(text); commit(applyStatus(progressRef.current, text)); }, [commit]);
  useEffect(() => {
@@ -37,11 +40,11 @@ export function FarmGame() {
   return () => { observer.disconnect(); motion.removeEventListener('change',sync); document.removeEventListener('visibilitychange',sync); };
  },[]);
  const earned = progress.unlocked.length;
- return <div className="farm-game" ref={root} tabIndex={0} aria-label="Interactive farm. Click pigs and carrots, drag animals, or drag the ground to rotate. Keyboard: P pushes a pig, C picks a carrot, R resets."
+ return <div className="farm-game" data-phase={phase} ref={root} tabIndex={0} aria-label="Interactive farm. Click pigs and carrots, drag animals, or drag the ground to rotate. Keyboard: P pushes a pig, C picks a carrot, R resets."
   onKeyDown={e => { if(e.target!==e.currentTarget)return; if(e.key.toLowerCase()==='p'){e.preventDefault();setPush(v=>v+1);} if(e.key.toLowerCase()==='c'){e.preventDefault();setHarvest(v=>v+1);} if(e.key.toLowerCase()==='r'){e.preventDefault();setReset(v=>v+1);onStatus('Farm reset.');} }}>
   <div className="farm-game-canvas">
-   {seen && <Boundary><Scene active={active} reducedMotion={reducedMotion} pushToken={push} harvestToken={harvest} resetToken={reset} onStatus={onStatus}/></Boundary>}
-   <div className="farm-goal" aria-hidden="true"><span>🥕 {progress.carrots}/{CARROTS}</span><span>🐷 {progress.splashed.length}/3 in the mud</span></div>
+   {seen && <Boundary><Scene phase={phase} active={active} reducedMotion={reducedMotion} pushToken={push} harvestToken={harvest} resetToken={reset} onStatus={onStatus}/></Boundary>}
+   <div className="farm-goal" aria-hidden="true"><span>🥕 {progress.carrots}/{CARROTS}</span><span>🐷 {progress.splashed.length}/3 in the mud</span><span className="farm-sky">{phase==="night"?"🌙 night":phase==="golden"?"🌅 golden hour":"☀️ day"}</span></div>
    {toast && <div className="farm-toast" aria-hidden="true"><small>achievement unlocked</small>{toast}</div>}
    {panel && <div className="farm-badges" role="dialog" aria-label="Farm achievements">
     <div className="farm-badges-head"><strong>achievements</strong><span>{earned}/{ACHIEVEMENTS.length}</span><button onClick={()=>setPanel(false)} aria-label="Close achievements">×</button></div>

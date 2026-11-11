@@ -77,3 +77,10 @@ function finish(progress, fresh) {
   const next = others ? unlock(progress, "farmhand", fresh) : progress;
   return { progress: next, unlocked: fresh };
 }
+
+/** Lighting phase for the farm from the visitor's local hour: day, golden (dawn/dusk), or night. */
+export function skyPhase(hours = new Date().getHours()) {
+  if (isNight(hours)) return "night";
+  if (hours < 7 || hours >= 18) return "golden";
+  return "day";
+}
