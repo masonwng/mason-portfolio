@@ -15,15 +15,15 @@ export default async function AboutPage() {
   return (
     <>
       <header className="about-introduction portfolio-header">
-        <div className="about-introduction-copy"><h1>about me.</h1><div className="about-copy">{personal.about.map(paragraph => <p key={paragraph}>{paragraph}</p>)}</div></div>
+        <div className="about-introduction-copy"><p className="eyebrow">about</p><h1>about me.</h1><div className="about-copy">{personal.about.map(paragraph => <p key={paragraph}>{paragraph}</p>)}</div></div>
         {photos.length > 0 && <div className="about-portrait"><PhotoGallery photos={[photos[0]]} className="photo-grid-single" showCaptions sizes="(max-width: 700px) calc(100vw - 40px), 45vw" /></div>}
       </header>
       <Reveal><section className="portfolio-section education-section" aria-labelledby="education-heading">
-        <h2 id="education-heading">Currently at UBC.</h2>
+        <div><p className="eyebrow">school</p><h2 id="education-heading">Currently at UBC.</h2></div>
         <article className="organization-entry"><OrganizationLogo logo={education.logo} badge={education.badge} name={education.institution} /><div><h3>{education.institution}</h3><p>{education.degree}</p><p className="secondary">{education.major}</p><p className="date">First year · Expected graduation {education.graduation}</p></div></article>
       </section></Reveal>
       <section className="portfolio-section" id="outside-school" aria-labelledby="hobbies-heading">
-        <div className="hobby-section-heading"><h2 id="hobbies-heading">outside school</h2><span>little things I enjoy</span></div>
+        <div className="hobby-section-heading"><div><p className="eyebrow">hobbies</p><h2 id="hobbies-heading">outside school</h2></div><span>little things I enjoy</span></div>
         <div className="hobby-journal">
           <article className="hobby-snapshot">
             <span className="hobby-photo-label">01 / outdoors</span>
