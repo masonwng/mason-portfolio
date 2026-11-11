@@ -47,7 +47,7 @@ function render(fresh = false) {
     const box = el('div', undefined, `component${fresh && i === revealed - 1 ? ' clue-reveal' : ''}`);
     box.append(...(i < revealed ? (hard && !won ? [Object.assign(itemImage(component), { alt: 'Recipe component (name hidden in hard mode)' }), el('span', 'name hidden')] : [itemImage(component), el('span', component.name)]) : [el('div', '?', 'unknown'), el('span', 'hidden component')])); $('components').append(box);
   });
-  $('attempts').textContent = `${guesses.length} guesses · no limit`;
+  $('attempts').textContent = `${guesses.length} ${guesses.length === 1 ? 'guess' : 'guesses'} · no limit`;
   $('clue').textContent = hard && !won ? 'hard mode · icons only, no gold or category clues' : won || guesses.length >= 2 ? `total cost: ${answer.gold} gold${won || guesses.length >= 3 ? ` · ${answer.tags.join(' / ')}` : ''}` : 'total cost unlocks after two misses';
   $('guesses').replaceChildren();
   for (const [index, id] of guesses.entries()) {
@@ -68,7 +68,7 @@ function render(fresh = false) {
       const history = read('itemle:history', {}); if (history && typeof history === 'object' && !history[day]) { history[day] = guesses.length; write('itemle:history', history); }
     }
     const row = el('div', undefined, 'answer-row'), copy = el('div');
-    copy.append(el('p', 'CORRECT!', 'victory-title'), el('strong', answer.name), el('p', `${guesses.length} guesses · ${timeLabel(timing.end - timing.start)}`)); row.append(itemImage(answer), copy);
+    copy.append(el('p', 'CORRECT!', 'victory-title'), el('strong', answer.name), el('p', `${guesses.length} ${guesses.length === 1 ? 'guess' : 'guesses'} · ${timeLabel(timing.end - timing.start)}`)); row.append(itemImage(answer), copy);
     const rank = puzzleRank(guesses.length), badge = el('div', undefined, 'rank-result'), emblem = el('img');
     emblem.src = `assets/ranks/${rank.tier.toLowerCase()}.png`; emblem.alt = `${rank.tier} puzzle rank`; emblem.width = 100; emblem.height = 100;
     const rankCopy = el('div'); rankCopy.append(el('strong', `${rank.tier} · ${rank.score}/6 points`), el('p', 'Puzzle rank only — not your League rank.')); badge.append(emblem, rankCopy);
