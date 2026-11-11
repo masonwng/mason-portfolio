@@ -13,9 +13,12 @@ import { awards, education, experiences, leadership, personal, projects } from "
 
 export const metadata: Metadata = { alternates: { canonical: "/" } };
 
+const byId = (id: string) => [...experiences, ...leadership].find(e => e.id === id)!;
 const now = [
-  { entry: experiences[0], blurb: "I teach coding and robotics to kids at RoboEDU." },
-  { entry: leadership[0], blurb: "I help organize events, workshops, fundraising, and social posts." },
+  { entry: { ...byId("roboedu"), role: "Coding Instructor & Frontend Developer" }, blurb: "I teach coding and robotics to kids, and now work on RoboEDU’s frontend too." },
+  { entry: byId("cus-fyc"), blurb: "VP External on the Commerce Undergraduate Society’s First Year Committee." },
+  { entry: byId("cjd"), blurb: "Helping run mentorship at CJD." },
+  { entry: byId("yac"), blurb: "I help organize events, workshops, fundraising, and social posts." },
 ];
 
 const highlights = [

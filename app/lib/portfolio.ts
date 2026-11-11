@@ -33,6 +33,8 @@ export type LogoAsset = {
   src: string;
   alt: string;
   approved?: boolean;
+  /** Square artwork that should fill the logo tile edge to edge. */
+  fill?: boolean;
 };
 
 export type MediaLink = { href: string; label: string };
@@ -65,6 +67,20 @@ export type Experience = {
 
 export const experiences: Experience[] = [
   {
+    id: "roboedu-frontend",
+    organization: "RoboEDU",
+    role: "Frontend Developer",
+    startDate: "2026-11",
+    endDate: null,
+    startLabel: "November 2026",
+    endLabel: "Present",
+    logo: { src: "/media/logos/Screenshot 2026-10-12 230146.png", alt: "RoboEDU logo", approved: true },
+    badge: "Robo",
+    description: [
+      "On top of teaching, I now work on RoboEDU’s frontend.",
+    ],
+  },
+  {
     id: "roboedu",
     organization: "RoboEDU",
     role: "Coding Instructor",
@@ -86,6 +102,34 @@ export const experiences: Experience[] = [
 
 export const leadership: Experience[] = [
   {
+    id: "cus-fyc",
+    organization: "CUS First Year Committee",
+    role: "VP External",
+    startDate: "2026-11",
+    endDate: null,
+    startLabel: "November 2026",
+    endLabel: "Present",
+    logo: { src: "/media/logos/cus-fyc.png", alt: "CUS First Year Committee monogram", approved: true, fill: true },
+    badge: "FYC",
+    description: [
+      "I’m VP External on the First Year Committee of the Commerce Undergraduate Society at UBC Sauder.",
+    ],
+  },
+  {
+    id: "cjd",
+    organization: "CJD",
+    role: "Mentorship Associate",
+    startDate: "2026-11",
+    endDate: null,
+    startLabel: "November 2026",
+    endLabel: "Present",
+    logo: { src: "/media/logos/cjd.png", alt: "CJD monogram", approved: true, fill: true },
+    badge: "CJD",
+    description: [
+      "I’m a Mentorship Associate at CJD.",
+    ],
+  },
+  {
     id: "yac",
     organization: "Young Architects for Change",
     role: "Project Coordinator",
@@ -93,6 +137,7 @@ export const leadership: Experience[] = [
     endDate: null,
     startLabel: "April 2025",
     endLabel: "Present",
+    logo: { src: "/media/logos/yac.png", alt: "Young Architects for Change logo", approved: true, fill: true },
     badge: "YAC",
     description: [
       "I helped organize Design for Change 2025 at the Museum of Vancouver, plus mentorship events and architecture workshops.",
