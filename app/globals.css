@@ -220,7 +220,8 @@ html.dark .theme-moon { display: none; }
 .math-preview > p > span { margin-inline: 8px; }
 .math-preview-track { display: flex; gap: 4px; max-width: 240px; margin: 16px auto 10px; }
 .math-preview-track i { flex: 1; height: 4px; border-radius: 2px; background: var(--border-strong); }
-.math-preview-track i:nth-child(-n+7) { background: var(--accent); }
+.math-preview-track i { transition: background-color 300ms ease; }
+.math-preview-track i.on { background: var(--accent); }
 
 .farm-project { grid-column: 1 / -1; display: grid; grid-template-columns: 280px minmax(0, 1fr); }
 .farm-project:hover { transform: none; }
@@ -523,3 +524,38 @@ html.dark .contact-method:hover .contact-icon { color: #0d0e10; }
 .pig-window-game:has(.farm-game[data-phase="night"]) { background: radial-gradient(1px 1px at 12% 18%, #fff 50%, transparent), radial-gradient(1px 1px at 28% 8%, #fff 50%, transparent), radial-gradient(1.5px 1.5px at 46% 22%, #fff 50%, transparent), radial-gradient(1px 1px at 63% 12%, #fff 50%, transparent), radial-gradient(1px 1px at 80% 26%, #fff 50%, transparent), radial-gradient(1.5px 1.5px at 91% 9%, #fff 50%, transparent), linear-gradient(180deg, #0f1a33, #1d2a48 75%); }
 .farm-game[data-phase="night"] .farm-game-footer > span { color: #c7d2f0; }
 @media (max-width: 700px) { .farm-sky { display: none; } }
+
+/* Playable mini games on the project cards */
+.concept-preview { height: 260px; }
+.mini-q { display: flex; align-items: center; justify-content: center; gap: 8px; }
+.mini-streak { padding: 1px 8px; border-radius: 999px; background: color-mix(in srgb, #f97316 15%, var(--surface)); color: #c2410c; font-size: 11px; font-weight: 600; }
+.itemle-preview.mini .itemle-recipe { position: relative; margin: 14px 0 12px; min-height: 76px; }
+.itemle-preview.mini .itemle-recipe figure { transition: transform 450ms var(--ease), opacity 300ms ease; }
+.itemle-preview.mini[data-state="won"] .itemle-recipe figure:not(.mini-answer), .itemle-preview.mini[data-state="lost"] .itemle-recipe figure:not(.mini-answer) { opacity: .35; transform: scale(.85); }
+.itemle-preview.mini:not([data-state="playing"]) .itemle-recipe figure:not(.mini-answer) figcaption { visibility: hidden; }
+.mini-answer { position: absolute; left: 50%; top: 0; margin: 0 0 0 -41px; animation: mini-pop 500ms 120ms cubic-bezier(.22,1.6,.36,1) both; }
+.mini-answer img { box-shadow: 0 0 0 2px var(--success), var(--shadow-md) !important; }
+.mini-answer figcaption { color: var(--foreground); font-weight: 600; }
+[data-state="lost"] .mini-answer img { box-shadow: 0 0 0 2px #e05d44, var(--shadow-md) !important; }
+@keyframes mini-pop { from { opacity: 0; transform: scale(.3) translateY(10px); } to { opacity: 1; transform: none; } }
+.mini-options { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; max-width: 360px; margin: 0 auto; }
+.mini-options button, .mini-result button, .mini-math-done button { min-height: 32px; padding: 4px 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--foreground); font: inherit; font-size: 12px; cursor: pointer; transition: border-color 150ms ease, transform 150ms var(--ease), background-color 150ms ease; }
+.mini-options button:hover { border-color: var(--accent); transform: translateY(-1px); }
+.mini-result, .mini-math-done { display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 14px; }
+.mini-result span, .mini-math-done span { display: flex; align-items: center; gap: 14px; font-size: 12px; }
+.mini-result a, .mini-math-done a { color: var(--accent); font-weight: 500; }
+.mini-result a:hover, .mini-math-done a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.mini-math-form { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.mini-level { font-family: var(--mono); font-size: 11px; color: var(--tertiary); }
+.mini-math-q { font-size: 24px; font-weight: 600; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.mini-math-row { display: flex; gap: 6px; }
+.mini-math-row input { width: 110px; height: 38px; padding: 0 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); color: var(--foreground); font: inherit; font-size: 16px; text-align: center; }
+.mini-math-row input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.mini-math-row button { width: 38px; height: 38px; border: 0; border-radius: 10px; background: var(--foreground); color: var(--background); font-size: 16px; cursor: pointer; }
+.mini-math-status { min-height: 18px; font-size: 11px; color: var(--secondary); }
+[data-feedback="right"] .mini-math-status { color: var(--success); font-weight: 600; }
+[data-feedback="wrong"] .mini-math-status { color: #e05d44; }
+[data-feedback="wrong"] .mini-math-row input { animation: mini-shake 300ms ease; border-color: #e05d44; }
+@keyframes mini-shake { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+.math-preview.mini .math-preview-track { margin-top: 12px; }
+@media (max-width: 700px) { .concept-preview { height: 280px; } }
