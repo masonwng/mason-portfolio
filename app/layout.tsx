@@ -15,6 +15,10 @@ const sans = localFont({
   src: "../node_modules/next/dist/next-devtools/server/font/geist-latin.woff2",
   variable: "--font-geist-sans", display: "swap", weight: "100 900",
 });
+const mono = localFont({
+  src: "../node_modules/next/dist/next-devtools/server/font/geist-mono-latin.woff2",
+  variable: "--font-geist-mono", display: "swap", weight: "100 900",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://masonwang.dev"),
@@ -44,7 +48,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={sans.variable} suppressHydrationWarning>
+    <html lang="en" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
         {/* Seed mobile's first-visit preference before next-themes runs or paints. */}
         <script dangerouslySetInnerHTML={{ __html: `try{if(!localStorage.getItem("mason-portfolio-theme")&&window.matchMedia("(max-width: 700px)").matches){localStorage.setItem("mason-portfolio-theme","dark")}}catch{}` }} />
@@ -52,8 +56,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         <ThemeProvider>
           <a className="skip-link" href="#main">Skip to content</a>
+          <SiteNavbar />
           <div className="site-shell">
-            <SiteNavbar />
             <PageMotion />
             <main id="main" className="portfolio" tabIndex={-1}>
               {children}

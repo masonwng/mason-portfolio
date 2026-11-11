@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function WorkPage() {
   return (
     <>
-      <header className="page-heading"><h1>What I’ve been doing.</h1><p className="page-intro">Work, school events, and a few competitions.</p></header>
+      <header className="page-heading"><p className="eyebrow">work / experience</p><h1>What I’ve been doing.</h1><p className="page-intro">Work, school events, and a few competitions.</p></header>
 
       <section className="portfolio-section" aria-labelledby="experience-heading">
         <h2 id="experience-heading">Experience</h2>

@@ -17,9 +17,9 @@ export default async function ContactPage() {
   return (
     <>
       <header className="page-heading">
-
+        <p className="eyebrow">contact</p>
         <h1>{personal.contactHeading}</h1>
-
+        <p className="page-intro">{personal.contactIntroduction} Email is the fastest way to reach me.</p>
       </header>
 
       <section className="portfolio-section" aria-label="Contact methods">
@@ -62,7 +62,7 @@ export default async function ContactPage() {
             );
           })}
         </ul>
-        {resume && <a className="resume-link" href={resume} download>Resume</a>}
+        {resume && <a className="resume-link" href={resume} download>Download my resume (PDF)</a>}
       </section>
     </>
   );
