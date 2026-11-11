@@ -29,4 +29,6 @@ export function updateBest(best,run){
   const prior=best?.[run.mode]||{correct:0,fastest:null};
   return {...best,[run.mode]:{correct:Math.max(prior.correct||0,run.correct),fastest:run.status==='won'&&!run.hints?Math.min(prior.fastest??Infinity,run.elapsed):prior.fastest??null}};
 }
-export function resultText(run){return `Math Ascension · ${run.mode==='challenge'?'One-Life Challenge':'Standard'}\n${run.status==='won'?'All 14 stages complete!':`Reached ${LEVELS[Math.min(run.stage,13)]}`}\n${run.correct}/14 correct · ${accuracy(run)}% accuracy · ${run.hints} hints\n${Math.floor(run.elapsed/60000)}:${String(Math.floor(run.elapsed/1000)%60).padStart(2,'0')}\nhttps://masonwang.dev/projects/math-ascension/index.html`;}
+// A little climb bar: 🟩 cleared, 🧗 where the run stopped (💥 if it ended in One-Life), ⬜ still ahead, 🏔️ the summit.
+export function climbBar(run){return Array.from({length:14},(_,i)=>i<run.correct?'🟩':i===run.correct?(run.status==='lost'?'💥':'🧗'):'⬜').join('')+(run.status==='won'?'🏔️':'');}
+export function resultText(run){return `Math Ascension · ${run.mode==='challenge'?'One-Life Challenge 💀':'Standard'}\n${climbBar(run)}\n${run.status==='won'?'All 14 stages complete! 🎉':`Reached ${LEVELS[Math.min(run.stage,13)]}`}\n${run.correct}/14 correct · ${accuracy(run)}% accuracy · ${run.hints} hints · ${Math.floor(run.elapsed/60000)}:${String(Math.floor(run.elapsed/1000)%60).padStart(2,'0')}\nhttps://masonwang.dev/projects/math-ascension/index.html`;}
