@@ -1,5 +1,6 @@
 import katex from './vendor/katex.mjs';
 import { LEVELS } from './questions.mjs';
+import {DURATION,newAttack,attackStage,attackQuestion,answerAttack,skipQuestion,multiplier,attackText} from './timeattack.mjs';
 import {newRun,currentQuestion,answerRun,revealHint,revealSolution,replaceQuestion,accuracy,restoreRun,updateBest,resultText} from './core.mjs';
 const $=id=>document.getElementById(id),el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
 const key='math-ascension:v1';
@@ -17,8 +18,8 @@ function math(node,tex,display=true){katex.render(tex,node,{throwOnError:false,d
 function start(mode){clearTimeout(transitionTimer);locked=false;const previous=Array.from({length:14},(_,i)=>run.seen[i]||run.previous[i]||null);run=newRun(mode,seed(),previous);lastTick=performance.now();$('feedback').textContent='';$('share-status').textContent='';save();render();}
 function render(){
   $('submit').disabled=locked;
-  $('standard').setAttribute('aria-pressed',run.mode==='standard');$('challenge').setAttribute('aria-pressed',run.mode==='challenge');
-  $('mode-help').textContent=run.mode==='standard'?'Retry, use a hint, and learn as you climb.':'One wrong answer ends the run. Make it count.';
+  const inAttack=document.body.classList.contains('attack-view');$('standard').setAttribute('aria-pressed',!inAttack&&run.mode==='standard');$('challenge').setAttribute('aria-pressed',!inAttack&&run.mode==='challenge');$('attack-mode').setAttribute('aria-pressed',inAttack);
+  $('mode-help').textContent=inAttack?'60 seconds, rising difficulty, combos up to ×5.':run.mode==='standard'?'Retry, use a hint, and learn as you climb.':'One wrong answer ends the run. Make it count.';
   $('timer').textContent=time(run.elapsed);$('stage-label').textContent=LEVELS[Math.min(run.stage,13)];$('progress-count').textContent=`${run.correct} / 14`;$('progress').value=run.correct;
   mountain();$('map').replaceChildren();LEVELS.forEach((name,i)=>{const li=el('li',undefined,i<run.stage?'complete':i===run.stage?'current':'locked');li.setAttribute('aria-label',`${name}: ${i<run.stage?'complete':i===run.stage?'current':'locked'}`);if(i===run.stage)li.setAttribute('aria-current','step');li.append(el('span',i<run.stage?'✓':String(i+1),'map-number'),el('span',name),el('span',i<run.stage?'complete':i===run.stage?'current':'locked','map-state'));$('map').append(li);});
   const record=best[run.mode];$('best').textContent=`Personal best: ${record?.correct||0}/14 complete${Number.isFinite(record?.fastest)?` · fastest ${time(record.fastest)}`:''}`;
@@ -75,7 +76,7 @@ $('answer-form').onsubmit=event=>{
 $('hint').onclick=()=>{if(locked)return;run=revealHint(run);save();$('hint-text').hidden=false;$('hint-text').textContent=currentQuestion(run).hint;$('hint').disabled=true;$('hint-count').textContent=`${run.hints} hints · ${run.attempts} attempts`;};
 $('solution').onclick=()=>{if(locked)return;run=revealSolution(run);save();render();};
 $('new-question').onclick=()=>{run=replaceQuestion(run);save();render();$('answer').focus();};
-$('standard').onclick=()=>{if(run.mode!=='standard')start('standard');};$('challenge').onclick=()=>{if(run.mode!=='challenge')start('challenge');};$('restart').onclick=()=>start(run.mode);$('replay').onclick=()=>start(run.mode);
+$('standard').onclick=()=>{showAttack(false);if(run.mode!=='standard')start('standard');};$('challenge').onclick=()=>{showAttack(false);if(run.mode!=='challenge')start('challenge');};$('restart').onclick=()=>start(run.mode);$('replay').onclick=()=>start(run.mode);
 $('share').onclick=async()=>{try{await navigator.clipboard.writeText(resultText(run));$('share-status').textContent='Result copied.';}catch{$('share-status').textContent=resultText(run);}};
 function soundLabel(){$('sound').textContent=sound?'sound on':'sound off';$('sound').setAttribute('aria-pressed',sound);}
 $('sound').onclick=()=>{sound=!sound;write(`${key}:sound`,sound);soundLabel();beep();};soundLabel();
@@ -83,3 +84,52 @@ document.body.classList.toggle('dark',read(`${key}:theme`,matchMedia('(prefers-c
 function tick(){const now=performance.now();if(run.status==='playing'&&!document.hidden&&!locked)run.elapsed+=Math.round(Math.min(now-lastTick,2000));lastTick=now;$('timer').textContent=time(run.elapsed);}
 setInterval(tick,500);setInterval(()=>{if(run.status==='playing')save();},5000);document.addEventListener('visibilitychange',()=>{lastTick=performance.now();save();});window.addEventListener('pagehide',save);
 save();render();
+
+// ---- Time Attack -------------------------------------------------------------
+const attackKey=`${key}:timeattack`;
+let attack=newAttack(seed()),attackEnds=0,attackFrame=0,attackBest=Number(read(attackKey,0))||0;
+const GRADE_SHORT=['K',...Array.from({length:12},(_,i)=>String(i+1))];
+function showAttack(on){
+  if(!on&&attack.status==='playing')endAttack(false);
+  document.body.classList.toggle('attack-view',on);$('attack').hidden=!on;
+  if(on)renderAttack();render();
+}
+function renderAttack(){
+  const playing=attack.status==='playing',left=playing?Math.max(0,attackEnds-performance.now()):attack.status==='over'?0:DURATION;
+  $('attack-time').textContent=(left/1000).toFixed(1);$('attack-bar').style.transform=`scaleX(${left/DURATION})`;$('attack').classList.toggle('hurry',playing&&left<10000);
+  $('attack-score').textContent=attack.score;$('attack-combo').textContent=`×${multiplier(attack.combo)}`;$('attack-grade').textContent=GRADE_SHORT[attackStage(attack)];
+  $('attack-ready').hidden=attack.status!=='ready';$('attack-play').hidden=!playing;$('attack-over').hidden=attack.status!=='over';
+  $('attack-best').textContent=attackBest?`Your best: ${attackBest} points`:'';
+}
+function attackQuestionView(){
+  const q=attackQuestion(attack);$('attack-topic').textContent=`${GRADE_SHORT[attackStage(attack)]==='K'?'Kindergarten':'Grade '+GRADE_SHORT[attackStage(attack)]} · ${q.topic}`;$('attack-prompt').textContent=q.prompt;
+  $('attack-formula').hidden=!q.tex;if(q.tex)math($('attack-formula'),q.tex);
+  $('attack-choices').replaceChildren();$('attack-choices').hidden=q.type!=='choice';$('attack-typed').hidden=q.type==='choice';$('attack-answer').value='';$('attack-answer').required=q.type!=='choice';
+  $('attack-answer').inputMode=q.type==='number'?'decimal':'text';
+  if(q.type==='choice')q.options.forEach((option,i)=>{const label=el('label',undefined,'choice'),input=el('input');input.type='radio';input.name='attack-choice';input.value=option.id;const span=el('span');math(span,option.text,false);label.append(input,span);$('attack-choices').append(label);if(i===0)input.required=true;});
+  (q.type==='choice'?$('attack-choices').querySelector('input'):$('attack-answer')).focus({preventScroll:true});
+}
+function attackLoop(){renderAttack();if(attack.status!=='playing')return;if(performance.now()>=attackEnds){endAttack(true);return;}attackFrame=requestAnimationFrame(attackLoop);}
+function startAttack(){cancelAnimationFrame(attackFrame);attack={...newAttack(seed()),status:'playing'};attackEnds=performance.now()+DURATION;$('attack-feedback').textContent='';$('attack-share-status').textContent='';renderAttack();attackQuestionView();attackLoop();}
+function endAttack(finished){
+  cancelAnimationFrame(attackFrame);attack={...attack,status:finished?'over':'ready'};if(!finished){renderAttack();return;}
+  const record=attack.score>attackBest&&attack.score>0;if(record){attackBest=attack.score;write(attackKey,attackBest);}
+  $('attack-final').textContent=record?`${attack.score} points — new best! 🏆`:`${attack.score} points`;
+  $('attack-stats').replaceChildren();for(const [label,value] of [['Correct',attack.correct],['Missed',attack.wrong],['Best streak',`${attack.bestCombo} in a row`],['Highest grade',GRADE_SHORT[attackStage(attack)]==='K'?'Kindergarten':'Grade '+GRADE_SHORT[attackStage(attack)]],['Personal best',attackBest]]){const d=el('div');d.append(el('dt',label),el('dd',String(value)));$('attack-stats').append(d);}
+  renderAttack();if(record)burst($('attack-over'),true);$('attack-again').focus();
+}
+function pop(text,good){const p=$('attack-pop');p.textContent=text;p.className=`attack-pop show ${good?'good':'bad'}`;void p.offsetWidth;}
+$('attack-mode').onclick=()=>showAttack(true);
+$('attack-start').onclick=startAttack;$('attack-again').onclick=startAttack;
+$('attack-skip').onclick=()=>{attack=skipQuestion(attack);pop('skipped',false);attackQuestionView();renderAttack();};
+$('attack-form').onsubmit=event=>{
+  event.preventDefault();if(attack.status!=='playing')return;
+  const q=attackQuestion(attack),input=q.type==='choice'?document.querySelector('input[name="attack-choice"]:checked')?.value||'':$('attack-answer').value;
+  const result=answerAttack(attack,input);if(!result.valid){$('attack-feedback').textContent=result.message||'Enter an answer.';return;}
+  attack=result.attack;
+  if(result.correct){pop(`+${result.points}`,true);$('attack-feedback').textContent=attack.combo>=3?`Combo ×${multiplier(attack.combo)}!`:'Correct!';if(attack.combo%3===0)beep();}
+  else{pop('combo lost',false);$('attack-feedback').textContent=`Not quite. The answer was ${q.type==='choice'?q.answerText:q.answer}.`;}
+  attackQuestionView();renderAttack();
+};
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&attack.status==='playing')endAttack(true);});
+$('attack-share').onclick=async()=>{const text=attackText(attack,attackBest);try{await navigator.clipboard.writeText(text);$('attack-share-status').textContent='Score copied.';}catch{$('attack-share-status').textContent=text;}};

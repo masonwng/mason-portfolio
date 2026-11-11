@@ -10,3 +10,11 @@
 .mt-flag{fill:var(--gold);stroke:var(--ink);stroke-width:1;stroke-linejoin:round}.mt-flag.won{fill:var(--good)}.mt-climber text{font-size:17px;filter:drop-shadow(0 1px 1px rgb(0 0 0 / .25))}
 @media(prefers-reduced-motion:no-preference){.mt-climber{transition:transform .8s cubic-bezier(.22,1,.36,1)}.mt-camp.here{animation:camp-pulse 1.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}}
 @keyframes camp-pulse{50%{transform:scale(1.5)}}
+body.attack-view .map-panel,body.attack-view .hud,body.attack-view #question,body.attack-view #results,body.attack-view #feedback,body.attack-view #restart{display:none!important}body.attack-view .game-layout{grid-template-columns:1fr}
+.attack-hud{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.attack-hud div{padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}.attack-hud span{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}.attack-hud strong{font-size:26px;font-weight:650;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.attack-bar{height:6px;margin:12px 0 18px;border-radius:3px;background:var(--line);overflow:hidden}.attack-bar i{display:block;height:100%;background:var(--accent);transform-origin:left}.attack.hurry .attack-bar i{background:#c2410c}.attack.hurry #attack-time{color:#c2410c}
+.attack-ready{padding:32px;border:1px dashed var(--line);border-radius:16px;text-align:center}.attack-ready h2{font-size:22px;margin:0 0 8px}.attack-ready p{color:var(--muted);max-width:460px;margin:0 auto 16px}.attack-best{font-weight:600;color:var(--gold)!important}
+.attack-card .question-top{display:flex;justify-content:space-between;align-items:center}.attack-actions{display:flex;gap:10px;align-items:center;margin-top:14px}
+.attack-pop{font-weight:700;font-size:14px;opacity:0}.attack-pop.good{color:var(--good)}.attack-pop.bad{color:#c2410c}.attack-pop.show{animation:attack-pop .9s ease-out}
+@keyframes attack-pop{0%{opacity:0;transform:translateY(6px) scale(.9)}15%{opacity:1;transform:none}70%{opacity:1}100%{opacity:0;transform:translateY(-8px)}}
+@media(max-width:560px){.attack-hud{grid-template-columns:repeat(2,1fr)}.attack-hud strong{font-size:22px}}
