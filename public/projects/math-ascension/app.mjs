@@ -20,7 +20,7 @@ function render(){
   $('standard').setAttribute('aria-pressed',run.mode==='standard');$('challenge').setAttribute('aria-pressed',run.mode==='challenge');
   $('mode-help').textContent=run.mode==='standard'?'Retry, use a hint, and learn as you climb.':'One wrong answer ends the run. Make it count.';
   $('timer').textContent=time(run.elapsed);$('stage-label').textContent=LEVELS[Math.min(run.stage,13)];$('progress-count').textContent=`${run.correct} / 14`;$('progress').value=run.correct;
-  $('map').replaceChildren();LEVELS.forEach((name,i)=>{const li=el('li',undefined,i<run.stage?'complete':i===run.stage?'current':'locked');li.setAttribute('aria-label',`${name}: ${i<run.stage?'complete':i===run.stage?'current':'locked'}`);if(i===run.stage)li.setAttribute('aria-current','step');li.append(el('span',i<run.stage?'✓':String(i+1),'map-number'),el('span',name),el('span',i<run.stage?'complete':i===run.stage?'current':'locked','map-state'));$('map').append(li);});
+  mountain();$('map').replaceChildren();LEVELS.forEach((name,i)=>{const li=el('li',undefined,i<run.stage?'complete':i===run.stage?'current':'locked');li.setAttribute('aria-label',`${name}: ${i<run.stage?'complete':i===run.stage?'current':'locked'}`);if(i===run.stage)li.setAttribute('aria-current','step');li.append(el('span',i<run.stage?'✓':String(i+1),'map-number'),el('span',name),el('span',i<run.stage?'complete':i===run.stage?'current':'locked','map-state'));$('map').append(li);});
   const record=best[run.mode];$('best').textContent=`Personal best: ${record?.correct||0}/14 complete${Number.isFinite(record?.fastest)?` · fastest ${time(record.fastest)}`:''}`;
   $('question').hidden=run.status!=='playing';$('results').hidden=run.status==='playing';
   if(run.status!=='playing'){renderResults();return;}
@@ -36,6 +36,24 @@ function render(){
   $('answer-form').hidden=run.revealed;$('new-question').hidden=!run.revealed;$('solution-text').hidden=!run.revealed;
   if(run.revealed)showSteps($('solution-text'),q);
   $('question').classList.remove('level-up','milestone');
+}
+// The 14 stages are camps on a zigzag trail; the climber stands at the current one.
+const PEAK=[110,16],edge=y=>[110*(140-y)/124,110+90*(y-16)/124];
+const TRAIL=Array.from({length:14},(_,i)=>{if(i===13)return [PEAK[0],PEAK[1]+6];const y=133-i*8.2,[l,r]=edge(y),k=i%6,f=k<=3?k/3:(6-k)/3;return [Math.round(l+14+(r-l-28)*f),Math.round(y)];});
+function mountain(){
+  const svg=$('mountain'),ns='http://www.w3.org/2000/svg',node=(tag,attrs)=>{const n=document.createElementNS(ns,tag);for(const [k,v] of Object.entries(attrs))n.setAttribute(k,v);return n;};
+  const at=Math.min(run.stage,13),[cx,cy]=TRAIL[at],done=run.status==='won';
+  const climber=svg.querySelector('.mt-climber')||node('g',{class:'mt-climber'});
+  svg.replaceChildren(
+    node('path',{d:'M-10 140 L44 74 L70 92 L96 60 L140 104 L168 70 L210 140 Z',class:'mt-back'}),
+    node('path',{d:'M0 140 L110 16 L200 140 Z',class:'mt-front'}),
+    node('path',{d:'M93 35 L110 16 L130 44 L120 38 L111 46 L102 37 Z',class:'mt-snow'}),
+    node('polyline',{points:TRAIL.map(p=>p.join(',')).join(' '),class:'mt-trail'}),
+    node('polyline',{points:TRAIL.slice(0,at+1).map(p=>p.join(',')).join(' '),class:'mt-trail-done'}),
+    ...TRAIL.map(([x,y],i)=>node('circle',{cx:x,cy:y,r:i===13?4:2.6,class:i<run.stage?'mt-camp done':i===at&&!done?'mt-camp here':'mt-camp'})),
+    node('path',{d:`M${PEAK[0]} ${PEAK[1]} v-15 l10 4 l-10 4`,class:done?'mt-flag won':'mt-flag'}),
+  );
+  climber.style.transform=`translate(${cx}px,${cy}px)`;if(!climber.firstChild)climber.append(node('text',{x:0,y:-4,'text-anchor':'middle'}));climber.firstChild.textContent=done?'🎉':'🧗';svg.append(climber);
 }
 function showSteps(node,q){node.replaceChildren(el('h3','Worked solution'));const ol=el('ol');q.steps.forEach(step=>ol.append(el('li',step)));node.append(ol);}
 function renderResults(){
