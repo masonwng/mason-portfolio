@@ -67,7 +67,7 @@ Lane notes is removed from the portfolio cards and sitemap and is no longer copi
 
 ## Farm goals, achievements, and lighting
 
-`app/lib/farm-achievements.mjs` turns the scene's existing status messages into progress: carrots picked, pigs in the mud, pushes, and eight achievements (`farm:achievements:v1`). Unlocks show a toast and appear in the trophy panel. The window's traffic lights close (unloading the scene), minimize, and maximize. Lighting follows the visitor's clock: night 9pm–5am, golden hour around dawn and dusk, and day otherwise. `?hour=N` previews a phase.
+`app/lib/farm-achievements.mjs` turns the scene's existing status messages into progress: carrots picked, pigs in the mud, pushes, and eight achievements (`farm:achievements:v1`). Unlocks show a toast and appear in the trophy panel. The window's traffic lights close (unloading the scene), minimize, and maximize. Lighting follows the visitor's clock: night 9pm–5am, golden hour around dawn and dusk, and day otherwise.
 
 ## Spiral piggy break
 

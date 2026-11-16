@@ -560,11 +560,6 @@ html.dark .contact-method:hover .contact-icon { color: #0d0e10; }
 .math-preview.mini .math-preview-track { margin-top: 12px; }
 @media (max-width: 700px) { .concept-preview { height: 280px; } }
 
-/* Easter egg */
-.confetti { position: fixed; inset: 0; z-index: 200; width: 100vw; height: 100vh; pointer-events: none; }
-.confetti-message { position: fixed; left: 50%; top: 88px; z-index: 201; margin: 0; padding: 10px 18px; border-radius: 999px; background: var(--foreground); color: var(--background); font-size: 14px; font-weight: 600; box-shadow: var(--shadow-lg); transform: translateX(-50%); animation: toast-in 300ms var(--ease) both; pointer-events: none; }
-.confetti-message:empty { display: none; }
-
 /* Personal scoreboard */
 .scoreboard { margin-top: 20px; padding: 20px 22px; border: 1px dashed var(--border-strong); border-radius: var(--radius); }
 .scoreboard-head { display: flex; justify-content: space-between; align-items: baseline; gap: 6px 16px; flex-wrap: wrap; margin-bottom: 14px; }
