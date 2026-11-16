@@ -10,8 +10,8 @@ const SPRING = { stiffness: 220, damping: 22, mass: .6 };
  * Card that tilts toward the cursor with a moving glare and a small lift. Tilting pauses
  * while focus is inside (for example typing into a mini game) so the card holds still.
  */
-export function TiltCard({ children, className = "", label, max = 7, ...rest }: {
-  children: ReactNode; className?: string; label?: string; max?: number; id?: string; "aria-labelledby"?: string;
+export function TiltCard({ children, className = "", max = 7, ...rest }: {
+  children: ReactNode; className?: string; max?: number; id?: string; "aria-labelledby"?: string;
 }) {
   const enabled = useFancyPointer();
   const ref = useRef<HTMLElement>(null);
@@ -36,7 +36,7 @@ export function TiltCard({ children, className = "", label, max = 7, ...rest }: 
   function settle() { px.set(.5); py.set(.5); hover.set(0); }
 
   return (
-    <m.article ref={ref} {...rest} className={`tilt-card ${className}`.trim()} data-cursor-label={label}
+    <m.article ref={ref} {...rest} className={`tilt-card ${className}`.trim()}
       onPointerMove={move} onPointerLeave={settle} onFocus={settle}
       style={enabled ? { rotateX, rotateY, y: lift, transformPerspective: 1100 } : undefined}>
       {children}

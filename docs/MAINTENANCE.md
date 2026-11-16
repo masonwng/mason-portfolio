@@ -4,7 +4,7 @@
 
 The Next.js App Router serves the homepage and `/about`, `/work`, `/resume`, and `/contact`. Static standalone projects are served under `/projects/itemle/index.html` and `/projects/math-ascension/index.html`. The standalone pages do not inherit the Next.js layout or its metadata.
 
-`app/layout.tsx` owns the self-hosted fonts (Bricolage Grotesque and Instrument Sans, see the README's design system notes), theme provider, motion provider, custom cursor, navigation, footer, shared metadata, and stylesheet imports. Pages are server-rendered where possible. Client code is reserved for the pig simulation, theme control, galleries, and other interactions. Do not migrate framework versions or replace the package manager just to edit content; follow `AGENTS.md` and the installed Next.js docs.
+`app/layout.tsx` owns the self-hosted Geist fonts, theme provider, motion provider, navigation, footer, shared metadata, and stylesheet imports. Pages are server-rendered where possible. Client code is reserved for the pig simulation, theme control, galleries, and other interactions. Do not migrate framework versions or replace the package manager just to edit content; follow `AGENTS.md` and the installed Next.js docs.
 
 ## Where to edit
 

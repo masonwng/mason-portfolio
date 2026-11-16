@@ -59,19 +59,18 @@ Regenerate this 1200 × 630 image with `npm run generate:social-preview`. Its sh
 
 ## Design system
 
-- **Type:** Bricolage Grotesque (display: headings, numerals, wordmark) and Instrument Sans (body and UI). Both are Latin subsets of the OFL variable fonts in `app/fonts/` (licences alongside), loaded with `next/font/local`. Bricolage is instanced at optical size 96 and width 88 with weight 500–800 to keep it around 31 KB.
-- **Colour:** tokens live at the top of `app/globals.css`: cool paper `#f2f3f7`, ink `#14162b`, one accent (ultramarine `#4433ff`; periwinkle `#9c94ff` in dark mode). Every text/background pair meets WCAG AA in both themes. The theme follows the system setting until the visitor uses the toggle.
-- **Texture:** a 2 KB tiled noise PNG (`public/grain.png`) and two soft accent washes behind the page.
+- **Type:** Geist and Geist Mono (the variable fonts shipped with Next.js), self-hosted through `next/font/local`. Mono is used for small labels, dates and captions.
+- **Colour:** tokens live at the top of `app/globals.css`: warm off-white `#fafaf9`, near-black `#17181a`, one soft blue accent (`#2f62e0`; `#8cb0ff` in dark mode). Every text/background pair meets WCAG AA in both themes. The theme follows the system setting until the visitor uses the toggle.
+- **Texture:** a 2 KB tiled noise PNG (`public/grain.png`) and soft blue and amber washes behind the page.
 
 ## Interactions
 
-All motion honours `prefers-reduced-motion`. Cursor-driven effects only run on a mouse or trackpad (`app/lib/pointer.ts`).
+All motion honours `prefers-reduced-motion`. Cursor-driven effects only run on a mouse or trackpad (`app/lib/pointer.ts`). The system cursor is left alone.
 
 | Effect | Where | File |
 | --- | --- | --- |
 | Letter rise on load, letters lean toward the cursor | Hero name | `hero-name.tsx` (entrance is CSS) |
 | Cursor spotlight, portrait parallax | Hero | `hero-stage.tsx` |
-| Dot + trailing ring cursor, "play" label over project cards | Site-wide | `cursor.tsx` |
 | Scramble/decode on hover and focus | Nav and footer links | `scramble-text.tsx` |
 | Letter wave on hover | Section headings | `wave-text.tsx` + CSS |
 | Sliding underline | Text links | CSS |

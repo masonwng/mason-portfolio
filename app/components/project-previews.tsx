@@ -16,7 +16,7 @@ export function ProjectPreviews() {
     <div className="concept-grid">
       {projects.map((project, i) => (
         <div className="concept-cell" key={project.id} data-reveal="" style={{ "--reveal-delay": `${i * 90}ms` } as React.CSSProperties}>
-          <TiltCard className="concept-project" label="play">
+          <TiltCard className="concept-project">
             <div className={`concept-preview preview-${project.preview}`}>
               <div className="concept-preview-inner">
                 {project.preview === "itemle" ? <ItemdleMini /> : <MathMini />}

@@ -3,7 +3,6 @@ import localFont from "next/font/local";
 import { MotionProvider } from "./components/motion-provider";
 import { ScrollEffects } from "./components/scroll-effects";
 import { ScrollProgress } from "./components/scroll-progress";
-import { Cursor } from "./components/cursor";
 import { SiteNavbar } from "./components/site-navbar";
 import { SiteFooter } from "./components/site-footer";
 import { ThemeProvider } from "./components/theme-provider";
@@ -12,25 +11,21 @@ import { socialPreview } from "./lib/social-preview";
 import "./tailwind.css";
 import "./globals.css";
 
-// Both faces are Latin subsets of OFL variable fonts (licences in app/fonts/),
-// self-hosted through next/font so there are no third-party font requests.
-// Bricolage Grotesque: display headings, optical size pinned at 96, weight 500–800.
-const display = localFont({
-  src: "./fonts/bricolage-display.woff2",
-  variable: "--font-display", display: "swap", weight: "500 800",
-  fallback: ["ui-sans-serif", "system-ui", "sans-serif"], adjustFontFallback: "Arial",
-});
-// Instrument Sans: body copy and UI, weight 400–700.
+// Reuse the Geist variable fonts shipped with the installed Next.js package.
+// next/font emits optimized, self-hosted assets with no external font requests.
 const sans = localFont({
-  src: "./fonts/instrument-sans.woff2",
-  variable: "--font-sans", display: "swap", weight: "400 700",
-  fallback: ["ui-sans-serif", "system-ui", "sans-serif"], adjustFontFallback: "Arial",
+  src: "../node_modules/next/dist/next-devtools/server/font/geist-latin.woff2",
+  variable: "--font-geist-sans", display: "swap", weight: "100 900",
+});
+const mono = localFont({
+  src: "../node_modules/next/dist/next-devtools/server/font/geist-mono-latin.woff2",
+  variable: "--font-geist-mono", display: "swap", weight: "100 900",
 });
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f2f3f7" },
-    { media: "(prefers-color-scheme: dark)", color: "#0e0f1d" },
+    { media: "(prefers-color-scheme: light)", color: "#fafaf9" },
+    { media: "(prefers-color-scheme: dark)", color: "#0d0e10" },
   ],
 };
 
@@ -62,7 +57,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
         {/* Scroll reveals only hide content once we know JavaScript is running. */}
         <script dangerouslySetInnerHTML={{ __html: `document.documentElement.classList.add("js")` }} />
@@ -80,7 +75,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               <SiteFooter />
             </div>
             <ScrollEffects />
-            <Cursor />
           </MotionProvider>
         </ThemeProvider>
       </body>
