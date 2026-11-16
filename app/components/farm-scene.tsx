@@ -6,6 +6,14 @@ import { OrbitControls, OrthographicCamera } from "@react-three/drei";
 import type { OrbitControls as OrbitControlsType } from "three-stdlib";
 import { Plane, Vector3, type Group } from "three";
 import { Box, Herd, Track } from "./piggy-slide-scene";
+// @react-three/fiber 9.x still constructs THREE.Clock, which three r186 reports as deprecated on
+// every mount. Drop only that one third-party notice so the console stays clean; remove once fiber
+// switches to THREE.Timer.
+if (typeof window !== "undefined" && !(window as {__mwClockShim?: boolean}).__mwClockShim) {
+ (window as {__mwClockShim?: boolean}).__mwClockShim = true;
+ const warn = console.warn.bind(console);
+ console.warn = (...args: unknown[]) => { if (typeof args[0] === "string" && args[0].startsWith("THREE.Clock: This module has been deprecated")) return; warn(...args); };
+}
 type Point=[number,number,number];
 type Phase="day"|"golden"|"night";
 const LIGHT:Record<Phase,{ambient:number;ambientColor:string;sun:number;sunColor:string;sunPos:Point}>={
@@ -168,7 +176,7 @@ function Landscape(props:Props) {
  </>;
 }
 export default function FarmScene(props:Props) {
- return <Canvas shadows dpr={[1,1.5]} frameloop={props.active?'always':'demand'} gl={{alpha:true,antialias:true,powerPreference:'low-power'}} style={{touchAction:'none'}} fallback={<p className="farm-fallback">The farm needs a browser with WebGL.</p>}>
+ return <Canvas shadows="percentage" dpr={[1,1.5]} frameloop={props.active?'always':'demand'} gl={{alpha:true,antialias:true,powerPreference:'low-power'}} style={{touchAction:'none'}} fallback={<p className="farm-fallback">The farm needs a browser with WebGL.</p>}>
   <Suspense fallback={null}><Landscape key={props.resetToken} {...props}/></Suspense>
  </Canvas>;
 }

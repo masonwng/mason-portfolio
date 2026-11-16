@@ -4,7 +4,7 @@
 
 The Next.js App Router serves the homepage and `/about`, `/work`, `/resume`, and `/contact`. Static standalone projects are served under `/projects/itemle/index.html` and `/projects/math-ascension/index.html`. The standalone pages do not inherit the Next.js layout or its metadata.
 
-`app/layout.tsx` owns the self-hosted Geist font, theme provider, navigation, footer, shared metadata, and stylesheet imports. Pages are server-rendered where possible. Client code is reserved for the pig simulation, theme control, galleries, and other interactions. Do not migrate framework versions or replace the package manager just to edit content; follow `AGENTS.md` and the installed Next.js docs.
+`app/layout.tsx` owns the self-hosted fonts (Bricolage Grotesque and Instrument Sans, see the README's design system notes), theme provider, motion provider, custom cursor, navigation, footer, shared metadata, and stylesheet imports. Pages are server-rendered where possible. Client code is reserved for the pig simulation, theme control, galleries, and other interactions. Do not migrate framework versions or replace the package manager just to edit content; follow `AGENTS.md` and the installed Next.js docs.
 
 ## Where to edit
 
@@ -32,7 +32,7 @@ Keep the résumé PDF and its preview synchronized. The public résumé page lin
 
 ## Theme and accessibility
 
-Light is the default theme; visitors can select dark and the choice persists. Keep both palettes readable. Preserve real headings, labels, links, visible focus rings, reduced-motion behavior, and the skip link. At narrow widths the intro and game stack, project previews become one column, and experience dates wrap. Verify at 360, 390, 768, and desktop widths after structural edits.
+The theme follows the visitor's system setting; the toggle overrides it and the choice persists. Keep both palettes readable. Preserve real headings, labels, links, visible focus rings, reduced-motion behavior, and the skip link. At narrow widths the intro and game stack, project previews become one column, and experience dates wrap. Verify at 360, 390, 768, and desktop widths after structural edits.
 
 ## Standalone project snapshots
 
