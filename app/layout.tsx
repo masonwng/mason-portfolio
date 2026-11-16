@@ -1,6 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { PageMotion } from "./components/page-motion";
+import { MotionProvider } from "./components/motion-provider";
+import { ScrollEffects } from "./components/scroll-effects";
+import { ScrollProgress } from "./components/scroll-progress";
+import { Cursor } from "./components/cursor";
 import { SiteNavbar } from "./components/site-navbar";
 import { SiteFooter } from "./components/site-footer";
 import { ThemeProvider } from "./components/theme-provider";
@@ -9,16 +12,27 @@ import { socialPreview } from "./lib/social-preview";
 import "./tailwind.css";
 import "./globals.css";
 
-// Reuse the Geist variable fonts shipped with the installed Next.js package.
-// next/font emits optimized, self-hosted assets with no external font requests.
+// Both faces are Latin subsets of OFL variable fonts (licences in app/fonts/),
+// self-hosted through next/font so there are no third-party font requests.
+// Bricolage Grotesque: display headings, optical size pinned at 96, weight 500–800.
+const display = localFont({
+  src: "./fonts/bricolage-display.woff2",
+  variable: "--font-display", display: "swap", weight: "500 800",
+  fallback: ["ui-sans-serif", "system-ui", "sans-serif"], adjustFontFallback: "Arial",
+});
+// Instrument Sans: body copy and UI, weight 400–700.
 const sans = localFont({
-  src: "../node_modules/next/dist/next-devtools/server/font/geist-latin.woff2",
-  variable: "--font-geist-sans", display: "swap", weight: "100 900",
+  src: "./fonts/instrument-sans.woff2",
+  variable: "--font-sans", display: "swap", weight: "400 700",
+  fallback: ["ui-sans-serif", "system-ui", "sans-serif"], adjustFontFallback: "Arial",
 });
-const mono = localFont({
-  src: "../node_modules/next/dist/next-devtools/server/font/geist-mono-latin.woff2",
-  variable: "--font-geist-mono", display: "swap", weight: "100 900",
-});
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f2f3f7" },
+    { media: "(prefers-color-scheme: dark)", color: "#0e0f1d" },
+  ],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://masonwang.dev"),
@@ -48,22 +62,26 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${display.variable} ${sans.variable}`} suppressHydrationWarning>
       <head>
-        {/* Seed mobile's first-visit preference before next-themes runs or paints. */}
-        <script dangerouslySetInnerHTML={{ __html: `try{if(!localStorage.getItem("mason-portfolio-theme")&&window.matchMedia("(max-width: 700px)").matches){localStorage.setItem("mason-portfolio-theme","dark")}}catch{}` }} />
+        {/* Scroll reveals only hide content once we know JavaScript is running. */}
+        <script dangerouslySetInnerHTML={{ __html: `document.documentElement.classList.add("js")` }} />
       </head>
       <body>
         <ThemeProvider>
-          <a className="skip-link" href="#main">Skip to content</a>
-          <SiteNavbar />
-          <div className="site-shell">
-            <PageMotion />
-            <main id="main" className="portfolio" tabIndex={-1}>
-              {children}
-            </main>
-            <SiteFooter />
-          </div>
+          <MotionProvider>
+            <a className="skip-link" href="#main">Skip to content</a>
+            <ScrollProgress />
+            <SiteNavbar />
+            <div className="site-shell">
+              <main id="main" className="portfolio" tabIndex={-1}>
+                {children}
+              </main>
+              <SiteFooter />
+            </div>
+            <ScrollEffects />
+            <Cursor />
+          </MotionProvider>
         </ThemeProvider>
       </body>
     </html>

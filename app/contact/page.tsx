@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageTransition } from "../components/page-transition";
 import { DiscordCopy } from "../components/discord-copy";
 import { PlatformIcon } from "../components/social-links";
 import { personal, socialProfiles } from "../lib/portfolio";
@@ -15,7 +16,7 @@ export default async function ContactPage() {
   const resume = await getResumePath();
 
   return (
-    <>
+    <PageTransition>
       <header className="page-heading">
         <p className="eyebrow">contact</p>
         <h1>{personal.contactHeading}</h1>
@@ -64,6 +65,6 @@ export default async function ContactPage() {
         </ul>
         {resume && <a className="resume-link" href={resume} download>Download my resume (PDF)</a>}
       </section>
-    </>
+    </PageTransition>
   );
 }
