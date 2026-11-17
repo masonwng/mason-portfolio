@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { PageMotion } from "./components/page-motion";
+import { MotionProvider } from "./components/motion-provider";
+import { ScrollEffects } from "./components/scroll-effects";
+import { ScrollProgress } from "./components/scroll-progress";
 import { SiteNavbar } from "./components/site-navbar";
 import { SiteFooter } from "./components/site-footer";
 import { ThemeProvider } from "./components/theme-provider";
-import { Confetti } from "./components/confetti";
 import { personal } from "./lib/portfolio";
 import { socialPreview } from "./lib/social-preview";
 import "./tailwind.css";
@@ -20,6 +21,13 @@ const mono = localFont({
   src: "../node_modules/next/dist/next-devtools/server/font/geist-mono-latin.woff2",
   variable: "--font-geist-mono", display: "swap", weight: "100 900",
 });
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fafaf9" },
+    { media: "(prefers-color-scheme: dark)", color: "#0d0e10" },
+  ],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://masonwang.dev"),
@@ -51,21 +59,23 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
-        {/* Seed mobile's first-visit preference before next-themes runs or paints. */}
-        <script dangerouslySetInnerHTML={{ __html: `try{if(!localStorage.getItem("mason-portfolio-theme")&&window.matchMedia("(max-width: 700px)").matches){localStorage.setItem("mason-portfolio-theme","dark")}}catch{}` }} />
+        {/* Scroll reveals only hide content once we know JavaScript is running. */}
+        <script dangerouslySetInnerHTML={{ __html: `document.documentElement.classList.add("js")` }} />
       </head>
       <body>
         <ThemeProvider>
-          <a className="skip-link" href="#main">Skip to content</a>
-          <SiteNavbar />
-          <div className="site-shell">
-            <PageMotion />
-            <main id="main" className="portfolio" tabIndex={-1}>
-              {children}
-            </main>
-            <SiteFooter />
-          </div>
-          <Confetti />
+          <MotionProvider>
+            <a className="skip-link" href="#main">Skip to content</a>
+            <ScrollProgress />
+            <SiteNavbar />
+            <div className="site-shell">
+              <main id="main" className="portfolio" tabIndex={-1}>
+                {children}
+              </main>
+              <SiteFooter />
+            </div>
+            <ScrollEffects />
+          </MotionProvider>
         </ThemeProvider>
       </body>
     </html>

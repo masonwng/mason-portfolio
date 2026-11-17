@@ -192,7 +192,7 @@ function World(props:PiggySlideSceneProps) {
 }
 
 export default function PiggySlideScene(props:PiggySlideSceneProps) {
-  return <Canvas orthographic shadows dpr={[1,1.5]} frameloop={props.active?'always':'demand'} gl={{antialias:true,alpha:true,powerPreference:'low-power'}} onCreated={({gl})=>gl.setClearColor(0x000000,0)} style={{touchAction:'pan-y'}} fallback={<p className="piggy-fallback">The game needs a browser with WebGL.</p>}>
+  return <Canvas orthographic shadows="percentage" dpr={[1,1.5]} frameloop={props.active?'always':'demand'} gl={{antialias:true,alpha:true,powerPreference:'low-power'}} onCreated={({gl})=>gl.setClearColor(0x000000,0)} style={{touchAction:'pan-y'}} fallback={<p className="piggy-fallback">The game needs a browser with WebGL.</p>}>
     <Suspense fallback={null}><World {...props}/></Suspense>
   </Canvas>;
 }

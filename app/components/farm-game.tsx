@@ -14,7 +14,7 @@ export function FarmGame() {
  const [seen,setSeen] = useState(false), [active,setActive] = useState(false), [reducedMotion,setReducedMotion] = useState(false);
  const [push,setPush] = useState(0), [harvest,setHarvest] = useState(0), [reset,setReset] = useState(0), [status,setStatus] = useState('');
  // Client-only component (loaded with ssr:false), so reading the clock during render is safe.
- const hourNow = () => Number(new URLSearchParams(location.search).get('hour') ?? new Date().getHours());
+ const hourNow = () => new Date().getHours();
  const [phase,setPhase] = useState<'day'|'golden'|'night'>(() => skyPhase(hourNow()));
  // Saved badges load on first render; visiting at night can unlock one right away.
  const [initial] = useState(() => {

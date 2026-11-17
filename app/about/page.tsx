@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageTransition } from "../components/page-transition";
 import { OrganizationLogo } from "../components/organization-logo";
 import { PhotoGallery } from "../components/photo-gallery";
 import { Reveal } from "../components/reveal";
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 export default async function AboutPage() {
   const photos = await getPhotos();
   return (
-    <>
+    <PageTransition>
       <header className="about-introduction portfolio-header">
         <div className="about-introduction-copy"><p className="eyebrow">about</p><h1>about me.</h1><div className="about-copy">{personal.about.map(paragraph => <p key={paragraph}>{paragraph}</p>)}</div></div>
         {photos.length > 0 && <div className="about-portrait"><PhotoGallery photos={[photos[0]]} className="photo-grid-single" showCaptions sizes="(max-width: 700px) calc(100vw - 40px), 45vw" /></div>}
@@ -39,6 +40,6 @@ export default async function AboutPage() {
         <div className="hobby-also"><span>also into</span><ul><li>working out</li><li>kickboxing</li><li>gaming</li><li>time with friends &amp; family</li></ul></div>
       </section>
       {photos.length > 1 && <Reveal><section className="portfolio-section" aria-labelledby="photos-heading"><h2 id="photos-heading">A few moments.</h2><PhotoGallery photos={photos.slice(1)} showCaptions /></section></Reveal>}
-    </>
+    </PageTransition>
   );
 }

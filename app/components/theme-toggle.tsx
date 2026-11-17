@@ -14,8 +14,10 @@ export function ThemeToggle() {
       title="Toggle light and dark theme"
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
     >
-      <HiOutlineSun className="theme-sun" aria-hidden="true" focusable="false" />
-      <HiOutlineMoon className="theme-moon" aria-hidden="true" focusable="false" />
+      <span className="theme-icons" aria-hidden="true">
+        <HiOutlineSun className="theme-sun" focusable="false" />
+        <HiOutlineMoon className="theme-moon" focusable="false" />
+      </span>
     </button>
   );
 }

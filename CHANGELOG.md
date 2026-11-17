@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-11-16 — Redesign
+
+- Kept the Geist type and the off-white/near-black/blue palette; added light paper grain, oversized outlined 01–04 section numerals, and a system-following dark mode.
+- Interactions: hero letter entrance and cursor spotlight, magnetic buttons, tilting project cards, scramble and wave hover text, scroll reveals, count-up stats, a scroll-lit experience timeline, a reading-progress bar, an animated "copied!" confirmation, and route transitions. All respect reduced motion; cursor effects are mouse/trackpad only, and the system cursor is unchanged.
+- Removed the easter eggs: the Konami-code confetti, the ten-clicks-on-the-name trigger, and the farm's hidden `?hour=` override.
+- Next.js 16.4.3 → 16.4.6 (fixes GHSA-mfr8-8qww-v76h). Farm canvas uses PCF shadows.
+
 ## 2026-11-11 — Interactive games and new roles
 
 - Home page: playable Itemdle and Math Ascension cards, a personal scoreboard, "new" notes on project cards, and a confetti easter egg.

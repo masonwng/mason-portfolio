@@ -3,8 +3,8 @@ import { HiArrowRight } from "react-icons/hi2";
 import { ItemdleMini } from "./itemdle-mini";
 import { MathMini } from "./math-mini";
 import { PiggyBreak } from "./piggy-break";
+import { TiltCard } from "./tilt-card";
 import { projects } from "../lib/portfolio";
-
 
 const tags: Record<string, string[]> = {
   itemle: ["daily puzzle", "Builddle", "hard mode"],
@@ -14,26 +14,30 @@ const tags: Record<string, string[]> = {
 export function ProjectPreviews() {
   return (
     <div className="concept-grid">
-      {projects.map((project) => (
-        <article className="concept-project" key={project.id}>
-          <div className={`concept-preview preview-${project.preview}`}>
-            {project.preview === "itemle" ? <ItemdleMini /> : <MathMini />}
-          </div>
-          <div className="concept-body">
-            <div className="concept-title">
-              <h3>{project.title}</h3>
-              <span className="concept-status"><span className="status-dot" aria-hidden="true" />live</span>
+      {projects.map((project, i) => (
+        <div className="concept-cell" key={project.id} data-reveal="" style={{ "--reveal-delay": `${i * 90}ms` } as React.CSSProperties}>
+          <TiltCard className="concept-project">
+            <div className={`concept-preview preview-${project.preview}`}>
+              <div className="concept-preview-inner">
+                {project.preview === "itemle" ? <ItemdleMini /> : <MathMini />}
+              </div>
             </div>
-            <p className="secondary">{project.description}</p>
-            <ul className="concept-tags" aria-label="Features">{tags[project.preview].map(t => <li key={t}>{t}</li>)}</ul>
-            <div className="project-actions">
-              <a className="btn btn-primary btn-sm" href={project.href} aria-label={`Play ${project.title}`}>Play <HiArrowRight aria-hidden="true" /></a>
-              <a className="btn btn-ghost btn-sm" href={project.githubUrl} target="_blank" rel="noopener noreferrer" aria-label={`${project.title} on GitHub`}><SiGithub aria-hidden="true" /> Source</a>
+            <div className="concept-body">
+              <div className="concept-title">
+                <h3>{project.title}</h3>
+                <span className="concept-status"><span className="status-dot" aria-hidden="true" />live</span>
+              </div>
+              <p className="secondary">{project.description}</p>
+              <ul className="concept-tags" aria-label="Features">{tags[project.preview].map(t => <li key={t}>{t}</li>)}</ul>
+              <div className="project-actions">
+                <a className="btn btn-primary btn-sm" href={project.href} aria-label={`Play ${project.title}`}>Play <HiArrowRight aria-hidden="true" /></a>
+                <a className="btn btn-ghost btn-sm" href={project.githubUrl} target="_blank" rel="noopener noreferrer" aria-label={`${project.title} on GitHub`}><SiGithub aria-hidden="true" /> Source</a>
+              </div>
             </div>
-          </div>
-        </article>
+          </TiltCard>
+        </div>
       ))}
-      <article className="concept-project farm-project" id="farm" aria-labelledby="farm-project-title">
+      <article className="concept-project farm-project" id="farm" aria-labelledby="farm-project-title" data-reveal="">
         <div className="concept-body farm-body">
           <div className="concept-title"><h3 id="farm-project-title">Farm</h3><span className="concept-status">3D · playable</span></div>
           <p className="secondary">3D modelling, just for fun. Click the pigs, pick the carrots, drag things around.</p>
