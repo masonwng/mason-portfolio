@@ -18,7 +18,7 @@ import { Scoreboard } from "./components/scoreboard";
 import { SectionHeading } from "./components/section-heading";
 import { Timeline } from "./components/timeline";
 import { WaveText } from "./components/wave-text";
-import { awards, education, experiences, leadership, personal, projects } from "./lib/portfolio";
+import { awards, experiences, leadership, personal, projects } from "./lib/portfolio";
 
 export const metadata: Metadata = { alternates: { canonical: "/" } };
 
@@ -34,7 +34,7 @@ const highlights = [
   { value: "50+", label: "students taught to code" },
   { value: String(awards.length), label: "competition awards" },
   { value: String(projects.length + 1), label: "things built for fun" },
-  { value: `’${education.graduation.slice(-2)}`, label: "UBC BUCS class" },
+  { value: "’30", label: "UBC BUCS class" },
 ];
 
 const delay = (ms: number) => ({ "--reveal-delay": `${ms}ms` }) as CSSProperties;
