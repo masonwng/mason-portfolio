@@ -16,7 +16,8 @@ The Next.js App Router serves the homepage and `/about`, `/work`, `/resume`, and
 | Shared layout and responsive styling | `app/globals.css` |
 | Header links | `app/components/site-navbar.tsx` |
 | Portrait and event photos | `public/media/`, `public/memories/`, and the verified media helpers |
-| Résumé (encrypted) | `public/resume.enc`, made by `scripts/encrypt-resume.mjs` |
+| Résumé download | `public/resume.pdf` |
+| Résumé preview image | `public/resume-preview-1.png` |
 | Favicon set | `app/favicon.ico`, `app/icon.png`, `app/apple-icon.png` |
 | Full cartoon avatar | `public/avatar-mason.png` |
 | Social sharing image | `public/social-preview.png`; regenerate with `npm run generate:social-preview` |

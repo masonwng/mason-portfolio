@@ -25,7 +25,7 @@ npm start
 
 ## Notes
 
-Content lives in `app/lib/portfolio.ts`. Photos live in `public/`; missing media is left out automatically. The résumé is password protected: `public/resume.enc` is the PDF encrypted with AES-GCM (key from PBKDF2), and `/resume` decrypts it in the browser. To replace it, run `RESUME_PASSWORD=... node scripts/encrypt-resume.mjs path/to/resume.pdf`. Never commit the plain PDF or the password.
+Content lives in `app/lib/portfolio.ts`. Photos live in `public/`; missing media is left out automatically. The Resume page previews `public/resume-preview-1.png` and downloads `public/resume.pdf`. Update both when replacing the résumé.
 
 The pig game lives in a square window next to the intro, loads separately, pauses offscreen, and expands into a modal. Dark mode, reduced motion, keyboard navigation, and photo enlargement are supported.
 
