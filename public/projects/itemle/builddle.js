@@ -11,7 +11,7 @@ $('theme').onclick = () => { document.body.classList.toggle('dark'); try { local
 function sourceStatus() {
   if (!bank) return;
   const age = Date.now() - Date.parse(`${bank.reviewedOn}T00:00:00Z`), old = latest && latest !== bank.patch || age > 21 * 86400000;
-  $('source-status').textContent = `${old ? 'Historical snapshot · ' : ''}build patch ${bank.displayPatch} · reviewed ${bank.reviewedOn} · U.GG references / Riot metadata${cached ? ' · cached fallback' : ''}${latest ? ` · latest metadata ${latest}` : ' · live patch check unavailable'}`;
+  $('source-status').textContent = `${old ? 'Historical snapshot · ' : ''}build patch ${bank.displayPatch} · updated ${bank.reviewedOn} · ${bank.builds.length} champions · editorial builds / Riot metadata${cached ? ' · cached fallback' : ''}${latest ? ` · latest metadata ${latest}` : ' · live patch check unavailable'}`;
 }
 function persist() { if (!write(`builddle:round:${bank.patch}`, round)) $('message').textContent += ' Saving unavailable in this browser.'; }
 function start() { const previous = round?.id; round = createRound(bank, mode, difficulty, Math.random, previous); $('guess').value = ''; $('message').textContent = ''; $('share-status').textContent = ''; closeSearch(); persist(); render(); }
@@ -41,7 +41,7 @@ function render(fresh = false) {
   if (over) {
     const item = bank.items.find(i => i.id === round.answerId), answer = el('div', undefined, 'answer-row'), copy = el('div'); copy.append(el('p', round.status === 'won' ? 'CORRECT!' : 'ROUND COMPLETE', 'victory-title'), el('strong', item.name)); answer.append(buildImage(item), copy); $('answer').replaceChildren(answer);
     $('round-summary').textContent = `${score(round)} points · ${round.guesses.length} guesses · ${round.hints} hints · ${timeLabel(round.finished - round.started)}`;
-    renderSlots($('completed-build'), true); const source = el('a', `View ${build.championName}’s reference build ↗`); source.href = build.sourceUrl; source.target = '_blank'; source.rel = 'noopener noreferrer'; $('source-link').replaceChildren(source);
+    renderSlots($('completed-build'), true); const source = el('a', build.source === 'editorial' ? `Compare ${build.championName} with live builds on U.GG ↗` : `View ${build.championName}’s reference build ↗`); source.href = build.sourceUrl; source.target = '_blank'; source.rel = 'noopener noreferrer'; $('source-link').replaceChildren(source);
     if (fresh && round.status === 'won') celebrate($('result'));
     if (fresh) $('next').focus({ preventScroll: true });
   }
