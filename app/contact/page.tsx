@@ -3,7 +3,6 @@ import { PageTransition } from "../components/page-transition";
 import { DiscordCopy } from "../components/discord-copy";
 import { PlatformIcon } from "../components/social-links";
 import { personal, socialProfiles } from "../lib/portfolio";
-import { getResumePath } from "../lib/resume";
 import { EmailCopy } from "../components/email-copy";
 
 export const metadata: Metadata = {
@@ -13,7 +12,6 @@ export const metadata: Metadata = {
 };
 
 export default async function ContactPage() {
-  const resume = await getResumePath();
 
   return (
     <PageTransition>
@@ -63,7 +61,7 @@ export default async function ContactPage() {
             );
           })}
         </ul>
-        {resume && <a className="resume-link" href={resume} download>Download my resume (PDF)</a>}
+        <a className="resume-link" href="/resume">My resume (password protected)</a>
       </section>
     </PageTransition>
   );
