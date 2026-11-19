@@ -1,5 +1,5 @@
 import { puzzleRank, utcDay, dailyItem, normalize, compare, restore, shareText } from './core.js';
-import { $, el, read, write, timeLabel, itemImage, soundToggle, celebrate, copyResult } from './ui.js';
+import { $, el, read, write, timeLabel, itemImage, soundToggle, celebrate, copyResult, winModal } from './ui.js';
 import { attachSearch } from './search.js';
 import { dailyStats, backfillHistory, msUntilNextDaily, countdownLabel } from './stats.js';
 let hard = read('itemle:hard', false) === true;
@@ -80,7 +80,7 @@ function render(fresh = false) {
       const whole = itemImage(answer); whole.alt = ''; whole.className = 'forge-whole'; forge.append(whole, el('i', undefined, 'forge-flash'));
     }
     $('answer').replaceChildren(...(forge ? [forge] : []), row, badge);
-    if (fresh) { celebrate($('result')); $('result').scrollIntoView({ block: 'nearest', behavior: 'instant' }); $('next').focus({ preventScroll: true }); }
+    if (fresh) { winModal({ image: itemImage(answer), name: answer.name, lines: [`${rank.tier} · ${rank.score}/6 points`, `${guesses.length} ${guesses.length === 1 ? 'guess' : 'guesses'} · ${timeLabel(timing.end - timing.start)}`], primary: { label: mode === 'daily' ? 'Play a practice round ↻' : 'Play again ↻', onClick: () => { $('next').click(); } } }); $('result').scrollIntoView({ block: 'nearest', behavior: 'instant' }); $('next').focus({ preventScroll: true }); }
   }
   $('next-daily').hidden = !(won && mode === 'daily'); tickCountdown();
   stats();

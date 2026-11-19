@@ -48,3 +48,28 @@ export async function copyResult(text, status) {
   try { await navigator.clipboard.writeText(text); status.textContent = 'Result copied.'; }
   catch { status.textContent = `Copy unavailable. Select this result instead: ${text}`; }
 }
+/**
+ * Big "you got it" pop-up shown on a win. `image` is an <img> of the answer; `lines` are short stats.
+ * The primary button is focused, so Enter plays again. Esc, the × button, or a click outside closes it.
+ */
+export function winModal({ title = 'Correct!', image, name, lines = [], primary, secondary = 'see results' }) {
+  document.querySelector('dialog.win-modal')?.remove();
+  const dialog = el('dialog', undefined, 'win-modal'), card = el('div', undefined, 'win-card');
+  dialog.setAttribute('aria-labelledby', 'win-title');
+  const close = el('button', '×', 'win-close'); close.type = 'button'; close.setAttribute('aria-label', 'Close');
+  const art = el('div', undefined, 'win-art'); if (image) { image.alt = name ?? image.alt; art.append(image); }
+  const heading = el('h2', title, 'win-title'); heading.id = 'win-title';
+  const play = el('button', primary.label, 'win-primary'); play.type = 'button';
+  const later = el('button', secondary, 'win-secondary'); later.type = 'button';
+  const actions = el('div', undefined, 'win-actions'); actions.append(play, later);
+  card.append(close, art, heading, ...(name ? [el('p', name, 'win-name')] : []), ...lines.map(line => el('p', line, 'win-line')), actions);
+  dialog.append(card); document.body.append(dialog);
+  const dismiss = () => dialog.close();
+  close.onclick = dismiss; later.onclick = dismiss;
+  play.onclick = () => { dialog.close(); primary.onClick(); };
+  dialog.addEventListener('click', event => { if (event.target === dialog) dismiss(); });
+  dialog.addEventListener('close', () => setTimeout(() => dialog.remove(), 200));
+  dialog.showModal(); play.focus();
+  celebrate(card);
+  return dialog;
+}

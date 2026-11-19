@@ -1,4 +1,4 @@
-import { $, el, read, write, itemImage, timeLabel, soundToggle, celebrate, copyResult } from './ui.js';
+import { $, el, read, write, itemImage, timeLabel, soundToggle, celebrate, copyResult, winModal } from './ui.js';
 import { attachSearch } from './search.js';
 import { DIFFICULTIES, createRound, submitGuess, requestHint, score, visibleClues, findGuess, restoreRound } from './build-core.js';
 import { loadBuildBank, currentPatch } from './build-provider.js';
@@ -42,7 +42,7 @@ function render(fresh = false) {
     const item = bank.items.find(i => i.id === round.answerId), answer = el('div', undefined, 'answer-row'), copy = el('div'); copy.append(el('p', round.status === 'won' ? 'CORRECT!' : 'ROUND COMPLETE', 'victory-title'), el('strong', item.name)); answer.append(buildImage(item), copy); $('answer').replaceChildren(answer);
     $('round-summary').textContent = `${score(round)} points · ${round.guesses.length} guesses · ${round.hints} hints · ${timeLabel(round.finished - round.started)}`;
     renderSlots($('completed-build'), true); const source = el('a', build.source === 'editorial' ? `Compare ${build.championName} with live builds on U.GG ↗` : `View ${build.championName}’s reference build ↗`); source.href = build.sourceUrl; source.target = '_blank'; source.rel = 'noopener noreferrer'; $('source-link').replaceChildren(source);
-    if (fresh && round.status === 'won') celebrate($('result'));
+    if (fresh && round.status === 'won') winModal({ image: buildImage(item), name: item.name, lines: [`${build.championName} · ${build.role}`, `${score(round)} points · ${round.guesses.length} ${round.guesses.length === 1 ? 'guess' : 'guesses'} · ${timeLabel(round.finished - round.started)}`], primary: { label: 'Play again ↻', onClick: () => $('next').click() } });
     if (fresh) $('next').focus({ preventScroll: true });
   }
   const best = read('builddle:bests', {}); $('stats').textContent = `Best ${mode === 'champions' ? 'champion hints' : 'complete build'} / ${difficulty}: ${best?.[`${mode}:${difficulty}`] || 0} points · saved in this browser`;

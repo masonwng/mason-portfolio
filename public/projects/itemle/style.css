@@ -24,3 +24,20 @@
 @keyframes forge-pop{from{transform:scale(.2) rotate(-12deg);opacity:0}to{transform:none;opacity:1}}
 @keyframes forge-flash{from{transform:scale(1);opacity:.9}to{transform:scale(9);opacity:0}}
 @media(prefers-reduced-motion:reduce){.forge-part,.forge-flash{display:none}.forge-whole{opacity:1;animation:none}}
+.win-modal{padding:0;border:0;background:transparent;max-width:min(400px,calc(100vw - 32px));width:100%;overflow:visible}
+.win-modal::backdrop{background:rgb(15 18 22 / .55);backdrop-filter:blur(4px)}
+.win-card{position:relative;padding:34px 28px 24px;border:1px solid var(--line);border-radius:22px;background:var(--bg);color:var(--ink);text-align:center;box-shadow:0 30px 80px -20px rgb(0 0 0 / .45);overflow:hidden}
+.win-card::before{content:"";position:absolute;inset:0 0 auto;height:120px;background:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--good) 30%,transparent),transparent 70%);pointer-events:none}
+.win-close{position:absolute;top:10px;right:10px;width:34px;height:34px;border:0;border-radius:50%;background:var(--panel);font-size:20px;line-height:1}
+.win-art{position:relative;display:inline-grid;place-items:center;width:88px;height:88px;margin:4px auto 14px;border-radius:20px;background:var(--panel);box-shadow:0 0 0 3px var(--good),0 12px 30px -8px var(--good)}
+.win-art img{width:72px;height:72px;border-radius:14px}
+.win-title{position:relative;margin:0;font-size:40px;font-weight:800;letter-spacing:-.04em;line-height:1.05;color:var(--good)}
+.win-name{margin:6px 0 2px;font-size:18px;font-weight:600}
+.win-line{margin:2px 0;color:var(--muted);font-size:14px}
+.win-actions{display:flex;flex-direction:column;gap:8px;margin-top:22px}
+.win-primary{min-height:50px;border:0;border-radius:14px;background:var(--ink);color:var(--bg);font-size:16px;font-weight:600}
+.win-secondary{min-height:40px;border:0;background:transparent;color:var(--muted);font-size:13px;text-decoration:underline;text-underline-offset:4px}
+@media(prefers-reduced-motion:no-preference){.win-modal[open] .win-card{animation:win-pop .45s cubic-bezier(.22,1.5,.36,1)}.win-modal[open]::backdrop{animation:win-fade .25s ease-out}.win-art{animation:win-spin .7s .1s cubic-bezier(.22,1.4,.36,1) both}}
+@keyframes win-pop{from{opacity:0;transform:scale(.85) translateY(16px)}to{opacity:1;transform:none}}
+@keyframes win-fade{from{opacity:0}}
+@keyframes win-spin{from{transform:scale(.3) rotate(-25deg);opacity:0}to{transform:none;opacity:1}}
