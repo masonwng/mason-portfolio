@@ -27,7 +27,7 @@ export function requestHint(round) { return round.status === 'playing' && round.
 export function cluesFor(round, bank) {
   const answer = bank.items.find(i => i.id === round.answerId), build = bank.builds[round.buildIndex];
   const related = bank.builds.filter(b => b.items.includes(answer.id));
-  const clues = related.map(b => ({ text: `Appears in ${b.championName}’s reviewed ${b.role} core build.`, champion: b.champion, name: b.championName }));
+  const clues = related.map(b => ({ text: `Appears in ${b.championName}’s ${b.role} core build.`, champion: b.champion, name: b.championName }));
   clues.push({ text: `Total cost: ${answer.gold} gold.` }, { text: `Item categories: ${answer.tags.join(', ')}.` }, { text: `The item name starts with “${answer.name[0]}”.` });
   if (round.mode === 'complete') return [{ text: `The missing item is in position ${round.slot + 1} of this published core sequence.` }, ...clues.filter(c => !c.champion)];
   // Start with the selected champion; the other verified relationships follow.
