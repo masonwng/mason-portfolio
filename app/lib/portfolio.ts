@@ -214,7 +214,7 @@ export const education = {
   endDate: null,
   startLabel: "September 2026",
   endLabel: "Present",
-  graduation: "May 2031",
+  graduation: "May 2030",
   logo: { src: "/media/logos/ubclogo.png", alt: "University of British Columbia logo", approved: true },
   badge: "UBC",
 };
