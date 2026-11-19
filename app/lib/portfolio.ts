@@ -280,5 +280,3 @@ export const photoDetails: PhotoDetail[] = [
   { id: "hiking", title: "Out there", alt: "A moment from one of Mason's hikes" },
 ];
 
-// The download link only appears if this PDF is actually present in public/.
-export const resumePath = "/resume.pdf";
