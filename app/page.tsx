@@ -34,7 +34,7 @@ const highlights = [
   { value: "50+", label: "students taught to code" },
   { value: String(awards.length), label: "competition awards" },
   { value: String(projects.length + 1), label: "things built for fun" },
-  { value: "’30", label: "UBC BUCS class" },
+  { value: "’29", label: "UBC BUCS class" },
 ];
 
 const delay = (ms: number) => ({ "--reveal-delay": `${ms}ms` }) as CSSProperties;

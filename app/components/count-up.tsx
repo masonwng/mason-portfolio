@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { useInView } from "motion/react";
 
 /**
- * Counts the number inside a stat (e.g. "50+", "’30") up from zero the first time it
+ * Counts the number inside a stat (e.g. "50+", "’29") up from zero the first time it
  * scrolls into view. The finished value is server-rendered, so it reads correctly
  * without JavaScript and with reduced motion.
  */
